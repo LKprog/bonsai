@@ -10,4 +10,4 @@ class Station():
     #     self.connections[station.name] = duration
 
     def __repr__(self):
-        return f"Name: {self.name}"
+        return f"Name: {self.name}, x= {self.x}, y= {self.y}"

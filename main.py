@@ -5,6 +5,5 @@ if __name__ == "__main__":
     connections_data_file = "data/ConnectiesHolland.csv"
 
     test = Kaart(stations_data_file)
-    
     for station in test.stations:
-        print(station)
+        print(test.stations[f'{station}'])
