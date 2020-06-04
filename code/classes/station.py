@@ -3,11 +3,13 @@ class Station():
         self.name = name
         self.x = x
         self.y = y
-        self.connections = {}
+        self.connections = []
 
-    # def add_connection(self, end_station, duration):
-    #     self.connections[station.name] = end_station
-    #     self.connections[station.name] = duration
+    def add_connection(self, end_station):
+        self.connections.append(f'{end_station}')
+
+    def connections_list(self):
+        return self.connections
 
     def __repr__(self):
-        return f"Name: {self.name}, x= {self.x}, y= {self.y}"
+        return f"Name: {self.name}, Connections: {self.connections}"
