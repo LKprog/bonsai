@@ -5,8 +5,8 @@ class Station():
         self.y = y
         self.connections = []
 
-    def add_connection(self, end_station):
-        self.connections.append(f'{end_station}')
+    def add_connection(self, end_station, duration):
+        self.connections.append(f'{end_station}, {duration}')
 
     def connections_list(self):
         return self.connections

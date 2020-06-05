@@ -1,7 +1,7 @@
 import csv
 from .station import Station
 
-class Kaart():
+class Map():
     def __init__(self, station_file, connection_file):
         self.stations = self.load_stations(station_file)
         self.connections = self.load_connections(connection_file)
@@ -24,7 +24,7 @@ class Kaart():
             for row in reader:
                 station = self.stations[row['station1']]
                 station_reversed = self.stations[row['station2']]
-                station.add_connection(row['station2'])
-                station_reversed.add_connection(row['station1'])
+                station.add_connection(row['station2'], row['distance'])
+                station_reversed.add_connection(row['station1'], row['distance'])
 
 
