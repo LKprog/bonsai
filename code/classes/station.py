@@ -12,4 +12,4 @@ class Station():
         return self.connections
 
     def __repr__(self):
-        return f"Name: {self.name}, Connections: {self.connections}"
+        return self.name
