@@ -27,6 +27,6 @@ De hierop volgende lijst beschrijft de belangrijkste mappen en files in het proj
 
 ## Auteurs
 
-Willem Henkelman
-Lieke Kollen
-Daphne Westerdijk
+* Willem Henkelman
+* Lieke Kollen
+* Daphne Westerdijk
