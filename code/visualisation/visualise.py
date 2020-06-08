@@ -1,8 +1,8 @@
 import numpy as np
 import csv
 import sys
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource, Label, LabelSet
+from bokeh.plotting import figure, output_file, show, gmap
+from bokeh.models import ColumnDataSource, Label, LabelSet, GMapOptions
 
 # prepare some data
 
@@ -25,10 +25,13 @@ source = ColumnDataSource(data=dict(latitude=latitude, longitude=longitude, stat
 # output to static HTML file (with CDN resources)
 output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
 
+map_options = GMapOptions(lat=4.7, lng=52, map_type="roadmap", zoom=6)
+
 TOOLS = "wheel_zoom,box_zoom,reset,box_select,lasso_select"
 
 # create a new plot with the tools above, and explicit ranges
-p = figure(tools=TOOLS, y_range=(51.5, 53.5), x_range=(4.2, 5.2))
+p = gmap("AIzaSyClwOVn9gwfDzcG6bQxwfR8-MIoOEptXDU", map_options, title="NL", tools=TOOLS)
+# p = figure(tools=TOOLS, y_range=(51.5, 53.5), x_range=(4.2, 5.2))
 font = 1
 # add a circle renderer with vectorized colors and sizes
 p.circle(latitude, longitude)
