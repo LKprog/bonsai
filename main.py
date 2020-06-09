@@ -14,16 +14,27 @@ if __name__ == "__main__":
         #print(test.stations[f'{station}'].connections_list())
 
     # kiest een random startpunt
+    traject_list = []
+    stations_list = []
+    i = 0
+    while i < 7:
 
-    for i in range(2):
-        random_start = random.choice(list(test.stations))
-        new_traject = Traject(i, test.stations[f'{random_start}'])
+        start_station = random.choice(list(test.stations))
+        new_traject = Traject(i, test.stations[f'{start_station}'])
 
-        while new_traject.traject_id < 8:
+        while True:
             current = new_traject.current_station
+            #if current not in stations_list:
+                #stations_list.append(current)
+            #if len(stations_list) == 28:
+                #print('break1')
+                #break
             random_connection = random.choice(test.stations[f'{current}'].connections)
 
             if random_connection[1] + new_traject.total_distance > 120:
+                traject_list.append(new_traject)
+                i += 1
+
                 greedy_start(new_traject)
                 break
 
@@ -31,4 +42,9 @@ if __name__ == "__main__":
             if random_connection[0] not in new_traject.trajects:
                 new_traject.add_connection(random_connection)
 
-        
+            else:
+                break
+        #if len(stations_list) == 28:
+            #print('break2')
+            #print(stations_list)
+            #break
