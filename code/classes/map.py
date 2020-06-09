@@ -12,7 +12,7 @@ class Map():
             reader = csv.DictReader(input_file)
             
             for row in reader:
-                station = Station(row['station'], row['x'], row['y'])
+                station = Station(row['station'], float(row['x']), float(row['y']))
                 stations[row['station']] = station
 
         return stations
@@ -24,8 +24,8 @@ class Map():
             for row in reader:
                 station = self.stations[row['station1']]
                 station_reversed = self.stations[row['station2']]
-                station.add_connection(row['station2'], row['distance'])
-                station_reversed.add_connection(row['station1'], row['distance'])
+                station.add_connection(row['station2'], int(row['distance']))
+                station_reversed.add_connection(row['station1'], int(row['distance']))
 
 
 

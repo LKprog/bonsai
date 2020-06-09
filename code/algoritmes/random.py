@@ -9,7 +9,7 @@ def random_start(self, trajects, stations):
 
 def add_random_connection(self, current_station)
     """ vanaf de current_station van de trein, kiest hij een random connectie en voegt hij toe aan zijn traject"""
-    traject.append(random.choice(current_station.get.connection()))
+    trajects.append(random.choice(current_station.get.connection()))
 
 # Nog toevoegen:
 
