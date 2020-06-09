@@ -13,11 +13,22 @@ if __name__ == "__main__":
         # print(test.stations[f'{station}'])
         #print(test.stations[f'{station}'].connections_list())
 
-    new_traject = Traject(1, test.stations['Amsterdam Centraal'])
+    # kiest een random startpunt
 
+    for i in range(2):
+        random_start = random.choice(list(test.stations))
+        new_traject = Traject(i, test.stations[f'{random_start}'])
 
-    while new_traject.total_distance < 300:
-        current = new_traject.current_station
+        while new_traject.traject_id < 8:
+            current = new_traject.current_station
+            random_connection = random.choice(test.stations[f'{current}'].connections)
 
-        new_traject.add_connection(random.choice(test.stations[f'{current}'].connections))
-    greedy_start(new_traject)
+            if random_connection[1] + new_traject.total_distance > 120:
+                greedy_start(new_traject)
+                break
+
+            # als de random connectie niet al eerder is bezocht dan wordt hij aan het traject toegevoegd
+            if random_connection[0] not in new_traject.trajects:
+                new_traject.add_connection(random_connection)
+
+        
