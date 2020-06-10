@@ -2,4 +2,4 @@
 .DS_store
 .json
 test.py
-__pycache__
+__pycache__/
