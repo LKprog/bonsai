@@ -62,3 +62,4 @@ if __name__ == "__main__":
     greedy = gr.Greedy(test, traject_list)
     greedy.run()
     print(f'{greedy.trajects}')
+
