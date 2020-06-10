@@ -80,5 +80,6 @@ if __name__ == "__main__":
     # print(f'{greedy.trajects}')
 
     random = rd.Random(test, traject_list)
-    random.run()
-    print(f"Dict: {random.full_traject}")
+    while random.num_allstations != 28: 
+        random.run()
+        print(f"Dict: {random.full_traject}, Num: {random.num_allstations}")
