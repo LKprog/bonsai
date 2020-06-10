@@ -2,8 +2,10 @@ import copy
 import random
 
 class Greedy:
-
-        def __init__(self, map, traject_list):
+        """
+        The Greedy class that executes the greedy algorithm which adds the station that has the highest duration
+        """
+        def __init__(self, map, traject_list, duration, num_trajects):
                 self.map = copy.deepcopy(map)
                 self.traject_list = traject_list
                 self.trajects = []
@@ -20,7 +22,7 @@ class Greedy:
                         while True:
                                 current = new_traject.current_station
                                 self.trajects.append(current)
-                                random_connection = random.choice(self.map.stations[f'{current}'].connections)
+                                longest_connection = random.choice(self.map.stations[f'{current}'].connections)
                                 if random_connection[1] + new_traject.total_distance > 120:
                                         self.trajects.append(new_traject)
                                         break
