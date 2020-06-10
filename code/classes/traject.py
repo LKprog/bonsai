@@ -16,7 +16,8 @@ class Traject():
         self.total_distance += next_station[1]
         self.current_station = next_station[0]
 
-
+    def __repr__(self):
+        return str(self.trajects)
     #def stop(self):
         #for traject in self.trajects:
             #if traject

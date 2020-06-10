@@ -2,6 +2,7 @@ from code.classes.map import *
 from code.classes.station import *
 from code.classes.traject import *
 from code.algoritmes import greedy as gr
+from code.algoritmes import random as rd
 import random
 
 if __name__ == "__main__":
@@ -13,7 +14,7 @@ if __name__ == "__main__":
     # Trajecten konden niet worden aangemaakt in greedy.py dus dat moest wel hier
     traject_list = []
     i = 0
-    while i < 1:
+    while i < 7:
         start_station = random.choice(list(test.stations))
         new_traject = Traject(i, test.stations[f'{start_station}'])
         traject_list.append(new_traject)
@@ -59,7 +60,10 @@ if __name__ == "__main__":
     #         #print(stations_list)
     #         #break
 
-    greedy = gr.Greedy(test, traject_list)
-    greedy.run()
-    print(f'{greedy.trajects}')
+    # greedy = gr.Greedy(test, traject_list)
+    # greedy.run()
+    # print(f'{greedy.trajects}')
 
+    random = rd.Random(test, traject_list)
+    random.run()
+    print(f"Dict: {random.full_traject}")
