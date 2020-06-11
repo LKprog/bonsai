@@ -5,7 +5,7 @@ class Greedy:
         """
         The Greedy class that executes the greedy algorithm which adds the station that has the highest duration
         """
-        def __init__(self, map, traject_list, duration, num_trajects):
+        def __init__(self, map, traject_list, duration, max_num_trajects):
                 self.map = copy.deepcopy(map)
                 # self.connections = copy.deepcopy(connections)
                 self.traject_list = traject_list

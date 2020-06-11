@@ -10,13 +10,14 @@ if __name__ == "__main__":
     connections_data_file = "data/ConnectiesHolland.csv"
 
     duration = 120
-    num_trajects = 7
+    max_num_trajects = 7
 
     test = Map(stations_data_file, connections_data_file)
     # station lijst
     # connectielijst
     # die meegeven aan de algoritmes
 
+    # print(test.all_connections())
     # Trajecten konden niet worden aangemaakt in greedy.py dus dat moest wel hier
     traject_list = []
     i = 0
@@ -26,14 +27,14 @@ if __name__ == "__main__":
         traject_list.append(new_traject)
         i += 1
 
-    # ---------------Greedy---------------------
-    greedy = gr.Greedy(test, traject_list, duration, num_trajects)
-    greedy.run()
-    print(f'{greedy.trajects}')
+    # # ---------------Greedy---------------------
+    # greedy = gr.Greedy(test, traject_list, duration, max_num_trajects)
+    # greedy.run()
+    # print(f'{greedy.trajects}')
 
 
     # ---------------Random---------------------
     random = rd.Random(test, traject_list)
-    while random.num_allstations != 28: 
-        random.run()
-        print(f"Dict: {random.full_traject}, Num: {random.num_allstations}")
+    
+    random.run()
+    print(f"Dict: {random.full_traject}, Num: {random.num_allstations}")
