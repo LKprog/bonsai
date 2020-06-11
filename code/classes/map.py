@@ -6,6 +6,7 @@ class Map():
     def __init__(self, station_file, connection_file):
         self.stations = self.load_stations(station_file)
         self.connections = self.load_connections(connection_file)
+        self.all_connections = {}
 
     def load_stations(self, source_file):
         stations = {}
@@ -25,11 +26,12 @@ class Map():
             for row in reader:
                 station = self.stations[row['station1']]
                 station_reversed = self.stations[row['station2']]
-                station.add_connection(row['station2'], int(row['distance']))
-                station_reversed.add_connection(row['station1'], int(row['distance']))
+                station.connection(row['station2'], int(row['distance']))
+                station_reversed.connection(row['station1'], int(row['distance']))
+                station.add_unused_connection(row['station2'], int(row['distance']))
+                station_reversed.add_unused_connection(row['station1'], int(row['distance']))
 
     def all_connections(self):
-        all_connections = {}
 
         for stad in self.stations:
             all_connections[stad] = []

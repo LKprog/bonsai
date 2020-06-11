@@ -4,12 +4,16 @@ class Station():
         self.x = x
         self.y = y
         self.connections = []
+        self.unused_connections =[]
 
-    def add_connection(self, end_station, duration):
-        self.connections.append([end_station, duration])
+    def connection(self, next_station, duration):
+        self.connections.append([next_station, duration])
 
     def connections_list(self):
         return self.connections
+
+    def add_unused_connection(self, next_station, duration):
+        self.unused_connections.append([next_station, duration])
 
     def __repr__(self):
         return self.name
