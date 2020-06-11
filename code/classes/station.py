@@ -13,3 +13,4 @@ class Station():
 
     def __repr__(self):
         return self.name
+        # f"Name: {self.name}, Connections: {self.connections}"
