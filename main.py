@@ -13,19 +13,6 @@ if __name__ == "__main__":
     max_num_trajects = 7
 
     test = Map(stations_data_file, connections_data_file)
-    # station lijst
-    # connectielijst
-    # die meegeven aan de algoritmes
-
-    # print(test.all_connections())
-    # Trajecten konden niet worden aangemaakt in greedy.py dus dat moest wel hier
-    traject_list = []
-    i = 0
-    while i < 7:
-        start_station = random.choice(list(test.stations))
-        new_traject = Traject(i, test.stations[f'{start_station}'])
-        traject_list.append(new_traject)
-        i += 1
 
     # # ---------------Greedy---------------------
     # greedy = gr.Greedy(test, traject_list, duration, max_num_trajects)
@@ -34,7 +21,7 @@ if __name__ == "__main__":
 
 
     # ---------------Random---------------------
-    random = rd.Random(test, traject_list)
+    random = rd.Random(test,duration, max_num_trajects)
     
     random.run()
-    print(f"Dict: {random.full_traject}, Num: {random.num_allstations}")
+    print(f"Dict: {random.full_traject}, Num: {random.num_allconnections}")

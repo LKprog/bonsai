@@ -1,5 +1,6 @@
 import copy
 import random
+from ..classes.traject import Traject
 
 class Greedy:
         """
