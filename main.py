@@ -35,10 +35,6 @@ if __name__ == "__main__":
 
     # ---------------Random---------------------
     random = rd.Random(test, traject_list)
-<<<<<<< HEAD
-  
-=======
     
->>>>>>> 2b097ecb3da1afd5831c494ec3ae3be57a3a0faf
     random.run()
     print(f"Dict: {random.full_traject}, Num: {random.num_allstations}")
