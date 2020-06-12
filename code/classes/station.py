@@ -4,7 +4,7 @@ class Station():
         self.x = x
         self.y = y
         self.connections = []
-        self.unused_connections =[]
+        self.unused_connections = []
 
     def connection(self, next_station, duration):
         self.connections.append([next_station, duration])
