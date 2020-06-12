@@ -21,7 +21,9 @@ if __name__ == "__main__":
 
 
     # ---------------Random---------------------
+    # i = 0
+    # while i in range(5):
     random = rd.Random(test,duration, max_num_trajects)
-    
     random.run()
+        # i += 1
     print(f"Dict: {random.full_traject}, Num: {random.num_allconnections}")
