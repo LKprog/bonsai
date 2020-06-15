@@ -43,7 +43,6 @@ class Random():
     
     def doelfunctie(self, P, T, Min):
        K = P * 10000 - (T * 100 + Min)
-       print(f"{K}")
        return K
     
     def best_score(self, score, full_traject, complete_duration):

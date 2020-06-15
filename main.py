@@ -14,13 +14,13 @@ if __name__ == "__main__":
 
     test = Map(stations_data_file, connections_data_file)
 
-    # # ---------------Greedy---------------------
-    # greedy = gr.Greedy(test, traject_list, duration, max_num_trajects)
-    # greedy.run()
-    # print(f'{greedy.trajects}')
+    # ---------------Greedy---------------------
+    greedy = gr.Greedy(test, duration, max_num_trajects)
+    greedy.run(10)
+    print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
 
     # ---------------Random---------------------
-    random = rd.Random(test,duration, max_num_trajects)
-    random.run(100)
-    print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+    # random = rd.Random(test,duration, max_num_trajects)
+    # random.run(10000)
+    # print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
