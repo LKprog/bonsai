@@ -64,7 +64,9 @@ class Greedy(Random):
                    
             # bereken de score van de complete run
             score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
+            
             # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
             if score > 8460:
+                self.score_list.append(int(score))
                 self.best_score(score, self.full_traject, complete_duration)
                 i += 1
