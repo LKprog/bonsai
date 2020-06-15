@@ -5,6 +5,7 @@ from code.algoritmes import greedy as gr
 from code.algoritmes import random as rd
 from code.visualisation import visualise as vis
 import random
+import csv
 
 if __name__ == "__main__":
     stations_data_file = "data/StationsHolland.csv"
@@ -17,9 +18,18 @@ if __name__ == "__main__":
 
     # # ---------------Greedy---------------------
     greedy = gr.Greedy(test, duration, max_num_trajects)
-    greedy.run(5)
+    greedy.run(100)
     print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
-    vis.visualise_all(test, greedy.best_traject)
+
+    a_file = open("output.csv", "w", newline='')
+    a_dict = greedy.best_traject
+    writer = csv.writer(a_file)
+    writer.writerow(['train', 'stations'])
+    for key, value in a_dict.items():
+        writer.writerow([f'train_{key}', f'{value}'])
+    writer.writerow(['score', f'{greedy.highscore}'])
+    a_file.close()
+    # vis.visualise_all(test, greedy.best_traject)
 
     # ---------------Random---------------------
     # random = rd.Random(test,duration, max_num_trajects)
