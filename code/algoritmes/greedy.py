@@ -56,11 +56,6 @@ class Greedy():
             complete_duration = 0
             self.num_allconnections = 56
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
-                # zolang niet het max aantal trajecten gereden is
-                # while self.num_allconnections > 0:
-                # print(f"traject = {traject_id}")
-                # initialize new traject
-                # self.add_traject(traject_id)
 
                 stations_with_unused = []
                 for station in self.map.stations:
