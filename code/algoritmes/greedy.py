@@ -1,56 +1,9 @@
 import copy
 import random
 from ..classes.traject import Traject
+from .random import Random
 
-# Max 120 minuten
-# Max 7 trajecten
-# Kan zowel Alkmaar -> Castricum of Castricum -> Alkmaar als verbinding zien
-# Nieuw traject kiest eerst uit stations met een nog unused connection
-# Als verbindingen worden gezocht eerst alle unused en als het niet anders kan dan random uit de normale connectionlijst
-
-class Greedy():
-    def __init__(self, map, duration, max_num_trajects):
-        self.map = map
-        self.duration = duration
-        self.max_num_trajects = max_num_trajects + 1
-        self.full_traject = {}
-        self.num_allconnections = 56
-        self.temp = copy.deepcopy(map)
-        self.highscore = 0
-        self.best_traject = {}
-        self.complete_duration = 0
-
-    # def add_traject(self, traject_id):
-    #     start_station = random.choice(list(self.map.stations))
-    #     new_traject = Traject(traject_id, self.map.stations[f'{start_station}'])
-
-    #     return new_traject
-
-    def remove_unused_connection(self, current_station, next_station):
-        for item in self.map.stations[f'{current_station}'].unused_connections:
-            if item[0] == next_station[0]:
-                self.map.stations[f'{current_station}'].unused_connections.remove(item)
-        for item in self.map.stations[f'{next_station[0]}'].unused_connections:
-            if item[0] == str(current_station):
-                self.map.stations[f'{next_station[0]}'].unused_connections.remove(item)
-
-        list_with_unused = []
-        for station in self.map.stations:
-            if self.map.stations[station].unused_connections:
-                list_with_unused.append(station)
-
-        self.num_allconnections = len(list_with_unused)
-
-    def doelfunctie(self, P, T, Min):
-       K = P * 10000 - (T * 100 + Min)
-       print(f"{K}")
-       return K
-
-    def best_score(self, score, full_traject, complete_duration):
-        if self.highscore == 0 or score > self.highscore:
-            self.highscore = score
-            self.best_traject = full_traject
-            self.complete_duration = complete_duration
+class Greedy(Random):
 
     def max_value(self, inputlist):
         value = max([sublist[-1] for sublist in inputlist])
@@ -69,11 +22,6 @@ class Greedy():
             complete_duration = 0
             self.num_allconnections = 56
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
-                # zolang niet het max aantal trajecten gereden is
-                # while self.num_allconnections > 0:
-                # print(f"traject = {traject_id}")
-                # initialize new traject
-                # self.add_traject(traject_id)
 
                 stations_with_unused = []
                 for station in self.map.stations:

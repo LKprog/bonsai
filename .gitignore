@@ -1,6 +1,6 @@
-.pyc
-.DS_store
-.json
+*.pyc
+*.DS_store
+*.json
 test.py
 __pycache__/
 .vscode
