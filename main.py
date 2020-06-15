@@ -17,22 +17,33 @@ if __name__ == "__main__":
     test = Map(stations_data_file, connections_data_file)
 
     # # ---------------Greedy---------------------
-    greedy = gr.Greedy(test, duration, max_num_trajects)
-    greedy.run(100)
-    print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
+    # greedy = gr.Greedy(test, duration, max_num_trajects)
+    # greedy.run(10000)
+    # print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
-    a_file = open("output.csv", "w", newline='')
-    a_dict = greedy.best_traject
-    writer = csv.writer(a_file)
-    writer.writerow(['train', 'stations'])
-    for key, value in a_dict.items():
-        writer.writerow([f'train_{key}', f'{value}'])
-    writer.writerow(['score', f'{greedy.highscore}'])
-    a_file.close()
+    # a_file = open("output.csv", "w", newline='')
+    # a_dict = greedy.best_traject
+    # writer = csv.writer(a_file)
+    # writer.writerow(['train', 'stations'])
+    # for key, value in a_dict.items():
+    #     writer.writerow([f'train_{key}', f'{value}'])
+    # writer.writerow(['score', f'{greedy.highscore}'])
+    # a_file.close()
+
+    # a_file = open("Greedyscore.csv", "w", newline='')
+    # writer = csv.writer(a_file)
+    # for score in greedy.score_list:
+    #     writer.writerow([score])
+    # a_file.close()
     # vis.visualise_all(test, greedy.best_traject)
 
     # ---------------Random---------------------
-    # random = rd.Random(test,duration, max_num_trajects)
-    # random.run(100)
-    # print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+    random = rd.Random(test,duration, max_num_trajects)
+    random.run(1000)
+    print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+    a_file = open("Randomscore.csv", "w", newline='')
+    writer = csv.writer(a_file)
+    for score in random.score_list:
+        writer.writerow([score])
+    a_file.close()
     # vis.visualise_all(test, random.best_traject)

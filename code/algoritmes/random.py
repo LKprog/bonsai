@@ -31,6 +31,7 @@ class Random():
         self.highscore = 0
         self.best_traject = {}
         self.complete_duration = 0
+        self.score_list = []
     
 
     def remove_unused_connection(self, current_station, next_station):
@@ -130,5 +131,6 @@ class Random():
             score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
             # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
             if score > 8460:
+                self.score_list.append(score)
                 self.best_score(score, self.full_traject, complete_duration)
                 i += 1
