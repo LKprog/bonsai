@@ -1,46 +1,69 @@
 import copy
 import random
 from ..classes.traject import Traject
+from .random import Random
 
-class Greedy:
-        """
-        The Greedy class that executes the greedy algorithm which adds the station that has the highest duration
-        """
-        def __init__(self, map, traject_list, duration, max_num_trajects):
-                self.map = copy.deepcopy(map)
-                # self.connections = copy.deepcopy(connections)
-                self.traject_list = traject_list
-                self.duration = duration
-                self.num_trajects = num_trajects
-                self.trajects = []
+class Greedy(Random):
 
-        def greedy_start(new_traject):
-                # print(new_traject.current_station)
-                print(new_traject.trajects)
-                print(new_traject.total_distance)
+    def max_value(self, inputlist):
+        value = max([sublist[-1] for sublist in inputlist])
+        for items in inputlist:
+            if value == items[1]:
+                return items
 
-        def run(self):
-                # kiest een random startpunt
-                stations_list = []
-                for new_traject in self.traject_list:
-                        while True:
-                                current = new_traject.current_station
-                                self.trajects.append(current)
-                                random_connection = random.choice(self.map.stations[f'{current}'].connections)
-                                if random_connection[1] + new_traject.total_distance > 120:
-                                        self.trajects.append(new_traject)
-                                        break
-                                # als de random connectie niet al eerder is bezocht dan wordt hij aan het traject toegevoegd
-                                if random_connection[0] not in new_traject.trajects:
-                                        new_traject.add_connection(random_connection)
-                                else:
-                                        break
+    def run(self, num_repeats):
+        i = 0
+        while i < num_repeats:
+            print(f"{i} / {num_repeats}")
+            self.map = copy.deepcopy(self.temp)
+            self.full_traject = {}
+            # zolang niet alle verbindingen gereden zijn
+            traject_id = 1
+            complete_duration = 0
+            self.num_allconnections = 56
+            while traject_id < self.max_num_trajects and self.num_allconnections > 0:
 
-# nodig: connectielijst met duration in init
+                stations_with_unused = []
+                for station in self.map.stations:
+                    if self.map.stations[station].unused_connections:
+                        stations_with_unused.append(station)
 
-# 1: kies station met minste connecties
-# 2: kies de connectie met de langste duration
-# 3: move naar dat station
-# 4: haal connectie van de lijst, haal duration van de 120 af
-# 5; repeat 2-4 tot 0 minuten
-# 6: ga vanaf stap 1
+                start_station = random.choice(stations_with_unused)
+                new_traject = Traject(traject_id, self.map.stations[f'{start_station}'])
+                self.full_traject[new_traject.traject_id]= []
+                # zolang de max tijd nog niet gebruikt is
+                while True:
+                    # stel current station in
+                    current_station = new_traject.current_station
+                    # selecteer random connection/station uit de unused connecties
+                    if self.map.stations[f'{current_station}'].unused_connections:
+                        next_station = self.max_value(self.map.stations[f'{current_station}'].unused_connections)
+                    # als unused connecties leeg is, gebruik een connectie uit de complete connectie lijst, is dus al gebruikt
+                    else:
+                        next_station = self.max_value(self.map.stations[f'{current_station}'].connections)
+                    # als nieuwe connectie langer is dan max duration, maak full traject en stop traject
+                    if new_traject.total_duration + next_station[1] > self.duration:
+                        complete_duration += new_traject.total_duration
+                        for station in new_traject.trajects:
+                            self.full_traject[new_traject.traject_id].append(station)
+                        traject_id += 1
+                        break
+                    # anders, voeg de connectie toe aan het traject
+                    self.remove_unused_connection(current_station, next_station)
+                    new_traject.add_connection(next_station)
+                    if self.num_allconnections == 0:
+                        for station in new_traject.trajects:
+                            self.full_traject[new_traject.traject_id].append(station)
+                        complete_duration += new_traject.total_duration
+                        break
+                    # break
+
+            P = 0
+            for station in self.map.stations:
+                P += len(self.map.stations[station].unused_connections)
+            P = (56 - P) / 56
+            T = traject_id
+            Min = complete_duration
+            score = self.doelfunctie(P, T, Min)
+            self.best_score(score, self.full_traject, Min)
+            i += 1
