@@ -62,7 +62,6 @@ class Random():
         P = (56 - P) / 56
         T = T - 1
         K = P * 10000 - (T * 100 + Min)
-        print(f"{K}")
         return K
     
     
