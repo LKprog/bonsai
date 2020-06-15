@@ -5,7 +5,7 @@ class Traject():
         self.traject_id = traject_id
         self.current_station = current_station
         self.trajects = []
-        self.trajects.append(current_station)
+        self.trajects.append(str(current_station))
         self.total_duration = 0
 
     def get_connection(self, current_station):
