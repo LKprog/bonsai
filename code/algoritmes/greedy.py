@@ -12,58 +12,59 @@ class Greedy(Random):
                 return items
 
     def run(self, num_repeats):
+        """
+        methode die het random algoritme runt voor een hoeveelheid keer dat aangegeven wordt door "num_repeats"
+        """
+        # begin van de while loop waarin het algoritme een x aantal keer gerund wordt
         i = 0
         while i < num_repeats:
             print(f"{i} / {num_repeats}")
+            # initieer een nieuwe oplossing/resetten van de lijsten
             self.map = copy.deepcopy(self.temp)
             self.full_traject = {}
-            # zolang niet alle verbindingen gereden zijn
             traject_id = 1
             complete_duration = 0
-            self.num_allconnections = 56
+            self.num_allconnections = 22
+            
+            # maak trajecten zolang het maximum aantal trajecten nog behaald is en nog niet alle verbindingen bereden zijn
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
-
+                
+                # maak een lijst voor stations dat nog steeds connecties hebben 
                 stations_with_unused = []
                 for station in self.map.stations:
                     if self.map.stations[station].unused_connections:
                         stations_with_unused.append(station)
 
+                # creer nieuw traject met random gekozen startstation
                 start_station = random.choice(stations_with_unused)
                 new_traject = Traject(traject_id, self.map.stations[f'{start_station}'])
+                # maak een traject lijst aan voor het huidige traject
                 self.full_traject[new_traject.traject_id]= []
-                # zolang de max tijd nog niet gebruikt is
+                
+                # loop om verbindingen aan het traject toe te voegen zolang het traject nog niet 120 minuten lang duurt
                 while True:
-                    # stel current station in
+                    # stel het huidige station in
                     current_station = new_traject.current_station
-                    # selecteer random connection/station uit de unused connecties
+                    # als er ongebruikte connecties zijn voor het huidige station, selecteer een random connectie daaruit
                     if self.map.stations[f'{current_station}'].unused_connections:
                         next_station = self.max_value(self.map.stations[f'{current_station}'].unused_connections)
                     # als unused connecties leeg is, gebruik een connectie uit de complete connectie lijst, is dus al gebruikt
                     else:
                         next_station = self.max_value(self.map.stations[f'{current_station}'].connections)
-                    # als nieuwe connectie langer is dan max duration, maak full traject en stop traject
-                    if new_traject.total_duration + next_station[1] > self.duration:
+                    # als nieuwe connectie langer de duratie langer maakt dan de maximale duratie, maak het complete traject aan stop het traject
+                    if new_traject.total_duration + next_station[1] > self.duration or self.num_allconnections == 0:
                         complete_duration += new_traject.total_duration
                         for station in new_traject.trajects:
                             self.full_traject[new_traject.traject_id].append(station)
                         traject_id += 1
                         break
-                    # anders, voeg de connectie toe aan het traject
+                    # anders, verwijder de connectie uit de ongebruikte connectie lijst en voeg de connectie toe aan het traject
                     self.remove_unused_connection(current_station, next_station)
                     new_traject.add_connection(next_station)
-                    if self.num_allconnections == 0:
-                        for station in new_traject.trajects:
-                            self.full_traject[new_traject.traject_id].append(station)
-                        complete_duration += new_traject.total_duration
-                        break
-                    # break
-
-            P = 0
-            for station in self.map.stations:
-                P += len(self.map.stations[station].unused_connections)
-            P = (56 - P) / 56
-            T = traject_id
-            Min = complete_duration
-            score = self.doelfunctie(P, T, Min)
-            self.best_score(score, self.full_traject, Min)
-            i += 1
+                   
+            # bereken de score van de complete run
+            score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
+            # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
+            if score > 8460:
+                self.best_score(score, self.full_traject, complete_duration)
+                i += 1
