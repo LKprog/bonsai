@@ -18,13 +18,14 @@ class Greedy(Random):
         # begin van de while loop waarin het algoritme een x aantal keer gerund wordt
         i = 0
         while i < num_repeats:
-            print(f"{i} / {num_repeats}")
+            if i%1000 == 0:
+                print(f"{i} / {num_repeats}")
             # initieer een nieuwe oplossing/resetten van de lijsten
             self.map = copy.deepcopy(self.temp)
             self.full_traject = {}
             traject_id = 1
             complete_duration = 0
-            self.num_allconnections = 22
+            self.num_allconnections = 100
             
             # maak trajecten zolang het maximum aantal trajecten nog behaald is en nog niet alle verbindingen bereden zijn
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
@@ -66,7 +67,7 @@ class Greedy(Random):
             score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
             
             # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            if score > 8460:
+            if score > self.lower_bound:
                 self.score_list.append(int(score))
                 self.best_score(score, self.full_traject, complete_duration)
                 i += 1

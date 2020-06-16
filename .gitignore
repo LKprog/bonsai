@@ -4,7 +4,6 @@
 test.py
 __pycache__/
 .vscode
-color_scatter.html
 output.csv
 Greedyscore.csv
 Randomscore.csv
