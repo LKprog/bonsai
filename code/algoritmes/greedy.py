@@ -18,7 +18,8 @@ class Greedy(Random):
         # begin van de while loop waarin het algoritme een x aantal keer gerund wordt
         i = 0
         while i < num_repeats:
-            print(f"{i} / {num_repeats}")
+            if i%1000 == 0:
+                print(f"{i} / {num_repeats}")
             # initieer een nieuwe oplossing/resetten van de lijsten
             self.map = copy.deepcopy(self.temp)
             self.full_traject = {}
