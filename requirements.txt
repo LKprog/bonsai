@@ -1,2 +1,2 @@
-bokeh
-geopandas==0.7.0
+bokeh==2.1.0
+pyproj==2.6.1
