@@ -24,7 +24,7 @@ class Greedy(Random):
             self.full_traject = {}
             traject_id = 1
             complete_duration = 0
-            self.num_allconnections = 22
+            self.num_allconnections = 100
             
             # maak trajecten zolang het maximum aantal trajecten nog behaald is en nog niet alle verbindingen bereden zijn
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
@@ -66,7 +66,7 @@ class Greedy(Random):
             score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
             
             # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            if score > 8460:
+            if score > self.lower_bound:
                 self.score_list.append(int(score))
                 self.best_score(score, self.full_traject, complete_duration)
                 i += 1

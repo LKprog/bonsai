@@ -20,11 +20,12 @@ class Random():
     """
     Random algoritme class die random oplossingen vind voor de lijnvoering rekening houdend met de heuristieken
     """
-    def __init__(self, map, duration, max_num_trajects):
+    def __init__(self, map, duration, max_num_trajects, lower_bound):
         # initiëren van de random class
         self.map = map
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1
+        self.lower_bound = lower_bound
         self.full_traject = {}
         self.num_allconnections = 56
         self.temp = copy.deepcopy(map)
@@ -89,11 +90,10 @@ class Random():
             self.full_traject = {}
             traject_id = 1
             complete_duration = 0
-            self.num_allconnections = 22
+            self.num_allconnections = 100
             
             # maak trajecten zolang het maximum aantal trajecten nog behaald is en nog niet alle verbindingen bereden zijn
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
-                
                 # maak een lijst voor stations dat nog steeds connecties hebben 
                 stations_with_unused = []
                 for station in self.map.stations:
@@ -130,7 +130,7 @@ class Random():
             # bereken de score van de complete run
             score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
             # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            if score > 8460:
+            if score > self.lower_bound:
                 self.score_list.append(score)
                 self.best_score(score, self.full_traject, complete_duration)
                 i += 1
