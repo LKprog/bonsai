@@ -46,4 +46,4 @@ if __name__ == "__main__":
     for score in random.score_list:
         writer.writerow([score])
     a_file.close()
-    # vis.visualise_all(test, random.best_traject)
+    vis.visualise(test, random.best_traject)
