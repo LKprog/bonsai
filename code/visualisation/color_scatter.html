@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>color_scatter.py example</title>
+      
+      
+        
+          
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.0.min.js" integrity="sha384-YobFyzPeVUsFQydHkJGsJL1kyfHnWxOlPc3EwaV22TmBaeGoXHLWx5aRRVPS9xlE" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="e75ecc6e-fc3a-43dd-8bed-c76aba04877f" data-root-id="1003"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1399">
+          {"c266cb0e-5762-4a53-b8b3-346f98e013d5":{"roots":{"references":[{"attributes":{"source":{"id":"1060"}},"id":"1064","type":"CDSView"},{"attributes":{"label":{"value":"Gouda || Den Haag Centraal"},"renderers":[{"id":"1120"}]},"id":"1139","type":"LegendItem"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1034","type":"BoxAnnotation"},{"attributes":{"line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1097","type":"Line"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"1142","type":"Circle"},{"attributes":{"label":{"value":"Amsterdam Sloterdijk || Alkmaar"},"renderers":[{"id":"1063"}]},"id":"1076","type":"LegendItem"},{"attributes":{},"id":"1137","type":"UnionRenderers"},{"attributes":{},"id":"1138","type":"Selection"},{"attributes":{},"id":"1074","type":"UnionRenderers"},{"attributes":{},"id":"1075","type":"Selection"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"x":{"field":"x"},"y":{"field":"y"}},"id":"1141","type":"Circle"},{"attributes":{"data":{"latitude":{"__ndarray__":"YoFo7w4aIEEi0jLOlaUfQX0BxBbptCBB33RU0bClIEHG4J/hVW8gQUZYtWBojSBBIgOaFqejH0EHdDLzCKcfQcqWiwpcmR1BZY0NG8NiHUHHpkD2qCwgQbbJrwvytx9BzseBbMH2H0E8+Bqdw4MfQTGT5hqvTB9B48pxsbssIUHPQhRcQ3MeQZOTYcFm8B5BtH5IrwldHkE0FGW+2/QdQZ2fkG1iLSBBGYordVFaIEE=","dtype":"float64","order":"little","shape":[22]},"longitude":{"__ndarray__":"y72t+yxiWkEVayZtwAZaQS3iQPgyLlpBN/dSTO8zWkEVmwBZtzVaQZ6zcZrQLFpBuRhFIqpFWkFBESbVuFFaQWEIG87s8VlBNz6OYO/+WUGLXf1jQptaQb7B6s3HzllBGIc6qNbzWUHKaYm6hDVaQV/EL19sMFpBGl/8ZWtjWkHkv/oWIg5aQWW3ZFhE6FlBRmS97IPjWUEKHkt12uJZQfQzReKTJ1pBNeo3oKA+WkE=","dtype":"float64","order":"little","shape":[22]},"stations":["Alkmaar","Alphen a/d Rijn","Amsterdam Amstel","Amsterdam Centraal","Amsterdam Sloterdijk","Amsterdam Zuid","Beverwijk","Castricum","Delft","Den Haag Centraal","Den Helder","Dordrecht","Gouda","Haarlem","Heemstede-Aerdenhout","Hoorn","Leiden Centraal","Rotterdam Alexander","Rotterdam Centraal","Schiedam Centrum","Schiphol Airport","Zaandam"]},"selected":{"id":"1155"},"selection_policy":{"id":"1154"}},"id":"1001","type":"ColumnDataSource"},{"attributes":{"data_source":{"id":"1077"},"glyph":{"id":"1078"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1079"},"selection_glyph":null,"view":{"id":"1081"}},"id":"1080","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1044"}},"id":"1048","type":"CDSView"},{"attributes":{"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1045","type":"Line"},{"attributes":{"data":{"x":{"__ndarray__":"YoFo7w4aIEEi0jLOlaUfQX0BxBbptCBB33RU0bClIEHG4J/hVW8gQUZYtWBojSBBIgOaFqejH0EHdDLzCKcfQcqWiwpcmR1BZY0NG8NiHUHHpkD2qCwgQbbJrwvytx9BzseBbMH2H0E8+Bqdw4MfQTGT5hqvTB9B48pxsbssIUHPQhRcQ3MeQZOTYcFm8B5BtH5IrwldHkE0FGW+2/QdQZ2fkG1iLSBBGYordVFaIEE=","dtype":"float64","order":"little","shape":[22]},"y":{"__ndarray__":"y72t+yxiWkEVayZtwAZaQS3iQPgyLlpBN/dSTO8zWkEVmwBZtzVaQZ6zcZrQLFpBuRhFIqpFWkFBESbVuFFaQWEIG87s8VlBNz6OYO/+WUGLXf1jQptaQb7B6s3HzllBGIc6qNbzWUHKaYm6hDVaQV/EL19sMFpBGl/8ZWtjWkHkv/oWIg5aQWW3ZFhE6FlBRmS97IPjWUEKHkt12uJZQfQzReKTJ1pBNeo3oKA+WkE=","dtype":"float64","order":"little","shape":[22]}},"selected":{"id":"1167"},"selection_policy":{"id":"1166"}},"id":"1140","type":"ColumnDataSource"},{"attributes":{"level":"overlay","source":{"id":"1001"},"text":{"field":"stations"},"text_font_size":{"value":"5pt"},"x":{"field":"latitude"},"x_offset":{"value":5},"y":{"field":"longitude"},"y_offset":{"value":5}},"id":"1145","type":"LabelSet"},{"attributes":{"label":{"value":"Rotterdam Alexander || Gouda"},"renderers":[{"id":"1099"}]},"id":"1116","type":"LegendItem"},{"attributes":{"data_source":{"id":"1140"},"glyph":{"id":"1141"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1142"},"selection_glyph":null,"view":{"id":"1144"}},"id":"1143","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1060"},"glyph":{"id":"1061"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1062"},"selection_glyph":null,"view":{"id":"1064"}},"id":"1063","type":"GlyphRenderer"},{"attributes":{"line_color":"green","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1078","type":"Line"},{"attributes":{"data":{"x":[512811.7762701987,516336.9034231936,538538.9406728975,545496.4088474772,547444.5444641557,542388.1888835512,530097.2139940147,498896.8399210395,512811.7762701987,516336.9034231936,518377.77207188506],"y":[6865329.487290471,6870546.9146370385,6870749.390661974,6868925.192563823,6863051.8789601745,6861634.413189797,6856271.535473812,6830216.359054539,6865329.487290471,6870546.9146370385,6887080.53546732]},"selected":{"id":"1057"},"selection_policy":{"id":"1056"}},"id":"1044","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1140"}},"id":"1144","type":"CDSView"},{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{"data":{"x":[518594.2374971513,535848.7288478046,562781.8465712931,527623.4675941879,530004.4809620016],"y":[6899427.33044845,6879874.503412773,6917549.593528533,6916275.932479332,6974729.562339197]},"selected":{"id":"1094"},"selection_policy":{"id":"1093"}},"id":"1077","type":"ColumnDataSource"},{"attributes":{"line_alpha":0.1,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1046","type":"Line"},{"attributes":{"source":{"id":"1077"}},"id":"1081","type":"CDSView"},{"attributes":{"text":""},"id":"1049","type":"Title"},{"attributes":{"line_alpha":0.1,"line_color":"green","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1079","type":"Line"},{"attributes":{"end":7000000,"start":6700000},"id":"1006","type":"Range1d"},{"attributes":{"click_policy":"hide","items":[{"id":"1059"},{"id":"1076"},{"id":"1095"},{"id":"1116"},{"id":"1139"}],"location":"top_left"},"id":"1058","type":"Legend"},{"attributes":{"label":{"value":"Castricum || Den Helder"},"renderers":[{"id":"1080"}]},"id":"1095","type":"LegendItem"},{"attributes":{},"id":"1155","type":"Selection"},{"attributes":{},"id":"1093","type":"UnionRenderers"},{"attributes":{"axis":{"id":"1012"},"ticker":null},"id":"1019","type":"Grid"},{"attributes":{},"id":"1094","type":"Selection"},{"attributes":{},"id":"1154","type":"UnionRenderers"},{"attributes":{"data_source":{"id":"1096"},"glyph":{"id":"1097"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1098"},"selection_glyph":null,"view":{"id":"1100"}},"id":"1099","type":"GlyphRenderer"},{"attributes":{"below":[{"id":"1012"}],"center":[{"id":"1019"},{"id":"1027"},{"id":"1058"},{"id":"1145"}],"left":[{"id":"1020"}],"renderers":[{"id":"1042"},{"id":"1047"},{"id":"1063"},{"id":"1080"},{"id":"1099"},{"id":"1120"},{"id":"1143"}],"title":{"id":"1049"},"toolbar":{"id":"1035"},"x_range":{"id":"1004"},"x_scale":{"id":"1008"},"y_range":{"id":"1006"},"y_scale":{"id":"1010"}},"id":"1003","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1117"}},"id":"1121","type":"CDSView"},{"attributes":{"formatter":{"id":"1015"},"ticker":{"id":"1013"}},"id":"1012","type":"MercatorAxis"},{"attributes":{"data":{"x":[506905.68884878716,523696.35596382327,481456.7764188855,484951.01029811485,490806.9359324605,497474.4211749837,519676.51141276525,497474.4211749837,506905.68884878716,523696.35596382327],"y":[6791441.38114724,6803290.628572248,6814653.508681825,6801331.220399947,6785897.832709799,6786575.699059552,6765343.217453418,6786575.699059552,6791441.38114724,6803290.628572248]},"selected":{"id":"1115"},"selection_policy":{"id":"1114"}},"id":"1096","type":"ColumnDataSource"},{"attributes":{},"id":"1166","type":"UnionRenderers"},{"attributes":{},"id":"1056","type":"UnionRenderers"},{"attributes":{},"id":"1167","type":"Selection"},{"attributes":{"source":{"id":"1096"}},"id":"1100","type":"CDSView"},{"attributes":{},"id":"1008","type":"LinearScale"},{"attributes":{},"id":"1032","type":"ResetTool"},{"attributes":{"line_alpha":0.1,"line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1098","type":"Line"},{"attributes":{"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1118","type":"Line"},{"attributes":{"tile_source":{"id":"1002"}},"id":"1042","type":"TileRenderer"},{"attributes":{"dimension":"lon"},"id":"1013","type":"MercatorTicker"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1028"},{"id":"1029"},{"id":"1030"},{"id":"1031"},{"id":"1032"},{"id":"1033"}]},"id":"1035","type":"Toolbar"},{"attributes":{},"id":"1031","type":"SaveTool"},{"attributes":{"data":{"x":[538538.9406728975,542388.1888835512,538538.9406728975,535848.7288478046,518377.77207188506,518594.2374971513,527623.4675941879],"y":[6870749.390661974,6861634.413189797,6870749.390661974,6879874.503412773,6887080.53546732,6899427.33044845,6916275.932479332]},"selected":{"id":"1075"},"selection_policy":{"id":"1074"}},"id":"1060","type":"ColumnDataSource"},{"attributes":{"dimension":"lon"},"id":"1015","type":"MercatorTickFormatter"},{"attributes":{},"id":"1028","type":"PanTool"},{"attributes":{"data_source":{"id":"1044"},"glyph":{"id":"1045"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1046"},"selection_glyph":null,"view":{"id":"1048"}},"id":"1047","type":"GlyphRenderer"},{"attributes":{},"id":"1029","type":"WheelZoomTool"},{"attributes":{"overlay":{"id":"1034"}},"id":"1030","type":"BoxZoomTool"},{"attributes":{"data_source":{"id":"1117"},"glyph":{"id":"1118"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1119"},"selection_glyph":null,"view":{"id":"1121"}},"id":"1120","type":"GlyphRenderer"},{"attributes":{"end":500000,"start":400000},"id":"1004","type":"Range1d"},{"attributes":{},"id":"1114","type":"UnionRenderers"},{"attributes":{},"id":"1033","type":"HelpTool"},{"attributes":{},"id":"1115","type":"Selection"},{"attributes":{"dimension":"lat"},"id":"1021","type":"MercatorTicker"},{"attributes":{},"id":"1057","type":"Selection"},{"attributes":{"axis":{"id":"1020"},"dimension":1,"ticker":null},"id":"1027","type":"Grid"},{"attributes":{"dimension":"lat"},"id":"1023","type":"MercatorTickFormatter"},{"attributes":{"formatter":{"id":"1023"},"ticker":{"id":"1021"}},"id":"1020","type":"MercatorAxis"},{"attributes":{"label":{"value":"Heemstede-Aerdenhout || Beverwijk"},"renderers":[{"id":"1047"}]},"id":"1059","type":"LegendItem"},{"attributes":{"attribution":"&amp;copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt; contributors,&amp;copy; &lt;a href=\"https://cartodb.com/attributions\"&gt;CartoDB&lt;/a&gt;","url":"https://tiles.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"},"id":"1002","type":"WMTSTileSource"},{"attributes":{"data":{"x":[523696.35596382327,518501.4513657411,498896.8399210395,481456.7764188855],"y":[6803290.628572248,6822657.705469866,6830216.359054539,6814653.508681825]},"selected":{"id":"1138"},"selection_policy":{"id":"1137"}},"id":"1117","type":"ColumnDataSource"},{"attributes":{"line_alpha":0.1,"line_color":"yellow","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1062","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1119","type":"Line"},{"attributes":{"line_color":"yellow","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1061","type":"Line"}],"root_ids":["1003"]},"title":"Bokeh Application","version":"2.1.0"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1399').textContent;
+                  var render_items = [{"docid":"c266cb0e-5762-4a53-b8b3-346f98e013d5","root_ids":["1003"],"roots":{"1003":"e75ecc6e-fc3a-43dd-8bed-c76aba04877f"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
