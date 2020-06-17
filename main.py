@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(5000)
+        random.run(55000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
