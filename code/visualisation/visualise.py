@@ -8,8 +8,7 @@ from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 from ..classes.station import Station
 from pyproj import Proj, transform
 
-# prepare some data
-
+# converts longitude and latitude into mercator coordinates
 def create_coordinates(long_arg,lat_arg):
     in_wgs = Proj('epsg:4326')
     out_mercator = Proj('epsg:3857')
@@ -17,38 +16,42 @@ def create_coordinates(long_arg,lat_arg):
     mercator_x, mercator_y = transform(in_wgs, out_mercator, long, lat)
     return mercator_x, mercator_y
 
-
+# creates a visual representation of the given map and the routes created by any of the algorithms
 def visualise(map, trajects):
 
-# Stations data
-    csv_longitude = []
-    csv_latitude = []
+# load Stations data
+    merc_y = []
+    merc_x = []
     stations = []
     for station in map.stations:
         stations.append(map.stations[station].name)
         new_coord = create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
-        csv_longitude.append(float(new_coord[1]))
-        csv_latitude.append(float(new_coord[0]))
-    longitude = np.array(csv_longitude)
-    latitude = np.array(csv_latitude)
+        merc_y.append(float(new_coord[1]))
+        merc_x.append(float(new_coord[0]))
+    longitude = np.array(merc_y)
+    latitude = np.array(merc_x)
     N = 4000
 
-
-
+    # save data in a variable for later use
     source = ColumnDataSource(data=dict(latitude=latitude, longitude=longitude, stations=stations))
-    # output to static HTML file (with CDN resources)
+
+    # output to html-file
     output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
 
-    TOOLS = "pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
+    # retrieves a map which serves as a background for the plot.
     tile_provider = get_provider(CARTODBPOSITRON)
-    # create a new plot with the tools above, and explicit ranges
+
+    # create a new plot with the specified tools, and explicit ranges
+    TOOLS = "pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
     p = figure(x_range=(400000, 500000), y_range=(6700000, 7000000),
            x_axis_type="mercator", y_axis_type="mercator")
-    p.add_tile(tile_provider)
     font = 1
 
+    # adds the background to the plot
+    p.add_tile(tile_provider)
 
-    colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange']
+    # creates a line, representing a route for each of the given routes
+    colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
     for values in trajects.values():
         x_list = []
         y_list = []
@@ -60,16 +63,18 @@ def visualise(map, trajects):
         color = colors.pop(0)
         p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
 
+    # legend settings
     p.legend.location = 'top_left'
     p.legend.click_policy="hide"
 
 
-    # add a circle renderer with vectorized colors and sizes
+    # add a circle for each of the stations in the given map
     p.circle(latitude, longitude)
-    labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='overlay',
+
+    # adds name-labels to the circles
+    labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
                   x_offset=5, y_offset=5, source=source, render_mode='canvas')
     p.add_layout(labels)
 
     # show the results
-
     show(p)
