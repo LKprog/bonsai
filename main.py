@@ -1,10 +1,10 @@
 from code.classes.map import *
 from code.classes.station import *
 from code.classes.traject import *
-from code.algoritmes import greedy as gr
-from code.algoritmes import random as rd
+from code.algorithms import random_greedy as gr
+from code.algorithms import random as rd
 # from code.visualisation import visualise as vis
-from code.algoritmes import hillclimber as hc
+from code.algorithms import hillclimber as hc
 import random
 import csv
 
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(1000)
+        random.run(1)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
@@ -50,14 +50,14 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(100)
+        random.run(5000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
         for score in random.score_list:
             writer.writerow([score])
         a_file.close()
-        vis.visualise(test, random.best_traject)
+        # vis.visualise(test, random.best_traject)
     
     if argv[1] == '3':
         stations_data_file = "data/StationsNationaal.csv"

@@ -114,10 +114,26 @@ class Random():
                     current_station = new_traject.current_station
                     # if the current station has unused connections, randomly select one of them
                     if self.map.stations[f'{current_station}'].unused_connections:
-                        next_station = random.choice(self.map.stations[f'{current_station}'].unused_connections)
+                        # print(self.duration - new_traject.total_duration)
+                        unused_connection_within_duration = []
+                        for connection in self.map.stations[f'{current_station}'].unused_connections:
+                            if connection[1] <= self.duration - new_traject.total_duration:
+                                unused_connection_within_duration.append(connection)
+                        if unused_connection_within_duration:
+                            next_station = random.choice(unused_connection_within_duration)
+                        # print(next_station)
+                        else:
+                            # next_station = random.choice(self.map.stations[f'{current_station}'].connections)
+                            complete_duration += new_traject.total_duration
+                            for station in new_traject.trajects:
+                                self.full_traject[new_traject.traject_id].append(station)
+                            traject_id += 1
+                            break
+                
                     # if the current stations does not have unused connections, randomly select a connection that has been used
                     else:
                         next_station = random.choice(self.map.stations[f'{current_station}'].connections)
+
                     # if the new connections makes the duration longer than the maximum duration or all if all connections have been used, stop the train route
                     if new_traject.total_duration + next_station[1] > self.duration or self.num_allconnections == 0:
                         complete_duration += new_traject.total_duration
@@ -131,7 +147,9 @@ class Random():
                    
             # calculate the score of the objective function for the complete set of train routes
             score = self.objectivefunction(self.num_allconnections, traject_id, complete_duration)
-            
+            self.score_list.append(score)
+            self.best_score(score, self.full_traject, complete_duration)
+            i += 1
             
             # # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
             # if score > self.lower_bound:
