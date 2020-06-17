@@ -1,10 +1,10 @@
 from code.classes.map import *
 from code.classes.station import *
 from code.classes.traject import *
-from code.algoritmes import greedy as gr
-from code.algoritmes import random as rd
+from code.algorithms import random_greedy as gr
+from code.algorithms import random as rd
 # from code.visualisation import visualise as vis
-from code.algoritmes import hillclimber as hc
+from code.algorithms import hillclimber as hc
 import random
 import csv
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
             writer.writerow([score])
         a_file.close()
         vis.visualise(test, random.best_traject)
-    
+
     if argv[1] == '2':
         stations_data_file = "data/StationsHolland.csv"
         connections_data_file = "data/ConnectiesHolland.csv"
@@ -58,7 +58,7 @@ if __name__ == "__main__":
             writer.writerow([score])
         a_file.close()
         vis.visualise(test, random.best_traject)
-    
+
     if argv[1] == '3':
         stations_data_file = "data/StationsNationaal.csv"
         connections_data_file = "data/ConnectiesNationaal.csv"
@@ -69,7 +69,8 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
-        greedy.run(5000)
+        min_max = input("Min or max?:")
+        greedy.run(100000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
@@ -89,7 +90,8 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
-        greedy.run(5000)
+        min_max = input("Min or max?:")
+        greedy.run(100000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
@@ -116,7 +118,7 @@ if __name__ == "__main__":
         hillclimber = hc.HillClimber(random, test)
         hillclimber.run(1)
 
-    
+
 
     # # ---------------Greedy---------------------
     # greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
