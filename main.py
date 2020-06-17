@@ -112,11 +112,10 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(1000)
+        random.run(10000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
 
         # ---------------HillClimber---------------------
         hillclimber = hc.HillClimber(random, test)
-        hillclimber.run(100)
+        hillclimber.run(1000)
         print(f"Highscore: {hillclimber.highscore}, Traject: {hillclimber.hillclimber_solution}")
-

@@ -19,7 +19,13 @@ class HillClimber:
         """
         return self.map.stations[new_result.best_traject[random_traject][-2]].connections
 
-    def remove_time(self, new_result, random_traject):
+    def get_connections_second(self, new_result, random_traject):
+        """
+        method that returns the connections from the second to last station in the traject
+        """
+        return self.map.stations[new_result.best_traject[random_traject][1]].connections
+
+    def remove_last(self, new_result, random_traject):
         """
         method that removes the time of the connection which will be replaced
         """
@@ -29,11 +35,29 @@ class HillClimber:
             if station[0] == last_connection:
                 new_result.complete_duration -= station[1]
 
+    def remove_first(self, new_result, random_traject):
+        """
+        method that removes the time of the connection which will be replaced
+        """
+        first_connection = new_result.best_traject[random_traject][0]
+        second_connection = new_result.best_traject[random_traject][1]
+        for station in self.map.stations[second_connection].connections:
+            if station[0] == first_connection:
+                new_result.complete_duration -= station[1]
+
+
     def add_connection(self, new_result, new_connection, random_traject):
         """
         method that adds the connection at the end of the traject
         """
         new_result.best_traject[random_traject][-1] = new_connection[0]
+        new_result.complete_duration += new_connection[1]
+
+    def add_connection(self, new_result, new_connection, random_traject):
+        """
+        method that adds the connection at the start of the traject
+        """
+        new_result.best_traject[random_traject][0] = new_connection[0]
         new_result.complete_duration += new_connection[1]
 
     def mutate_last_connection(self, new_result):
@@ -45,11 +69,23 @@ class HillClimber:
         random_traject = int(random_traject)
 
         # changes the last connection
-        self.remove_time(new_result, random_traject)
+        self.remove_last(new_result, random_traject)
         new_connection = random.choice(self.get_connections_secondtolast(new_result, random_traject))
         self.add_connection(new_result, new_connection, random_traject)
-    
-    
+
+    def mutate_first_connection(self, new_result):
+        """
+        method that mutates the first connection in a random traject
+        """
+        # chooses a random traject
+        random_traject = random.choice(list(new_result.best_traject))
+        random_traject = int(random_traject)
+
+        # changes the first connection
+        self.remove_first(new_result, random_traject)
+        new_connection = random.choice(self.get_connections_second(new_result, random_traject))
+        self.add_connection(new_result, new_connection, random_traject)
+
     def check_small_traject(self, new_result):
         """
         method that deletes trajects of only 1 connection
@@ -67,7 +103,7 @@ class HillClimber:
         K = P * 10000 - (T * 100 + Min)
         return K
 
-        
+
     def check_solution(self, new_result):
         """
         method that checks if the new score is better than the previous score
@@ -125,6 +161,6 @@ class HillClimber:
             print(f'Iteration {iteration}/{iterations}, current score: {self.highscore}')
             new_result = copy.deepcopy(self.solution)
             self.mutate_last_connection(new_result)
+            self.mutate_first_connection(new_result)
             self.check_small_traject(new_result)
             self.check_solution(new_result)
-
