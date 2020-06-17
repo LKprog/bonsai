@@ -1,15 +1,15 @@
 """
  * random.py
  *
- * Minor programmeren UvA - Programmeertheorie - RailNL
+ * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
- * Random algoritme met de volgende heuristieken:
- *      - maximum van 7 trajecten
- *      - elk traject mag maximaal 120 minuten duren
- *      - verbinding tussen stations kan beide richtingen op gaan
- *      - elk nieuw traject kiest random een station uit dat nog ongebruikte verbindingen heeft
- *      - ongebruikte verbindingen worden als eerst gekozen voor het traject, anders gebruikte verbindingen
+ * Random algorithm with the following heuristics:
+ *      - maximum of 7 train routes (Dutch: traject)
+ *      - every train route can have a maximum duration of 120 minutes
+ *      - a connection between stations can be used both ways
+ *      - every new train route starts with a randomly chosen station from a list of that tracks stations that still have unused connections 
+ *      - for every train route, connections will first be randomly chosen from a list that tracks the unused connections of the current station
 """
 
 import copy
@@ -18,10 +18,10 @@ from ..classes.traject import Traject
 
 class Random():
     """
-    Random algoritme class die random oplossingen vind voor de lijnvoering rekening houdend met de heuristieken
+    class that finds train routes taking into account the heuristics using a random algorithm
     """
     def __init__(self, map, duration, max_num_trajects, lower_bound):
-        # initiëren van de random class
+        # initialize class
         self.map = map
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1
@@ -37,9 +37,9 @@ class Random():
 
     def remove_unused_connection(self, current_station, next_station):
         """
-        methode die de lijst van ongebruikte connecties update door gebruikte connecties te verwijderen uit de lijst van het betreffende station
+        method that updates the list of unused connections by removing used connections from the list of the relevant station
         """
-        # loops om de verbindingen vanuit beide richtingen te verwijderen uit de lijst
+        # loop to remove used connection from stations in both directions
         for item in self.map.stations[f'{current_station}'].unused_connections:
             if item[0] == next_station[0]:
                 self.map.stations[f'{current_station}'].unused_connections.remove(item)
@@ -47,19 +47,19 @@ class Random():
             if item[0] == str(current_station):
                 self.map.stations[f'{next_station[0]}'].unused_connections.remove(item)
         
-        # lijst van stations met ongebruikte connecties
+        # list of stations that have unused connections
         list_with_unused = []
         for station in self.map.stations:
             if self.map.stations[station].unused_connections:
                 list_with_unused.append(station)
         
-        #  houd het aantal stations met ongebruikte connecties bij
+        #  contains the number of stations with unused connections
         self.num_allconnections = len(list_with_unused)
     
     
-    def doelfunctie(self, P, T, Min):
+    def objectivefunction(self, P, T, Min):
         """
-        methode om de kwaliteit te bepalen op basis van de gegeven doelfunctie
+        method to determine the quality (K) of the set of train routes
         """
         P = (56 - P) / 56
         T = T - 1
@@ -69,7 +69,7 @@ class Random():
     
     def best_score(self, score, full_traject, complete_duration):
         """
-        methode die hoogste score opslaat en bijhoud met het bijbehorende traject plus tijd tijdens de method "run"
+        method that saves the highest quality score and it's corresponding train routes and the duration
         """
         if self.highscore == 0 or score > self.highscore:
             self.highscore = score
@@ -79,59 +79,62 @@ class Random():
     
     def run(self, num_repeats):
         """
-        methode die het random algoritme runt voor een hoeveelheid keer dat aangegeven wordt door "num_repeats"
+        method that runs the random algorithm an "num_repeats" amount of times
         """
-        # begin van de while loop waarin het algoritme een x aantal keer gerund wordt
+        # while loop that makes sure the algorithm is run x amount of times
         i = 0
         while i < num_repeats:
             if i%1000 == 0:
                 print(f"{i} / {num_repeats}")
-            # initieer een nieuwe oplossing/resetten van de lijsten
+            # initialize a new set of solution/reset the lists
             self.map = copy.deepcopy(self.temp)
             self.full_traject = {}
             traject_id = 1
             complete_duration = 0
             self.num_allconnections = 100
             
-            # maak trajecten zolang het maximum aantal trajecten nog behaald is en nog niet alle verbindingen bereden zijn
+            # make new train routes as long as the maximum number of routes is not reached and all connections are not used
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:
-                # maak een lijst voor stations dat nog steeds connecties hebben 
+                
+                # list of stations that still have unused connections
                 stations_with_unused = []
                 for station in self.map.stations:
                     if self.map.stations[station].unused_connections:
                         stations_with_unused.append(station)
 
-                # creer nieuw traject met random gekozen startstation
+                # create a new train route with a randomly chosen station from the list of stations that have unused connections
                 start_station = random.choice(stations_with_unused)
                 new_traject = Traject(traject_id, self.map.stations[f'{start_station}'])
-                # maak een traject lijst aan voor het huidige traject
+                # make a list of the connections for the current train route
                 self.full_traject[new_traject.traject_id]= []
                 
-                # loop om verbindingen aan het traject toe te voegen zolang het traject nog niet 120 minuten lang duurt
+                # loop to add connections to the train route until the maximum duration is not reached
                 while True:
-                    # stel het huidige station in
+                    # set current station
                     current_station = new_traject.current_station
-                    # als er ongebruikte connecties zijn voor het huidige station, selecteer een random connectie daaruit
+                    # if the current station has unused connections, randomly select one of them
                     if self.map.stations[f'{current_station}'].unused_connections:
                         next_station = random.choice(self.map.stations[f'{current_station}'].unused_connections)
-                    # als de unused connecties lijst leeg is, gebruik een connectie uit de gehele connectie lijst
+                    # if the current stations does not have unused connections, randomly select a connection that has been used
                     else:
                         next_station = random.choice(self.map.stations[f'{current_station}'].connections)
-                    # als nieuwe connectie langer de duratie langer maakt dan de maximale duratie, maak het complete traject aan stop het traject
+                    # if the new connections makes the duration longer than the maximum duration or all if all connections have been used, stop the train route
                     if new_traject.total_duration + next_station[1] > self.duration or self.num_allconnections == 0:
                         complete_duration += new_traject.total_duration
                         for station in new_traject.trajects:
                             self.full_traject[new_traject.traject_id].append(station)
                         traject_id += 1
                         break
-                    # anders, verwijder de connectie uit de ongebruikte connectie lijst en voeg de connectie toe aan het traject
+                    # else, add the connection to the route and remove from the unused connections list
                     self.remove_unused_connection(current_station, next_station)
                     new_traject.add_connection(next_station)
                    
-            # bereken de score van de complete run
-            score = self.doelfunctie(self.num_allconnections, traject_id, complete_duration)
-            # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            if score > self.lower_bound:
-                self.score_list.append(score)
-                self.best_score(score, self.full_traject, complete_duration)
-                i += 1
+            # calculate the score of the objective function for the complete set of train routes
+            score = self.objectivefunction(self.num_allconnections, traject_id, complete_duration)
+            
+            
+            # # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
+            # if score > self.lower_bound:
+            #     self.score_list.append(score)
+            #     self.best_score(score, self.full_traject, complete_duration)
+            #     i += 1
