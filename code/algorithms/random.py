@@ -131,6 +131,9 @@ class Random():
                    
             # calculate the score of the objective function for the complete set of train routes
             score = self.objectivefunction(self.num_allconnections, traject_id, complete_duration)
+            self.score_list.append(score)
+            self.best_score(score, self.full_traject, complete_duration)
+            i += 1
             
             
             # # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
