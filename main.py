@@ -38,7 +38,7 @@ if __name__ == "__main__":
             writer.writerow([score])
         a_file.close()
         vis.visualise(test, random.best_traject)
-    
+
     if argv[1] == '2':
         stations_data_file = "data/StationsHolland.csv"
         connections_data_file = "data/ConnectiesHolland.csv"
@@ -57,8 +57,8 @@ if __name__ == "__main__":
         for score in random.score_list:
             writer.writerow([score])
         a_file.close()
-        # vis.visualise(test, random.best_traject)
-    
+        vis.visualise(test, random.best_traject)
+
     if argv[1] == '3':
         stations_data_file = "data/StationsNationaal.csv"
         connections_data_file = "data/ConnectiesNationaal.csv"
@@ -69,7 +69,8 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
-        greedy.run(5000)
+        min_max = input("Min or max?:")
+        greedy.run(100000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
@@ -89,7 +90,8 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
-        greedy.run(5000)
+        min_max = input("Min or max?:")
+        greedy.run(100000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
@@ -116,7 +118,7 @@ if __name__ == "__main__":
         hillclimber = hc.HillClimber(random, test)
         hillclimber.run(1)
 
-    
+
 
     # # ---------------Greedy---------------------
     # greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
