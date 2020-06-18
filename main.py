@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(55000)
+        random.run(5000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
         min_max = input("Min or max?:")
-        greedy.run(100000, min_max)
+        greedy.run(1000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
         min_max = input("Min or max?:")
-        greedy.run(100000, min_max)
+        greedy.run(1000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         a_file = open("Greedyscore.csv", "w", newline='')
