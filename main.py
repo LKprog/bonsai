@@ -122,14 +122,14 @@ if __name__ == "__main__":
         print(f"Highscore: {hillclimber.highscore}, Traject: {hillclimber.hillclimber_solution}")
 
     if argv[1] == '6':
-        stations_data_file = "data/StationsHolland.csv"
-        connections_data_file = "data/ConnectiesHolland.csv"
-        duration = 120
-        max_num_trajects = 7
-        lower_bound = 8460
+        stations_data_file = "data/StationsNationaal.csv"
+        connections_data_file = "data/ConnectiesNationaal.csv"
+        duration = 180
+        max_num_trajects = 20
+        lower_bound = 4400
 
         test = Map(stations_data_file, connections_data_file)
         # ---------------Depthfirst---------------------
         depth = df.Depthfirst(test)
-        depth.run(duration, 'Den Helder')
-        print(depth.best_solution)
+        depth.run(duration, ['Den Helder', 'Maastricht'])
+        print(f" best solution: {depth.ultimate_solution}")
