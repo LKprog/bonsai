@@ -5,6 +5,7 @@ from code.algorithms import random_greedy as gr
 from code.algorithms import random as rd
 # from code.visualisation import visualise as vis
 from code.algorithms import hillclimber as hc
+from code.algorithms import depthfirst as df
 import random
 import csv
 
@@ -112,10 +113,23 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(10000)
+        random.run(100000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
 
         # ---------------HillClimber---------------------
         hillclimber = hc.HillClimber(random, test)
-        hillclimber.run(1000)
+        hillclimber.run(10000)
         print(f"Highscore: {hillclimber.highscore}, Traject: {hillclimber.hillclimber_solution}")
+
+    if argv[1] == '6':
+        stations_data_file = "data/StationsHolland.csv"
+        connections_data_file = "data/ConnectiesHolland.csv"
+        duration = 120
+        max_num_trajects = 7
+        lower_bound = 8460
+
+        test = Map(stations_data_file, connections_data_file)
+        # ---------------Depthfirst---------------------
+        depth = df.Depthfirst(test)
+        depth.run(duration, 'Den Helder')
+        print(depth.best_solution)
