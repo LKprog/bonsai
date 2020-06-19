@@ -33,7 +33,7 @@ if __name__ == "__main__":
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
         random.run(1)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
-        # a_file = open("Randomscore.csv", "w", newline='')
+        # a_file = open("output/Randomscore.csv", "w", newline='')
         # writer = csv.writer(a_file)
         # for score in random.score_list:
         #     writer.writerow([score])
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
         random.run(5000)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
-        a_file = open("Randomscore.csv", "w", newline='')
+        a_file = open("output/Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
         for score in random.score_list:
             writer.writerow([score])
@@ -71,10 +71,10 @@ if __name__ == "__main__":
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
         min_max = input("Min or max?:")
-        greedy.run(100000, min_max)
+        greedy.run(1000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
-        a_file = open("Greedyscore.csv", "w", newline='')
+        a_file = open("output/Greedyscore.csv", "w", newline='')
         writer = csv.writer(a_file)
         for score in greedy.score_list:
             writer.writerow([score])
@@ -92,10 +92,10 @@ if __name__ == "__main__":
         # ---------------Greedy---------------------
         greedy = gr.Greedy(test, duration, max_num_trajects, lower_bound)
         min_max = input("Min or max?:")
-        greedy.run(100000, min_max)
+        greedy.run(1000, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
-        a_file = open("Greedyscore.csv", "w", newline='')
+        a_file = open("output/Greedyscore.csv", "w", newline='')
         writer = csv.writer(a_file)
         for score in greedy.score_list:
             writer.writerow([score])

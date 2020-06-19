@@ -2,9 +2,11 @@ import numpy as np
 import csv
 import sys
 import random
+import pandas as pd
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import ColumnDataSource, Label, LabelSet
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
+from bokeh.charts import Histogram
 from ..classes.station import Station
 from pyproj import Proj, transform
 
@@ -19,7 +21,7 @@ def create_coordinates(long_arg,lat_arg):
 # creates a visual representation of the given map and the routes created by any of the algorithms
 def visualise(map, trajects):
 
-# load Stations data
+# load Station data
     merc_y = []
     merc_x = []
     stations = []
@@ -75,6 +77,8 @@ def visualise(map, trajects):
     labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
                   x_offset=5, y_offset=5, source=source, render_mode='canvas')
     p.add_layout(labels)
+
+    df = pd.read_csv()
 
     # show the results
     show(p)
