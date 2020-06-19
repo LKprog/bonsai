@@ -12,23 +12,23 @@ class Traject():
         self.total_duration = 0
 
     def get_connection(self, current_station):
-    """
-    method that retrieves the possible connections for the Station which the Traject is currently on
-    """
+        """
+        method that retrieves the possible connections for the Station which the Traject is currently on
+        """
         return self.current_station.connections_list
 
     def add_connection(self, next_station):
-    """
-    method that moves the Traject to the next station and adds that station to the list of stations it has passed
-    """
+        """
+        method that moves the Traject to the next station and adds that station to the list of stations it has passed
+        """
         self.trajects.append(next_station[0])
         self.total_duration += next_station[1]
         self.current_station = next_station[0]
 
     def __repr__(self):
-    """
-    method to make sure that the object is printed properly if it is in a list/dic
-    """
+        """
+        method to make sure that the object is printed properly if it is in a list/dic
+        """
         return str(self.trajects)
     #def stop(self):
         #for traject in self.trajects:

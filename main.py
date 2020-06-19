@@ -11,19 +11,6 @@ import csv
 
 if __name__ == "__main__":
 
-    from code.classes.map import *
-from code.classes.station import *
-from code.classes.traject import *
-from code.algorithms import random_greedy as gr
-from code.algorithms import random as rd
-# from code.visualisation import visualise as vis
-from code.algorithms import hillclimber as hc
-from code.algorithms import depthfirst as df
-import random
-import csv
-
-if __name__ == "__main__":
-
     # type python main.py [number]
     # number = 1: random + National, 2: random + Holland, 3: greedy + National, 4: greedy + Holland
 
@@ -32,7 +19,7 @@ if __name__ == "__main__":
     print("Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL \n Contributors: Daphne Westerdijk, Lieke Kollen and Willem Henkelman")
     print("Algorithms:\n Random : 1\n Random_greedy : 2\nRandom/HillClimber : 3\nDepthfirst : 4")
     user_input = input("Please enter the number corresponding with the algorithm you would like to run:")
-    size = input("Press 1 for Holland.\nPress 2 for the Netherlands.")
+    size = input("Press 1 for Holland.\nPress 2 for the Netherlands.\n")
     repeats = int(input("How many times would you like to run the algorithm? We recommend running atleast x times for an accurate score."))
     if size == 1:
         stations_data_file = "data/StationsHolland.csv"

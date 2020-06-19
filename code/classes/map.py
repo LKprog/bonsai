@@ -11,10 +11,10 @@ class Map():
         self.connections = self.load_connections(connection_file)
         self.all_connections = {}
 
-    def load_stations(self, source_file):\
-    """
-    method that creates a Station object for each of the stations in a csv file
-    """
+    def load_stations(self, source_file):
+        """
+        method that creates a Station object for each of the stations in a csv file
+        """
         stations = {}
         with open(source_file, 'r') as input_file:
             reader = csv.DictReader(input_file)
@@ -26,9 +26,9 @@ class Map():
         return stations
 
     def load_connections(self, source_file):
-    """
-    method that creates connections between Stations
-    """
+        """
+        method that creates connections between Stations
+        """
         with open(source_file, 'r') as input_file:
             reader = csv.DictReader(input_file)
 
@@ -41,9 +41,9 @@ class Map():
                 station_reversed.add_unused_connection(row['station1'], int(float(row['distance'])))
 
     def all_connections(self):
-    """
-    method that returns a list of al of the possible connections between Stations
-    """
+        """
+        method that returns a list of al of the possible connections between Stations
+        """
 
         for stad in self.stations:
             all_connections[stad] = []
