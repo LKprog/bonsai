@@ -131,5 +131,5 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         # ---------------Depthfirst---------------------
         depth = df.Depthfirst(test)
-        depth.run(duration, ['Den Helder', 'Maastricht'])
-        print(f" best solution: {depth.ultimate_solution}")
+        depth.run(duration, list(test.stations))
+        print(f"best solution: {depth.ultimate_solution}")
