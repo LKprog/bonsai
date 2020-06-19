@@ -3,13 +3,6 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
- *
- * Random algorithm with the following heuristics:
- *      - maximum of 7 train routes (Dutch: traject)
- *      - every train route can have a maximum duration of 120 minutes
- *      - a connection between stations can be used both ways
- *      - every new train route starts with a randomly chosen station from a list of that tracks stations that still have unused connections 
- *      - for every train route, connections will first be randomly chosen from a list that tracks the unused connections of the current station
 """
 
 import copy
@@ -18,7 +11,7 @@ from ..classes.traject import Traject
 
 class Random():
     """
-    class that finds train routes taking into account the heuristics using a random algorithm
+    class that finds the most optimal train routes taking into account the heuristics using a random algorithm
     """
     def __init__(self, map, duration, max_num_trajects, lower_bound):
         # initialize class
@@ -114,16 +107,18 @@ class Random():
                     current_station = new_traject.current_station
                     # if the current station has unused connections, randomly select one of them
                     if self.map.stations[f'{current_station}'].unused_connections:
-                        # print(self.duration - new_traject.total_duration)
+                        # make a list for unused connections that fall within the remaining duration
                         unused_connection_within_duration = []
+                        # check for the unused connections whether the duration of that connections is shorter than the remaining duration
                         for connection in self.map.stations[f'{current_station}'].unused_connections:
                             if connection[1] <= self.duration - new_traject.total_duration:
+                                # if duration is shorter, append to the list
                                 unused_connection_within_duration.append(connection)
+                        # if the list is not empty, randomly select the next station from the list
                         if unused_connection_within_duration:
                             next_station = random.choice(unused_connection_within_duration)
-                        # print(next_station)
+                        # if the list is empty, stop the train route and complete it's information: duration and stations
                         else:
-                            # next_station = random.choice(self.map.stations[f'{current_station}'].connections)
                             complete_duration += new_traject.total_duration
                             for station in new_traject.trajects:
                                 self.full_traject[new_traject.traject_id].append(station)
@@ -150,9 +145,3 @@ class Random():
             self.score_list.append(score)
             self.best_score(score, self.full_traject, complete_duration)
             i += 1
-            
-            # # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            # if score > self.lower_bound:
-            #     self.score_list.append(score)
-            #     self.best_score(score, self.full_traject, complete_duration)
-            #     i += 1
