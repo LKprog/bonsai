@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
 
     print("Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL \n Contributors: Daphne Westerdijk, Lieke Kollen and Willem Henkelman")
-    print("Algorithms:\n Random : 1\n Random_greedy : 2\nRandom/HillClimber : 3\nDepthfirst : 4")
+    print("Algorithms:\nRandom : 1\nRandom_greedy : 2\nRandom/HillClimber : 3\nDepthfirst : 4")
     user_input = input("Please enter the number corresponding with the algorithm you would like to run:")
     size = input("Press 1 for Holland.\nPress 2 for the Netherlands.\n")
     repeats = int(input("How many times would you like to run the algorithm? We recommend running atleast x times for an accurate score."))

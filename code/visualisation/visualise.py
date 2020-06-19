@@ -1,3 +1,10 @@
+"""
+ * random.py
+ *
+ * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
+ * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+"""
+
 import numpy as np
 import csv
 import sys
