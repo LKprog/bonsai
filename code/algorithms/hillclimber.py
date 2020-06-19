@@ -46,14 +46,14 @@ class HillClimber:
                 new_result.complete_duration -= station[1]
 
 
-    def add_connection(self, new_result, new_connection, random_traject):
+    def add_connection_last(self, new_result, new_connection, random_traject):
         """
         method that adds the connection at the end of the traject
         """
         new_result.best_traject[random_traject][-1] = new_connection[0]
         new_result.complete_duration += new_connection[1]
 
-    def add_connection(self, new_result, new_connection, random_traject):
+    def add_connection_first(self, new_result, new_connection, random_traject):
         """
         method that adds the connection at the start of the traject
         """
@@ -71,7 +71,7 @@ class HillClimber:
         # changes the last connection
         self.remove_last(new_result, random_traject)
         new_connection = random.choice(self.get_connections_secondtolast(new_result, random_traject))
-        self.add_connection(new_result, new_connection, random_traject)
+        self.add_connection_last(new_result, new_connection, random_traject)
 
     def mutate_first_connection(self, new_result):
         """
@@ -84,7 +84,7 @@ class HillClimber:
         # changes the first connection
         self.remove_first(new_result, random_traject)
         new_connection = random.choice(self.get_connections_second(new_result, random_traject))
-        self.add_connection(new_result, new_connection, random_traject)
+        self.add_connection_first(new_result, new_connection, random_traject)
 
     def check_small_traject(self, new_result):
         """

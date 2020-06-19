@@ -2,11 +2,11 @@ import numpy as np
 import csv
 import sys
 import random
-import pandas as pd
+# import pandas as pd
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import ColumnDataSource, Label, LabelSet
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
-from bokeh.charts import Histogram
+# from bokeh.charts import Histogram
 from ..classes.station import Station
 from pyproj import Proj, transform
 
@@ -78,7 +78,7 @@ def visualise(map, trajects):
                   x_offset=5, y_offset=5, source=source, render_mode='canvas')
     p.add_layout(labels)
 
-    df = pd.read_csv()
+    # df = pd.read_csv()
 
     # show the results
     show(p)

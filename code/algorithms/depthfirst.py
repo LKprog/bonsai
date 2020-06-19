@@ -11,8 +11,8 @@ class Depthfirst:
         self.stations_list = [copy.deepcopy(self.map.stations)]
         self.best_value = 0
         self.best_time = float('inf')
-        self.best_solution = []
         self.solution_list = []
+        self.best_solution = []
         self.ultimate_solution = {}
 
     def check_solution(self):

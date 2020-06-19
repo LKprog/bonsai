@@ -3,7 +3,7 @@ from code.classes.station import *
 from code.classes.traject import *
 from code.algorithms import random_greedy as gr
 from code.algorithms import random as rd
-# from code.visualisation import visualise as vis
+from code.visualisation import visualise as vis
 from code.algorithms import hillclimber as hc
 from code.algorithms import depthfirst as df
 import random
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
         # ---------------Random---------------------
         random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(1)
+        random.run(100)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         # a_file = open("output/Randomscore.csv", "w", newline='')
         # writer = csv.writer(a_file)
@@ -108,18 +108,28 @@ if __name__ == "__main__":
         duration = 180
         max_num_trajects = 20
         lower_bound = 4400
+        best_score = 0
+        best_traject = None
 
-        test = Map(stations_data_file, connections_data_file)
+        
+        i = 0
+        while i < 2:
+            # ---------------Random---------------------
+            test = Map(stations_data_file, connections_data_file)
+            random = rd.Random(test,duration, max_num_trajects, lower_bound)
+            random.run(1)
+            print(f"Highscore: {random.highscore}, Duration: {random.complete_duration}")
 
-        # ---------------Random---------------------
-        random = rd.Random(test,duration, max_num_trajects, lower_bound)
-        random.run(100000)
-        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+            # ---------------HillClimber---------------------
+            hillclimber = hc.HillClimber(random, test)
+            hillclimber.run(100)
+            print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
-        # ---------------HillClimber---------------------
-        hillclimber = hc.HillClimber(random, test)
-        hillclimber.run(10000)
-        print(f"Highscore: {hillclimber.highscore}, Traject: {hillclimber.hillclimber_solution}")
+            if hillclimber.highscore > best_score:
+                best_score = hillclimber.highscore
+                best_traject = hillclimber.hillclimber_solution
+            i += 1
+        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
     if argv[1] == '6':
         stations_data_file = "data/StationsNationaal.csv"
