@@ -14,8 +14,6 @@ if __name__ == "__main__":
     # type python main.py [number]
     # number = 1: random + National, 2: random + Holland, 3: greedy + National, 4: greedy + Holland
 
-
-
     print("Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL \n Contributors: Daphne Westerdijk, Lieke Kollen and Willem Henkelman")
     print("Algorithms:\nRandom : 1\nRandom_greedy : 2\nRandom/HillClimber : 3\nDepthfirst : 4")
     user_input = input("Please enter the number corresponding with the algorithm you would like to run:")
@@ -67,17 +65,12 @@ if __name__ == "__main__":
         a_file.close()
         # vis.visualise_all(test, greedy.best_traject)
 
-    if argv[1] == '3':
-        stations_data_file = "data/StationsNationaal.csv"
-        connections_data_file = "data/ConnectiesNationaal.csv"
-        duration = 180
-        max_num_trajects = 20
-        lower_bound = 4400
+    if user_input == '3':
         best_score = 0
         best_traject = None
 
         i = 0
-        while i < 2:
+        while i < repeats:
             # ---------------Random---------------------
             test = Map(stations_data_file, connections_data_file)
             random = rd.Random(test,duration, max_num_trajects, lower_bound)
