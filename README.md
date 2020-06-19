@@ -46,7 +46,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage
-To exucute the main script and run the case, run
+To execute the main script and run the case, run
 ```
 python3 main.py
 ```

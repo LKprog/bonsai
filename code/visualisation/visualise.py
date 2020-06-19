@@ -1,3 +1,10 @@
+"""
+ * random.py
+ *
+ * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
+ * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+"""
+
 import numpy as np
 import csv
 import sys
@@ -12,6 +19,9 @@ from pyproj import Proj, transform
 
 # converts longitude and latitude into mercator coordinates
 def create_coordinates(long_arg,lat_arg):
+    """
+    method that converts a given longitude and latitude into mercator coordinates
+    """
     in_wgs = Proj('epsg:4326')
     out_mercator = Proj('epsg:3857')
     long, lat = long_arg, lat_arg
@@ -20,7 +30,9 @@ def create_coordinates(long_arg,lat_arg):
 
 # creates a visual representation of the given map and the routes created by any of the algorithms
 def visualise(map, trajects):
-
+    """
+    method that creates a visual representation of the given trajects
+    """
 # load Station data
     merc_y = []
     merc_x = []
@@ -52,7 +64,7 @@ def visualise(map, trajects):
     # adds the background to the plot
     p.add_tile(tile_provider)
 
-    # creates a line, representing a route for each of the given routes
+    # creates a line, representing a traject for each of the given trajects
     colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
     for values in trajects.values():
         x_list = []

@@ -3,13 +3,6 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
- *
- *  random greedy algorithm with the following heuristics:
- *      - maximum of 7 train routes (Dutch: traject)
- *      - every train route can have a maximum duration of 120 minutes
- *      - a connection between stations can be used both ways
- *      - every new train route starts with a randomly chosen station from a list of that tracks stations that still have unused connections
- *      - for every train route, connections with the longest duration will be chosen from a list that tracks the unused connections of the current station
 """
 
 import copy
@@ -18,18 +11,27 @@ from ..classes.traject import Traject
 from .random import Random
 
 class Greedy(Random):
+    """
+    class that finds the most optimal train routes taking into account the heuristics using a random-greedy algorithm
+    """
 
     def max_value(self, inputlist):
+        """
+        method that returns the connection with the longest duration
+        """
         value = max([sublist[-1] for sublist in inputlist])
-        for items in inputlist:
-            if value == items[1]:
-                return items
+        for item in inputlist:
+            if value == item[1]:
+                return item
 
     def min_value(self, inputlist):
+        """
+        method that returns the connection with the shortest duration
+        """
         value = min([sublist[-1] for sublist in inputlist])
-        for items in inputlist:
-            if value == items[1]:
-                return items
+        for item in inputlist:
+            if value == item[1]:
+                return item
 
 
     def run(self, num_repeats, min_max):
@@ -97,8 +99,3 @@ class Greedy(Random):
             self.score_list.append(int(score))
             self.best_score(score, self.full_traject, complete_duration)
             i += 1
-            # # als de score boven de lowerbound zit en daarmee dus alle connecties heeft bereden ga naar de volgende run, anders overschrijf de run
-            # if score > self.lower_bound:
-            #     self.score_list.append(int(score))
-            #     self.best_score(score, self.full_traject, complete_duration)
-            #     i += 1

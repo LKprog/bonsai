@@ -1,5 +1,16 @@
+"""
+ * random.py
+ *
+ * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
+ * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+"""
+
 class Station():
+    """
+    station class that loads the stations and its corresponding connections, it also tracks the stations unused connections
+    """
     def __init__(self, name, x, y):
+        # initialize class
         self.name = name
         self.x = x
         self.y = y
@@ -7,14 +18,19 @@ class Station():
         self.unused_connections = []
 
     def connection(self, next_station, duration):
+        """
+        method to append the connection with name and duration to the stations connection list
+        """
         self.connections.append([next_station, duration])
 
-    def connections_list(self):
-        return self.connections
-
     def add_unused_connection(self, next_station, duration):
+        """
+        method to append the unused connections of the station to the unused connections list
+        """
         self.unused_connections.append([next_station, duration])
 
     def __repr__(self):
+        """
+        method to make sure that the object is printed properly if it is in a list/dic
+        """
         return self.name
-        # f"Name: {self.name}, Connections: {self.connections}"
