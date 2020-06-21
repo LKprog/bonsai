@@ -14,14 +14,15 @@ class Random():
     class that finds the most optimal train routes taking into account the heuristics using a random algorithm
     """
 
-    def __init__(self, map, duration, max_num_trajects, lower_bound):
+    def __init__(self, map, duration, max_num_trajects, total_connections):
         # initialize class
         self.map = map
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1
+        self.total_connections = total_connections
         self.lower_bound = lower_bound
         self.full_traject = {}
-        self.num_allconnections = 56
+        self.num_allconnections = total_connections
         self.temp = copy.deepcopy(map)
         self.highscore = 0
         self.best_traject = {}
@@ -62,7 +63,7 @@ class Random():
         method to determine the quality (K) of the set of train routes
         """
 
-        P = (56 - P) / 56
+        P = (self.total_connections - P) / self.total_connections
         T = T - 1
         K = P * 10000 - (T * 100 + Min)
         return K
@@ -172,3 +173,5 @@ class Random():
             self.score_list.append(score)
             self.best_score(score, self.full_traject, complete_duration)
             i += 1
+    
+        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
