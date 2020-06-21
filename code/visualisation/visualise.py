@@ -1,5 +1,5 @@
 """
- * random.py
+ * visualise.py
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
@@ -22,6 +22,7 @@ def create_coordinates(long_arg,lat_arg):
     """
     method that converts a given longitude and latitude into mercator coordinates
     """
+
     in_wgs = Proj('epsg:4326')
     out_mercator = Proj('epsg:3857')
     long, lat = long_arg, lat_arg
@@ -33,15 +34,18 @@ def visualise(map, trajects):
     """
     method that creates a visual representation of the given trajects
     """
-# load Station data
+
+    # load Station data
     merc_y = []
     merc_x = []
     stations = []
+    
     for station in map.stations:
         stations.append(map.stations[station].name)
         new_coord = create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
         merc_y.append(float(new_coord[1]))
         merc_x.append(float(new_coord[0]))
+    
     longitude = np.array(merc_y)
     latitude = np.array(merc_x)
     N = 4000
@@ -66,21 +70,24 @@ def visualise(map, trajects):
 
     # creates a line, representing a traject for each of the given trajects
     colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
+    
     for values in trajects.values():
         x_list = []
         y_list = []
-        for item in values:
-            if item in map.stations:
-                new_coord = create_coordinates(float(map.stations[item].x), float(map.stations[item].y))
+       
+        for value in values:
+           
+            if value in map.stations:
+                new_coord = create_coordinates(float(map.stations[value].x), float(map.stations[value].y))
                 x_list.append(float(new_coord[1]))
                 y_list.append(float(new_coord[0]))
+        
         color = colors.pop(0)
         p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
 
     # legend settings
     p.legend.location = 'top_left'
     p.legend.click_policy="hide"
-
 
     # add a circle for each of the stations in the given map
     p.circle(latitude, longitude)

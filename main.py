@@ -1,6 +1,13 @@
-from code.classes.map import *
-from code.classes.station import *
-from code.classes.traject import *
+"""
+ * main.py
+ *
+ * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
+ * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+"""
+
+from code.classes.map import Map
+from code.classes.station import Station
+from code.classes.traject import Traject
 from code.algorithms import random_greedy as gr
 from code.algorithms import random as rd
 from code.visualisation import visualise as vis

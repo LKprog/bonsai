@@ -19,6 +19,7 @@ class Greedy(Random):
         """
         method that returns the connection with the longest duration
         """
+
         value = max([sublist[-1] for sublist in inputlist])
         for item in inputlist:
             if value == item[1]:
@@ -28,6 +29,7 @@ class Greedy(Random):
         """
         method that returns the connection with the shortest duration
         """
+
         value = min([sublist[-1] for sublist in inputlist])
         for item in inputlist:
             if value == item[1]:
@@ -38,11 +40,15 @@ class Greedy(Random):
         """
         method that runs the random greedy algorithm an "num_repeats" amount of times
         """
+
         # while loop that makes sure the algorithm is run x amount of times
         i = 0
+        
         while i < num_repeats:
+           
             if i%1000 == 0:
                 print(f"{i} / {num_repeats}")
+            
             # initialize a new set of solution/reset the lists
             self.map = copy.deepcopy(self.temp)
             self.full_traject = {}
@@ -55,7 +61,9 @@ class Greedy(Random):
 
                 # list of stations that still have unused connections
                 stations_with_unused = []
+                
                 for station in self.map.stations:
+                    
                     if self.map.stations[station].unused_connections:
                         stations_with_unused.append(station)
 
@@ -67,10 +75,13 @@ class Greedy(Random):
 
                 # loop to add connections to the train route until the maximum duration is not reached
                 while True:
+                   
                     # set current station
                     current_station = new_traject.current_station
+                    
                     # if the current station has unused connections, randomly select one of them
                     if self.map.stations[f'{current_station}'].unused_connections:
+                        
                         if min_max == 'max':
                             next_station = self.max_value(self.map.stations[f'{current_station}'].unused_connections)
 
@@ -83,13 +94,16 @@ class Greedy(Random):
 
                         elif min_max == 'min':
                             next_station = self.min_value(self.map.stations[f'{current_station}'].connections)
+                    
                     # if the new connections makes the duration longer than the maximum duration or all if all connections have been used, stop the train route
                     if new_traject.total_duration + next_station[1] > self.duration or self.num_allconnections == 0:
                         complete_duration += new_traject.total_duration
-                        for station in new_traject.trajects:
-                            self.full_traject[new_traject.traject_id].append(station)
+                        
+                        for connection in new_traject.trajects:
+                            self.full_traject[new_traject.traject_id].append(connection)
                         traject_id += 1
                         break
+                    
                     # else, add the connection to the route and remove from the unused connections list
                     self.remove_unused_connection(current_station, next_station)
                     new_traject.add_connection(next_station)
