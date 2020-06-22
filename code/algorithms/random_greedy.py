@@ -103,4 +103,4 @@ class Greedy(Random):
             self.score_list.append(int(score))
             self.best_score(score, self.full_traject, self.traject_duration)
         
-        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
+        # print(f"Highscore: {self.highscore}, Duration: {self.complete_duration} Traject: {self.best_traject}")

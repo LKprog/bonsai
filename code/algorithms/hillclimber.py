@@ -146,13 +146,13 @@ class HillClimber:
                     if next_station == connection[0]:
                         
                         # remove the connection
-                        self.map.stations[station].unused_connections.remove(item)
+                        self.map.stations[station].unused_connections.remove(connection)
                        
                         # remove the reversed connection
                         for reversed_connection in self.map.stations[connection[0]].unused_connections:
                             
                             if reversed_connection[0] == station:
-                                self.map.stations[item[0]].unused_connections.remove(reversed_connection)
+                                self.map.stations[connection[0]].unused_connections.remove(reversed_connection)
 
         # check if there are stations left with unused connections (if empty -> P=1)
         list_with_unused = []
@@ -188,7 +188,6 @@ class HillClimber:
 
         # runs the algorithm and tracks the score
         for iteration in range(iterations):
-            print(f'Iteration {iteration}/{iterations}, current score: {self.highscore}')
             new_result = copy.deepcopy(self.solution)
             self.mutate_last_connection(new_result)
             self.mutate_first_connection(new_result)
