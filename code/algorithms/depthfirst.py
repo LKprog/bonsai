@@ -22,6 +22,13 @@ class Depthfirst:
         self.best_solution = []
         self.ultimate_solution = {}
 
+    def get_next_state(self, stack):
+        """
+        method that gets the next item from the stack.
+        """
+        return stack.pop()
+
+
     def check_solution(self):
         """
         method that checks the solution and returns the traject with the most connections used and lowest duration.
@@ -83,7 +90,7 @@ class Depthfirst:
         # while there are still items in the stack
         while len(stack)> 0:
             # get the next start station from the list
-            state=stack.pop()
+            state= self.get_next_state(stack)
             
             # if state is a start station
             if state in start:

@@ -7,7 +7,7 @@
 
 import copy
 import random
-from .Random import Random
+from .random import Random
 
 class HillClimber:
     """

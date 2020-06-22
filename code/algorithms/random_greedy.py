@@ -8,7 +8,7 @@
 import copy
 import random
 from ..classes.traject import Traject
-from .Random import Random
+from .random import Random
 
 class Greedy(Random):
     """
