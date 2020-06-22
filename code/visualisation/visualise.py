@@ -10,6 +10,7 @@ import csv
 import sys
 import random
 # import pandas as pd
+import matplotlib.pyplot as plt
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import ColumnDataSource, Label, LabelSet
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
@@ -29,6 +30,21 @@ def create_coordinates(long_arg,lat_arg):
     mercator_x, mercator_y = transform(in_wgs, out_mercator, long, lat)
     return mercator_x, mercator_y
 
+
+def histogram(score_csv):
+    with open(score_csv, 'r') as input_file:
+        reader = csv.reader(input_file)
+    # print(reader)
+    data = []
+    for row in reader:
+        data.append(int(row[0]))
+
+    x = np.array(data)
+    plt.hist(x, bins=200)
+    plt.ylabel('Frequency')
+    plt.xlabel('Score')
+    plt.show()
+
 # creates a visual representation of the given map and the routes created by any of the algorithms
 def visualise(map, trajects):
     """
@@ -39,13 +55,13 @@ def visualise(map, trajects):
     merc_y = []
     merc_x = []
     stations = []
-    
+
     for station in map.stations:
         stations.append(map.stations[station].name)
         new_coord = create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
         merc_y.append(float(new_coord[1]))
         merc_x.append(float(new_coord[0]))
-    
+
     longitude = np.array(merc_y)
     latitude = np.array(merc_x)
     N = 4000
@@ -70,18 +86,18 @@ def visualise(map, trajects):
 
     # creates a line, representing a traject for each of the given trajects
     colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
-    
+
     for values in trajects.values():
         x_list = []
         y_list = []
-       
+
         for value in values:
-           
+
             if value in map.stations:
                 new_coord = create_coordinates(float(map.stations[value].x), float(map.stations[value].y))
                 x_list.append(float(new_coord[1]))
                 y_list.append(float(new_coord[0]))
-        
+
         color = colors.pop(0)
         p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
 
