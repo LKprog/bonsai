@@ -9,11 +9,11 @@ from .depthfirst import Depthfirst
 
 class Breadthfirst(Depthfirst):
     """
-    class that finds train routes taking into account the heuristics using a breath first algorithm.
+    class that finds train routes taking into account the heuristics using a breadth first algorithm.
     """
 
     def get_next_state(self, stack):
-    """
-    method that gets the next item from the stack.
-    """
-    return stack.pop(0)
+        """
+        method that gets the next item from the stack.
+        """
+        return stack.pop(0)
