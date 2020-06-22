@@ -32,6 +32,7 @@ if __name__ == "__main__":
     if map_size == "1":
         stations_data_file = "data/StationsHolland.csv"
         connections_data_file = "data/ConnectiesHolland.csv"
+        input_files = Map(stations_data_file, connections_data_file)
         duration = 120
         max_num_trajects = 7
         total_connections = 56
@@ -39,6 +40,7 @@ if __name__ == "__main__":
     if map_size == "2":
         stations_data_file = "data/StationsNationaal.csv"
         connections_data_file = "data/ConnectiesNationaal.csv"
+        input_files = Map(stations_data_file, connections_data_file)
         duration = 180
         max_num_trajects = 20
         total_connections = 178
@@ -48,16 +50,15 @@ if __name__ == "__main__":
     # ---------------Random--------------------
     if user_input == "1":
         
-        test = Map(stations_data_file, connections_data_file)
-        
-        random = rd.Random(test,duration, max_num_trajects, total_connections)
+        random = rd.Random(input_files,duration, max_num_trajects, total_connections)
         random.run(repeats)
+        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("output/Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
-        for score in self.score_list:
+        for score in random.score_list:
             writer.writerow([score])
         a_file.close()
-        vis.visualise(test, random.best_traject)
+        vis.visualise(input_files, random.best_traject)
 
     # ---------------Random + Hill climber---------------------
     if user_input == "2":
@@ -67,12 +68,12 @@ if __name__ == "__main__":
 
         for i in  range(repeats):
             
-            test = Map(stations_data_file, connections_data_file)
-            random = rd.Random(test,duration, max_num_trajects, total_connections)
+            input_files = Map(stations_data_file, connections_data_file)
+            random = rd.Random(input_files,duration, max_num_trajects, total_connections)
             random.run(1)
 
             # ---------------Hill climber---------------------
-            hillclimber = hc.HillClimber(random, test, total_connections)
+            hillclimber = hc.HillClimber(random, input_files, total_connections)
             hillclimber.run(100)
             print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
@@ -85,15 +86,13 @@ if __name__ == "__main__":
     # ---------------Random greedy---------------------
 
     if user_input == "3":
-
-        test = Map(stations_data_file, connections_data_file)
        
-        greedy = gr.Greedy(test, duration, max_num_trajects, total_connections)
+        greedy = gr.Greedy(input_files, duration, max_num_trajects, total_connections)
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
         greedy.run(repeats, min_max)
+        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
         
-
         a_file = open("output.csv", "w", newline='')
         a_dict = greedy.best_traject
         writer = csv.writer(a_file)
@@ -109,43 +108,47 @@ if __name__ == "__main__":
         for score in greedy.score_list:
             writer.writerow([score])
         a_file.close()
-        vis.visualise(test, greedy.best_traject)
+        vis.visualise(input_files, greedy.best_traject)
     
     # ---------------Random greedy + Hill climber---------------------
 
     if user_input == "4":
-
-        test = Map(stations_data_file, connections_data_file)
        
-        greedy = gr.Greedy(test, duration, max_num_trajects, total_connections)
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
-        greedy.run(repeats, min_max)
 
-        # ---------------Hill climber---------------------
-        hillclimber = hc.HillClimber(greedy, test, total_connections)
-        hillclimber.run(100)
-        print(f"iteration {i} = Highscore: {hillclimber.highscore}")
+        best_score = 0
+        best_traject = None
 
-        if hillclimber.highscore > best_score:
-            best_score = hillclimber.highscore
-            best_traject = hillclimber.hillclimber_solution
-        i += 1
+        for i in range(repeats):
+            
+            input_files = Map(stations_data_file, connections_data_file)
+            greedy = gr.Greedy(input_files, duration, max_num_trajects, total_connections)
+            greedy.run(1, min_max)
+
+            # ---------------Hill climber---------------------
+            hillclimber = hc.HillClimber(greedy, input_files, total_connections)
+            hillclimber.run(100)
+            print(f"iteration {i} = Highscore: {hillclimber.highscore}")
+
+            if hillclimber.highscore > best_score:
+                best_score = hillclimber.highscore
+                best_traject = hillclimber.hillclimber_solution
+
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
-
         
     # ---------------Depthfirst---------------------
     
     if user_input == "5":
-        test = Map(stations_data_file, connections_data_file)
-        depth = df.Depthfirst(test, total_connections)
+
+        depth = df.Depthfirst(input_files, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
 
      # ---------------Depthfirst + Hill climber---------------------
     
     if user_input == "6":
-        test = Map(stations_data_file, connections_data_file)
-        depth = df.Depthfirst(test, total_connections)
+
+        depth = df.Depthfirst(input_files, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht'])
 
         # ---------------Hill climber---------------------
@@ -153,6 +156,6 @@ if __name__ == "__main__":
     # ---------------Breadthfirst---------------------
 
     if user_input == "7":
-        test = Map(stations_data_file, connections_data_file)
-        breadth = bf.Breadthfirst(test, total_connections)
+
+        breadth = bf.Breadthfirst(input_files, total_connections)
         breadth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
