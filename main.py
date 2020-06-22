@@ -32,25 +32,25 @@ if __name__ == "__main__":
     if map_size == "1":
         stations_data_file = "data/StationsHolland.csv"
         connections_data_file = "data/ConnectiesHolland.csv"
-        input_files = Map(stations_data_file, connections_data_file)
         duration = 120
         max_num_trajects = 7
         total_connections = 56
 
-    if map_size == "2":
+    elif map_size == "2":
         stations_data_file = "data/StationsNationaal.csv"
         connections_data_file = "data/ConnectiesNationaal.csv"
-        input_files = Map(stations_data_file, connections_data_file)
         duration = 180
         max_num_trajects = 20
         total_connections = 178
+    
+    input_files = Map(stations_data_file, connections_data_file)
 
 # ---------------Algoritms---------------------
 
     # ---------------Random--------------------
     if user_input == "1":
         
-        random = rd.Random(input_files,duration, max_num_trajects, total_connections)
+        random = rd.Random(input_files, duration, max_num_trajects, total_connections)
         random.run(repeats)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("output/Randomscore.csv", "w", newline='')
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         vis.visualise(input_files, random.best_traject)
 
     # ---------------Random + Hill climber---------------------
-    if user_input == "2":
+    elif user_input == "2":
 
         best_score = 0
         best_traject = None
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # ---------------Random greedy---------------------
 
-    if user_input == "3":
+    elif user_input == "3":
        
         greedy = gr.Greedy(input_files, duration, max_num_trajects, total_connections)
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     
     # ---------------Random greedy + Hill climber---------------------
 
-    if user_input == "4":
+    elif user_input == "4":
        
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
@@ -139,14 +139,14 @@ if __name__ == "__main__":
         
     # ---------------Depthfirst---------------------
     
-    if user_input == "5":
+    elif user_input == "5":
 
         depth = df.Depthfirst(input_files, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
 
      # ---------------Depthfirst + Hill climber---------------------
     
-    if user_input == "6":
+    elif user_input == "6":
 
         depth = df.Depthfirst(input_files, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht'])
@@ -155,7 +155,7 @@ if __name__ == "__main__":
     
     # ---------------Breadthfirst---------------------
 
-    if user_input == "7":
+    elif user_input == "7":
 
         breadth = bf.Breadthfirst(input_files, total_connections)
         breadth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
