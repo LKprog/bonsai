@@ -20,7 +20,7 @@ class Random():
         # initialize class
         self.map = map
         self.duration = duration
-        self.max_num_trajects = max_num_trajects + 1
+        self.max_num_trajects = max_num_trajects + 1 
         self.total_connections = total_connections
         self.full_traject = {}
         self.num_allconnections = total_connections
