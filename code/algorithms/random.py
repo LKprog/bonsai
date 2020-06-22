@@ -20,7 +20,6 @@ class Random():
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1
         self.total_connections = total_connections
-        self.lower_bound = lower_bound
         self.full_traject = {}
         self.num_allconnections = total_connections
         self.temp = copy.deepcopy(map)
@@ -173,5 +172,3 @@ class Random():
             self.score_list.append(score)
             self.best_score(score, self.full_traject, complete_duration)
             i += 1
-    
-        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")

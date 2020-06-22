@@ -28,14 +28,14 @@ if __name__ == "__main__":
     repeats = int(input("How many times would you like to run the algorithm? We recommend running atleast x times for an accurate score."))
     
 # ---------------Initializing map size---------------------
-    if map_size == 1:
+    if map_size == "1":
         stations_data_file = "data/StationsHolland.csv"
         connections_data_file = "data/ConnectiesHolland.csv"
         duration = 120
         max_num_trajects = 7
         total_connections = 56
 
-    if map_size == 2:
+    if map_size == "2":
         stations_data_file = "data/StationsNationaal.csv"
         connections_data_file = "data/ConnectiesNationaal.csv"
         duration = 180
@@ -46,12 +46,12 @@ if __name__ == "__main__":
 
     # ---------------Random--------------------
     if user_input == "1":
-
+        
         test = Map(stations_data_file, connections_data_file)
         
         random = rd.Random(test,duration, max_num_trajects, total_connections)
         random.run(repeats)
-        # print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         
         a_file = open("output/Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
