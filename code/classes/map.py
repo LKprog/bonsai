@@ -39,16 +39,3 @@ class Map():
                 station_reversed.connection(row['station1'], int(float(row['distance'])))
                 station.add_unused_connection(row['station2'], int(float(row['distance'])))
                 station_reversed.add_unused_connection(row['station1'], int(float(row['distance'])))
-
-    def all_connections(self):
-        """
-        method that returns a list of al of the possible connections between Stations
-        """
-
-        for stad in self.stations:
-            all_connections[stad] = []
-
-            for connection in self.stations[stad].connections:
-               all_connections[stad].append(connection)
-
-        return all_connections

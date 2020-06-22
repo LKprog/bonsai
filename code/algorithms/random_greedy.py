@@ -8,7 +8,11 @@
 import copy
 import random
 from ..classes.traject import Traject
+<<<<<<< HEAD
 from .random import Random
+=======
+from .randomize import Random
+>>>>>>> bcdb969e8d3860798465cadfdf69ca6b059c876d
 
 class Greedy(Random):
     """

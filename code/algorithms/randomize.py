@@ -28,6 +28,12 @@ class Random():
         self.complete_duration = 0
         self.score_list = []
     
+    def reset_lists(self):
+        self.map = copy.deepcopy(self.temp)
+        self.full_traject = {}
+        traject_id = 1
+        complete_duration = 0
+        self.num_allconnections = 100
 
     def remove_unused_connection(self, current_station, next_station):
         """
@@ -93,11 +99,7 @@ class Random():
                 print(f"{i} / {num_repeats}")
             
             # initialize a new set of solution/reset the lists
-            self.map = copy.deepcopy(self.temp)
-            self.full_traject = {}
-            traject_id = 1
-            complete_duration = 0
-            self.num_allconnections = 100
+            self.reset_lists()
             
             # make new train routes as long as the maximum number of routes is not reached and all connections are not used
             while traject_id < self.max_num_trajects and self.num_allconnections > 0:

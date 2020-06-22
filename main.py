@@ -9,7 +9,11 @@ from code.classes.map import Map
 from code.classes.station import Station
 from code.classes.traject import Traject
 from code.algorithms import random_greedy as gr
+<<<<<<< HEAD
 from code.algorithms import random as rd
+=======
+from code.algorithms import randomize as rd
+>>>>>>> bcdb969e8d3860798465cadfdf69ca6b059c876d
 from code.visualisation import visualise as vis
 from code.algorithms import hillclimber as hc
 from code.algorithms import depthfirst as df
