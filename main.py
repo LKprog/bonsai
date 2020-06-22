@@ -145,15 +145,13 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         depth = df.Depthfirst(test, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
-        print(f" best solution: {depth.ultimate_solution}")
 
      # ---------------Depthfirst + Hill climber---------------------
     
     if user_input == "6":
-
+        test = Map(stations_data_file, connections_data_file)
         depth = df.Depthfirst(test, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht'])
-        print(f" best solution: {depth.ultimate_solution}")
 
         # ---------------Hill climber---------------------
     
@@ -163,4 +161,3 @@ if __name__ == "__main__":
         test = Map(stations_data_file, connections_data_file)
         breadth = bf.Breadthfirst(test, total_connections)
         breadth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
-        print(f" best solution: {breadth.ultimate_solution}")

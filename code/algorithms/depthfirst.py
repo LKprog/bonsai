@@ -121,7 +121,7 @@ class Depthfirst:
         """
         method that runs the depth first algorithm.
         """
-        
+        print("Running.....")
         # initialize the variables
         stack = start_stations
         start = copy.deepcopy(start_stations)
@@ -164,4 +164,4 @@ class Depthfirst:
         # check the solution         
         self.check_solution()
         score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
-        print(score)
+        print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
