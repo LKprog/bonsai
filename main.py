@@ -52,11 +52,9 @@ if __name__ == "__main__":
         
         random = rd.Random(test,duration, max_num_trajects, total_connections)
         random.run(repeats)
-        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
-        
         a_file = open("output/Randomscore.csv", "w", newline='')
         writer = csv.writer(a_file)
-        for score in random.score_list:
+        for score in self.score_list:
             writer.writerow([score])
         a_file.close()
         vis.visualise(test, random.best_traject)
@@ -67,23 +65,21 @@ if __name__ == "__main__":
         best_score = 0
         best_traject = None
 
-        i = 0
-        while i < repeats:
+        for i in  range(repeats):
             
             test = Map(stations_data_file, connections_data_file)
             random = rd.Random(test,duration, max_num_trajects, total_connections)
             random.run(1)
-            print(f"Highscore: {random.highscore}, Duration: {random.complete_duration}")
 
             # ---------------Hill climber---------------------
-            hillclimber = hc.HillClimber(random, test)
+            hillclimber = hc.HillClimber(random, test, total_connections)
             hillclimber.run(100)
             print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
-            i += 1
+
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
     # ---------------Random greedy---------------------
@@ -96,7 +92,7 @@ if __name__ == "__main__":
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
         greedy.run(repeats, min_max)
-        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
+        
 
         a_file = open("output.csv", "w", newline='')
         a_dict = greedy.best_traject
@@ -125,10 +121,9 @@ if __name__ == "__main__":
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
         greedy.run(repeats, min_max)
-        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         # ---------------Hill climber---------------------
-        hillclimber = hc.HillClimber(greedy, test)
+        hillclimber = hc.HillClimber(greedy, test, total_connections)
         hillclimber.run(100)
         print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
