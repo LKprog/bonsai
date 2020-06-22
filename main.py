@@ -8,11 +8,11 @@
 from code.classes.map import Map
 from code.classes.station import Station
 from code.classes.traject import Traject
-from code.algorithms import Random_greedy as gr
-from code.algorithms import Random as rd
+from code.algorithms import random_greedy as gr
+from code.algorithms import randomize as rd
 from code.visualisation import visualise as vis
-from code.algorithms import Hillclimber as hc
-from code.algorithms import Depthfirst as df
+from code.algorithms import hillclimber as hc
+from code.algorithms import depthfirst as df
 import random
 import csv
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
             best_score = hillclimber.highscore
             best_traject = hillclimber.hillclimber_solution
         i += 1
-    print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
+        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
         
     # ---------------Depthfirst---------------------
