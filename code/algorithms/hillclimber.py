@@ -58,7 +58,6 @@ class HillClimber:
             if station[0] == first_connection:
                 new_result.complete_duration -= station[1]
 
-
     def add_connection_last(self, new_result, new_connection, random_traject):
         """
         method that adds the connection at the end of the traject

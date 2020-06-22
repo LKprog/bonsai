@@ -5,6 +5,7 @@
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
 """
 import copy
+import random
 
 
 class Depthfirst:
@@ -12,7 +13,7 @@ class Depthfirst:
     class that finds train routes taking into account the heuristics using a depth first algorithm.
     """
     
-    def __init__(self, map, total_connections):
+    def __init__(self, map, total_connections, amount_trajects):
         # initialize class
         self.map = copy.deepcopy(map)
         self.stations_list = [copy.deepcopy(self.map.stations)]
@@ -23,11 +24,25 @@ class Depthfirst:
         self.ultimate_solution = {}
         self.total_connections = total_connections
 
+        self.amount_trajects = amount_trajects
+        self.best_score = 0
+        self.best_result = None
+
     def get_next_state(self, stack):
         """
         method that gets the next item from the stack.
         """
         return stack.pop()
+
+    def get_start_stations(self):
+        start_stations = []
+        count = 0
+        while count < self.amount_trajects:
+            start = random.choice(list(self.map.stations))
+            if start not in start_stations:
+                start_stations.append(start)
+                count += 1
+        return start_stations
 
 
     def check_solution(self):
@@ -117,51 +132,57 @@ class Depthfirst:
         K = P * 10000 - (T * 100 + Min)
         return K
 
-    def run(self, duration, start_stations):
+    def run(self, num_repeats, duration):
         """
         method that runs the depth first algorithm.
         """
-        print("Running.....")
-        # initialize the variables
-        stack = start_stations
-        start = copy.deepcopy(start_stations)
+        for i in range(num_repeats):
+            # initialize the variables
+            self.ultimate_solution = {}
+            stack = self.get_start_stations()
+            start = copy.deepcopy(stack)
 
-        # while there are still items in the stack
-        while len(stack)> 0:
-            # get the next start station from the list
-            state= self.get_next_state(stack)
-            
-            # if state is a start station
-            if state in start:
-                print(f"New start station: {state}")
-                # make a key in the ultimate_solution
-                self.ultimate_solution[state] = []
+            # while there are still items in the stack
+            while len(stack)> 0:
+                # get the next start station from the list
+                state= self.get_next_state(stack)
                 
-                # for every connection from the start station, make a new child
-                for connection in self.map.stations[state].connections:
-                    child = [0, copy.deepcopy(state)]
-                    child.append(connection[0])
-                    child[0] += connection[1]
-                    stack.append(child)
-            
-            # if the state is not a start station
-            else:
+                # if state is a start station
+                if state in start:
+                    print(f"New start station: {state}")
+                    # make a key in the ultimate_solution
+                    self.ultimate_solution[state] = []
+                    
+                    # for every connection from the start station, make a new child
+                    for connection in self.map.stations[state].connections:
+                        child = [0, copy.deepcopy(state)]
+                        child.append(connection[0])
+                        child[0] += connection[1]
+                        stack.append(child)
                 
-                # get the connections from the last station in the traject and make for every connection a new child
-                for connection in self.map.stations[state[-1]].connections:
-                    if connection[0] not in state:
-                        child = copy.deepcopy(state)
-                        if child[0] + connection[1] <= 180:
-                            child.append(connection[0])
-                            child[0] += connection[1]
-                            stack.append(child)
-                        
-                        # else:
-                        # only unique children are added to the solution list
-                        elif child not in self.solution_list:
-                                self.solution_list.append(child)
-        
-        # check the solution         
-        self.check_solution()
-        score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
-        print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
+                # if the state is not a start station
+                else:
+                    
+                    # get the connections from the last station in the traject and make for every connection a new child
+                    for connection in self.map.stations[state[-1]].connections:
+                        if connection[0] not in state:
+                            child = copy.deepcopy(state)
+                            if child[0] + connection[1] <= duration:
+                                child.append(connection[0])
+                                child[0] += connection[1]
+                                stack.append(child)
+                            
+                            # else:
+                            # only unique children are added to the solution list
+                            elif child not in self.solution_list:
+                                    self.solution_list.append(child)
+            
+            # check the solution         
+            self.check_solution()
+            score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
+            print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
+
+            if score > self.best_score:
+                self.best_score = score
+                self.best_result = self.ultimate_solution
+        # print(f"\nBest score: {score} and solution: {self.ultimate_solution}")

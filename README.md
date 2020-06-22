@@ -30,9 +30,9 @@ Where p stands for the fraction of connections used, T equals the amount of rout
 To approach the problem posed in the assignment, we developed several algorithms:
 * Random - algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
 * Random-greedy - algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
-* Depth first - 
-* Breadth first -
-* Hill climber -
+* Depth first - constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch. 
+* Breadth first - constructive algorithm that searches a tree data structure. It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
+* Hill climber - iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
 
 ## Heuristics
 ....
@@ -50,6 +50,9 @@ To execute the main script and run the case, run
 ```
 python3 main.py
 ```
+
+The user will be prompted to choose between Holland (2 provinces) and the Netherlands. 
+Then, the user can choose the algorithm they want to run and finally, how many iterations.
 
 ## Structure
 In this repository there are several folders with different files that are imported by main.py. The following list describes the different folders and files:

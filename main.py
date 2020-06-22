@@ -36,6 +36,7 @@ if __name__ == "__main__":
         duration = 120
         max_num_trajects = 7
         total_connections = 56
+        start_stations = 3
 
     if map_size == "2":
         stations_data_file = "data/StationsNationaal.csv"
@@ -44,13 +45,14 @@ if __name__ == "__main__":
         duration = 180
         max_num_trajects = 20
         total_connections = 178
+        start_stations = 5
 
 # ---------------Algoritms---------------------
 
     # ---------------Random--------------------
     if user_input == "1":
         
-        random = rd.Random(input_files,duration, max_num_trajects, total_connections)
+        random = rd.Random(input_files, duration, max_num_trajects, total_connections)
         random.run(repeats)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
         a_file = open("output/Randomscore.csv", "w", newline='')
@@ -66,7 +68,7 @@ if __name__ == "__main__":
         best_score = 0
         best_traject = None
 
-        for i in  range(repeats):
+        for i in range(repeats):
             
             input_files = Map(stations_data_file, connections_data_file)
             random = rd.Random(input_files,duration, max_num_trajects, total_connections)
@@ -141,15 +143,16 @@ if __name__ == "__main__":
     
     if user_input == "5":
 
-        depth = df.Depthfirst(input_files, total_connections)
-        depth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
+        depth = df.Depthfirst(input_files, total_connections, start_stations)
+        depth.run(repeats, duration)
+        print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
 
      # ---------------Depthfirst + Hill climber---------------------
     
     if user_input == "6":
 
-        depth = df.Depthfirst(input_files, total_connections)
-        depth.run(duration, ['Den Helder', 'Maastricht'])
+        depth = df.Depthfirst(input_files, total_connections, start_stations)
+        depth.run(repeats, duration)
 
         # ---------------Hill climber---------------------
     
@@ -157,5 +160,6 @@ if __name__ == "__main__":
 
     if user_input == "7":
 
-        breadth = bf.Breadthfirst(input_files, total_connections)
-        breadth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
+        breadth = bf.Breadthfirst(input_files, total_connections, start_stations)
+        breadth.run(repeats, duration)
+        print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")
