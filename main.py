@@ -13,6 +13,7 @@ from code.algorithms import randomize as rd
 from code.visualisation import visualise as vis
 from code.algorithms import hillclimber as hc
 from code.algorithms import depthfirst as df
+from code.algorithms import breadthfirst as bf
 import random
 import csv
 
@@ -23,7 +24,7 @@ if __name__ == "__main__":
     print("Welcome to our case RailNL, where we try to increase the efficiency and the quality of the rail network of the Netherlands. \nPlease press the button of the map that should be used:")
     map_size = input("1 : Holland\n2 : Netherlands\n")
     print("\nPlease select which algorithm you would like to use:")
-    user_input = input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Depth first + Hill climber\n")
+    user_input = input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Depth first + Hill climber\n7 : Breadth first\n")
     
     repeats = int(input("How many times would you like to run the algorithm? We recommend running atleast x times for an accurate score."))
     
@@ -93,12 +94,22 @@ if __name__ == "__main__":
         greedy.run(repeats, min_max)
         
 
+        a_file = open("output.csv", "w", newline='')
+        a_dict = greedy.best_traject
+        writer = csv.writer(a_file)
+        writer.writerow(['train', 'stations'])
+        for key, value in a_dict.items():
+            new = "[%s]" % (', '.join(value))
+            writer.writerow([f'train_{key}', new])
+        writer.writerow(['score', f'{greedy.highscore}'])
+        a_file.close()
+
         a_file = open("output/Greedyscore.csv", "w", newline='')
         writer = csv.writer(a_file)
         for score in greedy.score_list:
             writer.writerow([score])
         a_file.close()
-        vis.visualise_all(test, greedy.best_traject)
+        vis.visualise(test, greedy.best_traject)
     
     # ---------------Random greedy + Hill climber---------------------
 
@@ -126,17 +137,25 @@ if __name__ == "__main__":
     # ---------------Depthfirst---------------------
     
     if user_input == "5":
-
-        depth = df.Depthfirst(test)
-        depth.run(duration, ['Den Helder', 'Maastricht'])
+        test = Map(stations_data_file, connections_data_file)
+        depth = df.Depthfirst(test, total_connections)
+        depth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
         print(f" best solution: {depth.ultimate_solution}")
 
      # ---------------Depthfirst + Hill climber---------------------
     
     if user_input == "6":
 
-        depth = df.Depthfirst(test)
+        depth = df.Depthfirst(test, total_connections)
         depth.run(duration, ['Den Helder', 'Maastricht'])
         print(f" best solution: {depth.ultimate_solution}")
 
         # ---------------Hill climber---------------------
+    
+    # ---------------Breadthfirst---------------------
+
+    if user_input == "7":
+        test = Map(stations_data_file, connections_data_file)
+        breadth = bf.Breadthfirst(test, total_connections)
+        breadth.run(duration, ['Den Helder', 'Maastricht', 'Groningen'])
+        print(f" best solution: {breadth.ultimate_solution}")
