@@ -7,19 +7,20 @@
 
 import copy
 import random
-from .Random import Random
+from .randomize import Random
 
 class HillClimber:
     """
     class that finds train routes taking into account the heuristics using a hillclimber algorithm
     """
 
-    def __init__(self, solution, map):
+    def __init__(self, solution, map, total_connections):
         # initialize class
         self.solution = copy.deepcopy(solution)
         self.highscore = solution.highscore
         self.hillclimber_solution = {}
         self.map = map
+        self.total_connections = total_connections
 
     def get_connections_secondtolast(self, new_result, random_traject):
         """
@@ -118,7 +119,7 @@ class HillClimber:
         method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
         """
         
-        P = (89 - (P/2)) / 89
+        P = (self.total_connections - (P/2)) / self.total_connections
         T = len(T)
         K = P * 10000 - (T * 100 + Min)
         return K
