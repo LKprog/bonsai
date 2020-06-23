@@ -37,7 +37,6 @@ class Greedy(Random):
             if value == item[1]:
                 return item
 
-
     def run(self, num_repeats, min_max):
         """
         method that runs the random greedy algorithm an "num_repeats" amount of times

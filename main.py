@@ -4,7 +4,7 @@
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
- * Main code of the RailNL case, .....
+ * Main code of the RailNL case, running this will activate the user interface
 """
 
 import random, csv
@@ -14,8 +14,6 @@ from code.classes.station import Station
 from code.classes.traject import Traject
 from code.visualisation.visualise import Visual
 from code.algorithms import randomize as rd, random_greedy as gr, hillclimber as hc, depthfirst as df, breadthfirst as bf
-
-
 
 if __name__ == "__main__":
 
@@ -152,6 +150,7 @@ if __name__ == "__main__":
 
     elif helper.user_algorithm == 6:
 
+        # run the Breadth first algorithm
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
 
