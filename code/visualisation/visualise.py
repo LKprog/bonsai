@@ -18,102 +18,105 @@ from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 from ..classes.station import Station
 from pyproj import Proj, transform
 
-# converts longitude and latitude into mercator coordinates
-def create_coordinates(long_arg,lat_arg):
-    """
-    method that converts a given longitude and latitude into mercator coordinates
-    """
+class Visual:
+    # converts longitude and latitude into mercator coordinates
+    def create_coordinates(self, long_arg, lat_arg):
+        """
+        method that converts a given longitude and latitude into mercator coordinates
+        """
 
-    in_wgs = Proj('epsg:4326')
-    out_mercator = Proj('epsg:3857')
-    long, lat = long_arg, lat_arg
-    mercator_x, mercator_y = transform(in_wgs, out_mercator, long, lat)
-    return mercator_x, mercator_y
+        in_wgs = Proj('epsg:4326')
+        out_mercator = Proj('epsg:3857')
+        long, lat = long_arg, lat_arg
+        mercator_x, mercator_y = transform(in_wgs, out_mercator, long, lat)
+        return mercator_x, mercator_y
 
 
-def histogram(score_csv):
-    with open(score_csv, 'r') as input_file:
-        reader = csv.reader(input_file)
-    # print(reader)
-    data = []
-    for row in reader:
-        data.append(int(row[0]))
+    def histogram(score_csv):
+        with open(score_csv, 'r') as input_file:
+            reader = csv.reader(input_file)
+        # print(reader)
+        data = []
+        for row in reader:
+            data.append(int(row[0]))
 
-    x = np.array(data)
-    plt.hist(x, bins=200)
-    plt.ylabel('Frequency')
-    plt.xlabel('Score')
-    plt.show()
+        x = np.array(data)
+        plt.hist(x, bins=200)
+        plt.ylabel('Frequency')
+        plt.xlabel('Score')
+        plt.show()
 
-# creates a visual representation of the given map and the routes created by any of the algorithms
-def visualise(map, trajects):
-    """
-    method that creates a visual representation of the given trajects
-    """
+    # creates a visual representation of the given map and the routes created by any of the algorithms
+    def visualise(self, map, trajects, score_csv):
+        """
+        method that creates a visual representation of the given trajects
+        """
 
-    # load Station data
-    merc_y = []
-    merc_x = []
-    stations = []
+        self.histogram(score_csv)
 
-    for station in map.stations:
-        stations.append(map.stations[station].name)
-        new_coord = create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
-        merc_y.append(float(new_coord[1]))
-        merc_x.append(float(new_coord[0]))
+        # load Station data
+        merc_y = []
+        merc_x = []
+        stations = []
 
-    longitude = np.array(merc_y)
-    latitude = np.array(merc_x)
-    N = 4000
+        for station in map.stations:
+            stations.append(map.stations[station].name)
+            new_coord = self.create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
+            merc_y.append(float(new_coord[1]))
+            merc_x.append(float(new_coord[0]))
 
-    # save data in a variable for later use
-    source = ColumnDataSource(data=dict(latitude=latitude, longitude=longitude, stations=stations))
+        longitude = np.array(merc_y)
+        latitude = np.array(merc_x)
+        N = 4000
 
-    # output to html-file
-    output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
+        # save data in a variable for later use
+        source = ColumnDataSource(data=dict(latitude=latitude, longitude=longitude, stations=stations))
 
-    # retrieves a map which serves as a background for the plot.
-    tile_provider = get_provider(CARTODBPOSITRON)
+        # output to html-file
+        output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
 
-    # create a new plot with the specified tools, and explicit ranges
-    TOOLS = "pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
-    p = figure(x_range=(400000, 500000), y_range=(6700000, 7000000),
-           x_axis_type="mercator", y_axis_type="mercator")
-    font = 1
+        # retrieves a map which serves as a background for the plot.
+        tile_provider = get_provider(CARTODBPOSITRON)
 
-    # adds the background to the plot
-    p.add_tile(tile_provider)
+        # create a new plot with the specified tools, and explicit ranges
+        TOOLS = "pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
+        p = figure(x_range=(400000, 500000), y_range=(6700000, 7000000),
+            x_axis_type="mercator", y_axis_type="mercator")
+        font = 1
 
-    # creates a line, representing a traject for each of the given trajects
-    colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
+        # adds the background to the plot
+        p.add_tile(tile_provider)
 
-    for values in trajects.values():
-        x_list = []
-        y_list = []
+        # creates a line, representing a traject for each of the given trajects
+        colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
 
-        for value in values:
+        for values in trajects.values():
+            x_list = []
+            y_list = []
 
-            if value in map.stations:
-                new_coord = create_coordinates(float(map.stations[value].x), float(map.stations[value].y))
-                x_list.append(float(new_coord[1]))
-                y_list.append(float(new_coord[0]))
+            for value in values:
 
-        color = colors.pop(0)
-        p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
+                if value in map.stations:
+                    new_coord = self.create_coordinates(float(map.stations[value].x), float(map.stations[value].y))
+                    x_list.append(float(new_coord[1]))
+                    y_list.append(float(new_coord[0]))
 
-    # legend settings
-    p.legend.location = 'top_left'
-    p.legend.click_policy="hide"
+            color = colors.pop(0)
+            p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
 
-    # add a circle for each of the stations in the given map
-    p.circle(latitude, longitude)
+        # legend settings
+        p.legend.location = 'top_left'
+        p.legend.click_policy="hide"
 
-    # adds name-labels to the circles
-    labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
-                  x_offset=5, y_offset=5, source=source, render_mode='canvas')
-    p.add_layout(labels)
+        # add a circle for each of the stations in the given map
+        p.circle(latitude, longitude)
 
-    # df = pd.read_csv()
+        # adds name-labels to the circles
+        labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
+                    x_offset=5, y_offset=5, source=source, render_mode='canvas')
+        p.add_layout(labels)
 
-    # show the results
-    show(p)
+        # df = pd.read_csv()
+
+        # show the results
+        show(p)
