@@ -15,6 +15,13 @@ You will find more information on each of the algorithms in it's own section.
 
 # breadthfirst.py
 This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
+
+## Heuristics
+The following heuristics were used for this algorithm:
+1. The first station of the route is randomly selected
+2. From all the solutions per tree, the solutions with the most connections are selected
+3. From those solutions, the solution with the shortest duration is returned to the user as best found result
+
 ## Methods
 * get_next_state - this method gets the next item from the stack.
 * get_start_stations - this method sets a random station to start the new traject from.
@@ -23,10 +30,16 @@ This is a constructive algorithm that searches a tree data structure. It starts 
 * calculate_min - method that calculates the total duration of all routes together.
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
 * run - method that runs the breadth first algorithm.
-## Heuristics
 
 # depthfirst.py
 This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch
+
+## Heuristics
+The following heuristics were used for this algorithm:
+1. The first station of the route is randomly selected
+2. From all the solutions per tree, the solutions with the most connections are selected
+3. From those solutions, the solution with the shortest duration is returned to the user as best found result
+
 ## Methods
 * get_next_state - this method gets the next item from the stack.
 * get_start_stations - this method sets a random station to start the new traject from.
@@ -35,10 +48,14 @@ This is a constructive algorithm that searches a tree data structure. It starts 
 * calculate_min - method that calculates the total duration of all routes together.
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
 * run - method that runs the depth first algorithm.
-## Heuristics
 
 # hillclimber.py
 This is an iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
+
+## Heuristics
+1. The first and last connection of the route is randomly replaced with a different connection
+2. Only newly made routes that have a higher K than before are saved
+
 ## Methods
 * get_connections_secondtolast - method that returns the connections from the second to last station in the traject
 * get_connections_second - method that returns the connections from the second to last station in the traject
@@ -52,7 +69,7 @@ This is an iterative algorithm that searches for a better solution by making cha
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
 * check_solution - method that checks if the new score is better than the previous score
 * run - method that runs the hillclimber algorithm {iterations} amount of times
-## Heuristics
+
 
 # random_greedy.py
 This is an algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
