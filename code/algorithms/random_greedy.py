@@ -43,10 +43,10 @@ class Greedy(Random):
 
         # while loop that makes sure the algorithm is run x amount of times
         for i in range(num_repeats):
-           
-            if i%1000 == 0:
+
+            if i%1000 == 0 and num_repeats != 1:
                 print(f"{i} / {num_repeats}")
-            
+
             # initialize a new set of solution/reset the lists
             self.reset_variables()
 
@@ -55,9 +55,9 @@ class Greedy(Random):
 
                 # list of stations that still have unused connections
                 stations_with_unused = []
-                
+
                 for station in self.map.stations:
-                    
+
                     if self.map.stations[station].unused_connections:
                         stations_with_unused.append(station)
 
@@ -70,13 +70,13 @@ class Greedy(Random):
 
                 # loop to add connections to the train route until the maximum duration is not reached
                 while True:
-                   
+
                     # set current station
                     current_station = new_traject.current_station
-                    
+
                     # if the current station has unused connections, randomly select one of them
                     if self.map.stations[f'{current_station}'].unused_connections:
-                        
+
                         if min_max == 'max':
                             next_station = self.max_value(self.map.stations[f'{current_station}'].unused_connections)
 
@@ -90,12 +90,12 @@ class Greedy(Random):
 
                         elif min_max == 'min':
                             next_station = self.min_value(self.map.stations[f'{current_station}'].connections)
-                    
+
                     # if the new connections makes the duration longer than the maximum duration or all if all connections have been used, stop the train route
                     if new_traject.total_duration + next_station[1] > self.duration or self.num_allconnections == 0:
                         self.end_traject(new_traject.total_duration, new_traject)
                         break
-                    
+
                     # else, add the connection to the route and remove from the unused connections list
                     self.remove_unused_connection(current_station, next_station)
                     new_traject.add_connection(next_station)

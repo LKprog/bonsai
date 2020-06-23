@@ -144,7 +144,8 @@ class Depthfirst:
         method that runs the depth first algorithm.
         """
         for i in range(num_repeats):
-            # initialize the variables
+            if i%10 == 0:
+                print(f"{i}/{num_repeats}")
             self.ultimate_solution = {}
             stack = self.get_start_stations()
             start = copy.deepcopy(stack)
@@ -157,8 +158,6 @@ class Depthfirst:
 
                 # if state is a start station
                 if state in start:
-                    print(f"New start station: {state}")
-
                     # make a key in the ultimate_solution
                     self.ultimate_solution[state] = []
 
@@ -190,7 +189,7 @@ class Depthfirst:
             self.check_solution()
             score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
             self.score_list.append(score)
-            print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
+            # print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
 
             if score > self.best_score:
                 self.best_score = score

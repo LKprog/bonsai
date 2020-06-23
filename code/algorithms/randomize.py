@@ -48,7 +48,7 @@ class Random():
 
     def unused_connection_in_duration(self, current_station, current_duration):
         """
-        method that checks whether a connection can be appended to the traject without having the duration get higher than the limit. 
+        method that checks whether a connection can be appended to the traject without having the duration get higher than the limit.
         """
         # make a list for unused connections that fall within the remaining duration
         self.unused_connection_within_duration = []
@@ -126,8 +126,9 @@ class Random():
         # while loop that makes sure the algorithm is run x amount of times
         for i in range(num_repeats):
 
-            if i%1000 == 0:
+            if i%1000 == 0 and num_repeats != 1:
                 print(f"{i} / {num_repeats}")
+
 
             # initialize a new set of solution/reset the lists
             self.reset_variables()
