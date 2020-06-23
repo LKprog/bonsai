@@ -71,6 +71,9 @@ In this repository there are several folders with different files that are impor
 
 For an extensive description of the folders, see the README in each folder.
 
+# Acknowledgement
+Special thanks to all the staff members of the minor Programmeren!!
+
 # Authors
 * Willem Henkelman
 * Lieke Kollen
