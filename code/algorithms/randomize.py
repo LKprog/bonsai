@@ -4,7 +4,7 @@
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
- *
+ * Algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
 """
 
 import copy
@@ -88,6 +88,9 @@ class Random():
         self.num_allconnections = len(list_with_unused)
 
     def end_traject(self, current_duration, new_traject):
+        """
+        method that ends a traject and gives the next traject_id
+        """
         self.traject_duration += current_duration
 
         for station in new_traject.trajects:
@@ -98,7 +101,7 @@ class Random():
 
     def objectivefunction(self, P, T, Min):
         """
-        method to determine the quality (K) of the set of train routes, according to the objective function.
+        method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
         """
 
         P = (self.total_connections - P) / self.total_connections
@@ -170,7 +173,7 @@ class Random():
                             self.end_traject(new_traject.total_duration, new_traject)
                             break
 
-                    # if the current stations does not have unused connections, randomly select a connection that has been used
+                    # else, randomly select a connection that has been used
                     else:
                         next_station = random.choice(self.map.stations[f'{current_station}'].connections)
 

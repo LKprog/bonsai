@@ -3,6 +3,8 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Iterative algorithm that searches for a better solution by making changes to an already exisiting solution
 """
 
 import copy
@@ -15,7 +17,10 @@ class HillClimber:
     """
 
     def __init__(self, solution, map, total_connections):
-        # initialize class
+        """
+        initialize the class and all it's corresponding variables
+        """
+
         self.solution = copy.deepcopy(solution)
         self.highscore = solution.highscore
         self.hillclimber_solution = solution.best_traject
@@ -39,7 +44,7 @@ class HillClimber:
 
     def remove_last(self, new_result, random_traject):
         """
-        method that removes the time of the last connection which will be replaced
+        method that removes the time of the last connection (which will be replaced)
         """
 
         last_connection = new_result.best_traject[random_traject][-1]
@@ -50,7 +55,7 @@ class HillClimber:
 
     def remove_first(self, new_result, random_traject):
         """
-        method that removes the time of the start connection which will be replaced
+        method that removes the time of the start connection (which will be replaced)
         """
         
         first_connection = new_result.best_traject[random_traject][0]
@@ -130,11 +135,12 @@ class HillClimber:
         method that checks if the new score is better than the previous score
         """
 
-        # Loop that goes over the trajects
+        # loop that goes over the trajects
         for traject in new_result.best_traject:
 
             # loop that goes over the stations in the traject (-1 because we want to look at the next station and the last station does not have a next station)
-            for i in range(len(new_result.best_traject[traject])- 1) :
+            for i in range(len(new_result.best_traject[traject])- 1):
+
                 # initialize station and next station
                 station = new_result.best_traject[traject][i]
                 next_station = new_result.best_traject[traject][i + 1]
@@ -183,7 +189,6 @@ class HillClimber:
         method that runs the hillclimber algorithm {iterations} amount of times
         """
        
-        self.iterations = iterations
         print(f'Start score: {self.highscore}')
 
         # runs the algorithm and tracks the score

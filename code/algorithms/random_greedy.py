@@ -3,6 +3,8 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
 """
 
 import copy
@@ -83,7 +85,7 @@ class Greedy(Random):
                         elif min_max == 'min':
                             next_station = self.min_value(self.map.stations[f'{current_station}'].unused_connections)
 
-                    # if the current stations does not have unused connections, randomly select a connection that has been used
+                    # else, randomly select a connection that has been used
                     else:
                         if min_max == 'max':
                             next_station = self.max_value(self.map.stations[f'{current_station}'].connections)
@@ -100,7 +102,7 @@ class Greedy(Random):
                     self.remove_unused_connection(current_station, next_station)
                     new_traject.add_connection(next_station)
 
-            # calculate the score of the objective function for the complete set of train routesun
+            # calculate the score of the objective function for the complete set of train routes
             score = self.objectivefunction(self.num_allconnections, self.traject_id, self.traject_duration)
             self.score_list.append(int(score))
             self.best_score(score, self.full_traject, self.traject_duration)
