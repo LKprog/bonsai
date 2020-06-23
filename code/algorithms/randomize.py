@@ -56,8 +56,8 @@ class Random():
         # check for the unused connections whether the duration of that connections is shorter than the remaining duration
         for connection in self.map.stations[f'{current_station}'].unused_connections:
 
+            # if duration is shorter, append to the list
             if connection[1] <= self.duration - current_duration:
-                # if duration is shorter, append to the list
                 self.unused_connection_within_duration.append(connection)
 
     def remove_unused_connection(self, current_station, next_station):
@@ -98,7 +98,7 @@ class Random():
 
     def objectivefunction(self, P, T, Min):
         """
-        method to determine the quality (K) of the set of train routes
+        method to determine the quality (K) of the set of train routes, according to the objective function.
         """
 
         P = (self.total_connections - P) / self.total_connections
@@ -132,7 +132,7 @@ class Random():
             # initialize a new set of solution/reset the lists
             self.reset_variables()
 
-            # make new train routes as long as the maximum number of routes is not reached and all connections are not used
+            # make new train routes as long as the maximum number of routes is not reached and there are still unused connections
             while self.traject_id < self.max_num_trajects and self.num_allconnections > 0:
 
                 # list of stations that still have unused connections
@@ -146,10 +146,11 @@ class Random():
                 # create a new train route with a randomly chosen station from the list of stations that have unused connections
                 start_station = random.choice(stations_with_unused)
                 new_traject = Traject(self.traject_id, self.map.stations[f'{start_station}'])
+
                 # make a list of the connections for the current train route
                 self.full_traject[new_traject.traject_id]= []
 
-                # loop to add connections to the train route until the maximum duration is not reached
+                # loop to add connections to the train route until the maximum duration reached
                 while True:
 
                     # set current station
@@ -186,5 +187,3 @@ class Random():
             score = self.objectivefunction(self.num_allconnections, self.traject_id, self.traject_duration)
             self.score_list.append(score)
             self.best_score(score, self.full_traject, self.traject_duration)
-
-        # print(f"Highscore: {self.highscore}, Duration: {self.complete_duration} Traject: {self.best_traject}")

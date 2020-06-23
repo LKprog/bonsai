@@ -64,6 +64,7 @@ class Greedy(Random):
                 # create a new train route with a randomly chosen station from the list of stations that have unused connections
                 start_station = random.choice(stations_with_unused)
                 new_traject = Traject(self.traject_id, self.map.stations[f'{start_station}'])
+
                 # make a list of the connections for the current train route
                 self.full_traject[new_traject.traject_id]= []
 
@@ -81,6 +82,7 @@ class Greedy(Random):
 
                         elif min_max == 'min':
                             next_station = self.min_value(self.map.stations[f'{current_station}'].unused_connections)
+
                     # if the current stations does not have unused connections, randomly select a connection that has been used
                     else:
                         if min_max == 'max':
@@ -102,5 +104,3 @@ class Greedy(Random):
             score = self.objectivefunction(self.num_allconnections, self.traject_id, self.traject_duration)
             self.score_list.append(int(score))
             self.best_score(score, self.full_traject, self.traject_duration)
-        
-        # print(f"Highscore: {self.highscore}, Duration: {self.complete_duration} Traject: {self.best_traject}")
