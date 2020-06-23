@@ -9,12 +9,10 @@ import numpy as np
 import csv
 import sys
 import random
-# import pandas as pd
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import ColumnDataSource, Label, LabelSet
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
-# from bokeh.charts import Histogram
 from ..classes.station import Station
 from pyproj import Proj, transform
 
@@ -33,13 +31,18 @@ class Visual:
 
 
     def histogram(score_csv):
+        """
+        method that creates a histogram from a csv-file
+        """
+        # retrieve information from csv and store in a list
         with open(score_csv, 'r') as input_file:
             reader = csv.reader(input_file)
-        # print(reader)
+
         data = []
         for row in reader:
             data.append(int(row[0]))
 
+        # use matplotlib functionality for creating a histogram
         x = np.array(data)
         plt.hist(x, bins=200)
         plt.ylabel('Frequency')
