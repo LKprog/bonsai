@@ -108,17 +108,6 @@ class HillClimber:
         new_connection = random.choice(self.get_connections_second(new_result, random_traject))
         self.add_connection_first(new_result, new_connection, random_traject)
 
-    def check_small_traject(self, new_result):
-        """
-        method that deletes trajects of only 1 connection
-        """
-
-        for traject in new_result.best_traject:
-
-            if len(new_result.best_traject[traject]) == 2:
-                del new_result.best_traject[traject]
-                break
-
     def objectivefunction(self, P, T, Min):
         """
         method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
@@ -197,5 +186,4 @@ class HillClimber:
             new_result = copy.deepcopy(self.solution)
             self.mutate_last_connection(new_result)
             self.mutate_first_connection(new_result)
-            self.check_small_traject(new_result)
             self.check_solution(new_result)

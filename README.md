@@ -43,8 +43,14 @@ or via conda:
 conda install --file requirements.txt
 ```
 
+and install extra for matplotlib:
+```
+python -m pip install -U matplotlib
+```
+
+
 ## Usage
-To execute the main script and run the case, run
+To execute the main script and run the case, run in git bash:
 ```
 python3 main.py
 ```
