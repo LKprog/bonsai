@@ -17,7 +17,9 @@ class Random():
     """
 
     def __init__(self, map, duration, max_num_trajects, total_connections):
-        # initialize class
+        """
+        initialize the class and all it's corresponding variables
+        """
         self.map = map
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1

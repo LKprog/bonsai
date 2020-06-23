@@ -3,22 +3,22 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Main code of the RailNL case, .....
 """
+
+import random, csv
 from helpers import Helpers
 from code.classes.map import Map
 from code.classes.station import Station
 from code.classes.traject import Traject
-from code.algorithms import random_greedy as gr
-from code.algorithms import randomize as rd
+from code.algorithms import randomize as rd, random_greedy as gr, hillclimber as hc, depthfirst as df, breadthfirst as bf
 from code.visualisation import visualise as vis
-from code.algorithms import hillclimber as hc
-from code.algorithms import depthfirst as df
-from code.algorithms import breadthfirst as bf
-import random
-import csv
+
 
 if __name__ == "__main__":
 
+    # initialize the user interface
     helper = Helpers()
     helper.ask_input()
     
@@ -27,35 +27,39 @@ if __name__ == "__main__":
 # ---------------Algoritms---------------------
 
     # ---------------Random--------------------
-    if helper.user_input == "1":
+    if helper.user_input == 1:
         
+        # run the random algorithm
         random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
         random.run(helper.repeats)
         print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
-        a_file = open("output/Randomscore.csv", "w", newline='')
-        writer = csv.writer(a_file)
-        for score in random.score_list:
-            writer.writerow([score])
-        a_file.close()
+        
+        # create the output files: optimal solution and list of scores, and visualisation
+        helper.output(random.score_list, helper.map_size, helper.user_input, random.best_traject, random.highscore)
         vis.visualise(input_files, random.best_traject)
+        # HISTOGRAMMMMM
 
     # ---------------Random + Hill climber---------------------
-    elif helper.user_input == "2":
+    elif helper.user_input == 2:
 
+        # initialize variables
         best_score = 0
         best_traject = None
 
         for i in  range(helper.repeats):
             
+            # run the random algorithm once for each iteration
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
-            random = rd.Randomize(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+            random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
             random.run(1)
 
             # ---------------Hill climber---------------------
+            # run the hill climber for each iteration of the random algorithm
             hillclimber = hc.HillClimber(random, input_files, helper.total_connections)
             hillclimber.run(100)
             print(f"iteration {i} = Highscore: {hillclimber.highscore}")
-
+            
+            # compare the outcomes of the hill climber and save the best outcome
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
@@ -63,70 +67,70 @@ if __name__ == "__main__":
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
     # ---------------Random greedy---------------------
-
-    elif helper.user_input == "3":
+    elif helper.user_input == 3:
        
-        greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+        # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
+
+        # run the random greedy algorithm
+        greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
         greedy.run(helper.repeats, min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
         
-        a_file = open("output.csv", "w", newline='')
-        a_dict = greedy.best_traject
-        writer = csv.writer(a_file)
-        writer.writerow(['train', 'stations'])
-        for key, value in a_dict.items():
-            new = "[%s]" % (', '.join(value))
-            writer.writerow([f'train_{key}', new])
-        writer.writerow(['score', f'{greedy.highscore}'])
-        a_file.close()
-
-        a_file = open("output/Greedyscore.csv", "w", newline='')
-        writer = csv.writer(a_file)
-        for score in greedy.score_list:
-            writer.writerow([score])
-        a_file.close()
+        # create the output files: optimal solution and list of scores, and visualisation
+        helper.output(greedy.score_list, helper.map_size, helper.user_input, greedy.best_traject, greedy.highscore)
         vis.visualise(input_files, greedy.best_traject)
+        # HISTOGRAMMM
     
     # ---------------Random greedy + Hill climber---------------------
 
-    elif helper.user_input == "4":
+    elif helper.user_input == 4:
        
+        # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         min_max = input("Would you like to run min or max?:")
 
+        # initialize variables
         best_score = 0
         best_traject = None
 
         for i in range(helper.repeats):
             
+            # run the random greedy algorithm once for each iteration
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
             greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
             greedy.run(1, min_max)
 
             # ---------------Hill climber---------------------
+            # run the hill climber for each iteration of the random algorithm
             hillclimber = hc.HillClimber(greedy, input_files, helper.total_connections)
             hillclimber.run(100)
             print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
+            # compare the outcomes of the hill climber and save the best outcome
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
 
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
         
-    # ---------------Depthfirst---------------------
+    # ---------------Depth first---------------------
     
-    elif helper.user_input == "5":
-
+    elif helper.user_input == 5:
+        
+        # run the Depth first algorithm
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
         depth.run(helper.repeats, helper.duration)
+        
+        # helper.output(greedy.score_list, helper.map_size, helper.user_input, depth.best_result, depth.best_score)
+        # vis.visualise(input_files, depth.best_result)
+
         print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
 
-     # ---------------Depthfirst + Hill climber---------------------
+     # ---------------Depth first + Hill climber---------------------
     
-    elif helper.user_input == "6":
+    elif helper.user_input == 6:
 
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
         depth.run(helper.repeats, helper.duration)
@@ -135,8 +139,9 @@ if __name__ == "__main__":
     
     # ---------------Breadthfirst---------------------
 
-    elif helper.user_input == "7":
+    elif helper.user_input == 7:
 
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
         print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")
+
