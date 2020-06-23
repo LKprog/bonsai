@@ -33,7 +33,7 @@ class Depthfirst:
         """
         method that gets the next item from the stack.
         """
-        
+
         return stack.pop()
 
     def get_start_stations(self):
@@ -149,8 +149,8 @@ class Depthfirst:
         """
 
         for i in range(num_repeats):
-            if i%10 == 0:
-                print(f"{i}/{num_repeats}")
+            # if i%10 == 0:
+            print(f"{i}/{num_repeats}")
             self.final_solution = {}
             stack = self.get_start_stations()
             start = copy.deepcopy(stack)
@@ -201,7 +201,9 @@ class Depthfirst:
 
         # change the format of the result for later transformation to csv
         count = 1
-        for traject in self.best_result:
+        copy_result = copy.deepcopy(self.best_result)
+        
+        for traject in copy_result:
             self.best_result[traject].remove(self.best_result[traject][0])
             self.best_result[count] = self.best_result.pop(traject)
             count += 1
