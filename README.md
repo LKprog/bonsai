@@ -27,7 +27,7 @@ Where p stands for the fraction of connections used, T equals the amount of rout
 
 
 # Algorithms
-To approach the problem posed in the assignment, we developed several algorithms: Random, Random greedy, Depth first, Breadth first and Hill climber. The Depth first and Breadth first algorithms are constructive algorithms while the Hill climber is an interative algorithms and is used on top on another algorithm such as Random or Random greedy or one of the constructive algorithms. For full details on the algorithms and the heuristics see the [README](https://github.com/LKprog/bonsai/tree/master/code/algorithms) in the /code/algorithms folder.
+To approach the problem posed in the assignment, we developed several algorithms: Random, Random greedy, Depth first, Breadth first and Hill climber. The Depth first and Breadth first algorithms are constructive algorithms while the Hill climber is an interative algorithms and is used on top of another algorithm such as Random or Random greedy or one of the constructive algorithms. For full details on the algorithms and the heuristics see the [README](https://github.com/LKprog/bonsai/tree/master/code/algorithms) in the /code/algorithms folder.
 
 
 # Installation
