@@ -62,8 +62,6 @@ class Visual:
         method that creates a visual representation of the given trajects
         """
 
-        # self.histogram(score_csv)
-
         # load Station data and store the x-coordinates, y-coordinates and the station names in seperate lists.
         merc_y = []
         merc_x = []
@@ -130,3 +128,4 @@ class Visual:
 
         # show the results
         show(p)
+        self.histogram(score_csv)
