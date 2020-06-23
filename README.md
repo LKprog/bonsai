@@ -27,22 +27,20 @@ Where p stands for the fraction of connections used, T equals the amount of rout
 
 
 # Algorithms
-To approach the problem posed in the assignment, we developed several algorithms:
-* Random - algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
-* Random-greedy - algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
-* Depth first - constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch. 
-* Breadth first - constructive algorithm that searches a tree data structure. It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
-* Hill climber - iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
+To approach the problem posed in the assignment, we developed several algorithms: Random, Random greedy, Depth first, Breadth first and Hill climber. The Depth first and Breadth first algorithms are constructive algorithms while the Hill climber is an interative algorithms and is used on top on another algorithm such as Random or Random greedy or one of the constructive algorithms. For full details on the algorithms and the heuristics see the [README](https://github.com/LKprog/bonsai/tree/master/code/algorithms) in the /code/algorithms folder.
 
-## Heuristics
-....
 
 # Installation
 
 ## Set up
-Use pip to install the required packages from requirement.txt
+
+Use pip to install the required packages from requirement.txt:
 ```
 pip3 install -r requirements.txt
+```
+or via conda:
+```
+conda install --file requirements.txt
 ```
 
 ## Usage
@@ -51,7 +49,7 @@ To execute the main script and run the case, run
 python3 main.py
 ```
 
-The user will be prompted to choose between Holland (2 provinces) and the Netherlands. 
+The user will then automatically be prompted to choose between Holland (2 provinces) and the Netherlands. 
 Then, the user can choose the algorithm they want to run and finally, how many iterations.
 
 ## Structure
@@ -62,7 +60,11 @@ In this repository there are several folders with different files that are impor
         /code/classes: contains all three classes necessary for this case
         /code/visualisation: contains the code for the visualisation of the case
     /data: contains all the initial data files in csv format that are necessary to run the code
-    .....
+    /output: contains all the output files in csv format
+        /code/Holland: contains all the solution and score files for each algorithm for Holland
+        /code/Netherlands: contains all the solution and score files for each algorithm for the Netherlands
+
+For an extensive description of the folders, see the README in each folder.
 
 # Authors
 * Willem Henkelman
