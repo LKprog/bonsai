@@ -111,6 +111,7 @@ class Visual:
                     y_list.append(float(new_coord[0]))
 
             color = colors.pop(0)
+            colors.append(color)
             p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
 
         # legend settings
