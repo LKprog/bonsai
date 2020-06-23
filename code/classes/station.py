@@ -1,16 +1,21 @@
 """
- * random.py
+ * station.py
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Code for the station object that saves various properties such as x, y, all connections and unused connections
 """
 
-class Station():
+class Station:
     """
-    station class that loads the stations and its corresponding connections, it also tracks the stations unused connections
+    station class that loads the stations and its corresponding connections, it also tracks the station's unused connections
     """
+    
     def __init__(self, name, x, y):
-        # initialize class
+        """
+        method to initialize the class and its properties
+        """
         self.name = name
         self.x = x
         self.y = y

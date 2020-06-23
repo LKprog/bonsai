@@ -62,6 +62,7 @@ class Depthfirst:
 
                 # pick the trajects with the same start station
                 if traject[1] == start:
+
                     # how long is the traject
                     score = len(traject) - 1
                     self.best_value = 0
@@ -81,8 +82,10 @@ class Depthfirst:
 
             # loops over the solutions in best solution list
             for solution in self.best_solution:
+
                 # pick the trajects with the same start station
                 if solution[1] == start:
+
                     # if the duration is the same as the best time then add to best solution list
                     if solution[0] == self.best_time:
                         self.best_solution.append(solution)
@@ -148,12 +151,14 @@ class Depthfirst:
 
             # while there are still items in the stack
             while len(stack)> 0:
+
                 # get the next start station from the list
                 state= self.get_next_state(stack)
 
                 # if state is a start station
                 if state in start:
                     print(f"New start station: {state}")
+
                     # make a key in the ultimate_solution
                     self.ultimate_solution[state] = []
 
@@ -190,7 +195,6 @@ class Depthfirst:
             if score > self.best_score:
                 self.best_score = score
                 self.best_result = self.ultimate_solution
-        # print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
 
         # change the format of the result for later transformation to csv
         count = 1

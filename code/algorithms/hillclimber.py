@@ -39,7 +39,7 @@ class HillClimber:
 
     def remove_last(self, new_result, random_traject):
         """
-        method that removes the time of the connection which will be replaced
+        method that removes the time of the last connection which will be replaced
         """
 
         last_connection = new_result.best_traject[random_traject][-1]
@@ -50,7 +50,7 @@ class HillClimber:
 
     def remove_first(self, new_result, random_traject):
         """
-        method that removes the time of the connection which will be replaced
+        method that removes the time of the start connection which will be replaced
         """
         
         first_connection = new_result.best_traject[random_traject][0]
@@ -145,10 +145,10 @@ class HillClimber:
                     # if there is a connection with the next_station
                     if next_station == connection[0]:
                         
-                        # remove the connection
+                        # remove the connection from unused connection list
                         self.map.stations[station].unused_connections.remove(connection)
                        
-                        # remove the reversed connection
+                        # remove the reversed connection from unused connection list
                         for reversed_connection in self.map.stations[connection[0]].unused_connections:
                             
                             if reversed_connection[0] == station:
