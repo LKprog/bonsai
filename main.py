@@ -119,8 +119,8 @@ if __name__ == "__main__":
 
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
-        helper.output(hillclimber.score_list, helper.map_size, helper.user_input, hillclimber.best_traject, hillclimber.best_score)
-        vis.visualise(input_files, hillclimber.best_traject)
+        helper.output(hillclimber.score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
+        Visual.visualise(input_files, best_traject)
         
     # ---------------Depth first---------------------
     
@@ -130,8 +130,8 @@ if __name__ == "__main__":
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
         depth.run(helper.repeats, helper.duration)
         
-        # helper.output(greedy.score_list, helper.map_size, helper.user_input, depth.best_result, depth.best_score)
-        # vis.visualise(input_files, depth.best_result)
+        helper.output(depth.score_list, helper.map_size, helper.user_algorithm, depth.best_result, depth.best_score)
+        Visual.visualise(input_files, depth.best_result)
 
         print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
 
@@ -150,5 +150,8 @@ if __name__ == "__main__":
 
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
+
+        helper.output(breadth.score_list, helper.map_size, helper.user_algorithm, breadth.best_result, breadth.best_score)
+        Visual.visualise(input_files, depth.best_result)
         print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")
 

@@ -23,6 +23,7 @@ class Depthfirst:
         self.best_solution = []
         self.ultimate_solution = {}
         self.total_connections = total_connections
+        self.score_list = []
 
         self.amount_trajects = amount_trajects
         self.best_score = 0
@@ -183,9 +184,15 @@ class Depthfirst:
             # check the solution
             self.check_solution()
             score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
+            self.score_list.append(score)
             print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
 
             if score > self.best_score:
                 self.best_score = score
+                count = 1
+                for traject in self.ultimate_solution:
+                    self.ultimate_solution[traject].remove(self.ultimate_solution[traject][0])
+                    self.ultimate_solution[count] = self.ultimate_solution.pop(traject)
+                    count += 1
                 self.best_result = self.ultimate_solution
         # print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
