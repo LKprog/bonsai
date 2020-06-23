@@ -61,7 +61,8 @@ class Helpers:
         while True:
             try:
                 self.repeats = int(input("How many times would you like to run the algorithm? We recommend running at least x times for an accurate score.\n"))
-                break
+                if self.repeats != 0:
+                    break
             except:
                 print("Input not valid, try again")
 
