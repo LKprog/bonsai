@@ -149,7 +149,7 @@ class Depthfirst:
         """
 
         for i in range(num_repeats):
-            # if i%10 == 0:
+            # initializing variables
             print(f"{i}/{num_repeats}")
             self.final_solution = {}
             stack = self.get_start_stations()
