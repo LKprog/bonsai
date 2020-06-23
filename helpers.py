@@ -28,6 +28,7 @@ class Helpers:
         self.total_connections = 0
         self.repeats = 0
         self.start_stations = 0
+        self.min_max = ""
         self.size = ""
         self.algorithm = ""
         self.score_csv = ""
@@ -41,30 +42,20 @@ class Helpers:
         print("Welcome to our case RailNL, where we try to increase the efficiency and the quality of the rail network of the Netherlands.")
 
         # force the user to decide between the map of Holland or the Netherlands
+        print("Please press the button of the map that should be used:")
         while True:
-            print("Please press the button of the map that should be used:")
-            try:
-                self.map_size = int(input("1 : Holland\n2 : Netherlands\n"))
-                if self.map_size != 1 and self.map_size != 2:
-                    print("Input not valid, try again")
-                else:
-                    break
-            except:
-                print("Input not valid, try again")
+            self.map_size = int(input("1 : Holland\n2 : Netherlands\n"))
+            if self.map_size == 1 or self.map_size == 2:
+                break
+            print("Input not valid, try again")
 
         # force the user to decide on an algorithm
+        print("\nPlease select which algorithm you would like to use:")
         while True:
-            print("\nPlease select which algorithm you would like to use:")
-            try:
-                self.user_algorithm = int(input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Breadth first\n"))
-                if self.user_algorithm < 1 or self.user_algorithm > 7:
-                    print("Input not valid, try again")
-                else:
-                    break
-            except:
-                print("Input not valid, try again")
-
-
+            self.user_algorithm = int(input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Breadth first\n"))
+            if self.user_algorithm > 0 and self.user_algorithm < 7:
+                break
+            print("Input not valid, try again")
 
         # force the user to decide on the amount of times they want to run the algorithm
         while True:
@@ -83,7 +74,6 @@ class Helpers:
             self.total_connections = 56
             self.start_stations = 3
 
-
         elif self.map_size == 2:
             self.stations_data_file = "data/StationsNationaal.csv"
             self.connections_data_file = "data/ConnectiesNationaal.csv"
@@ -91,6 +81,15 @@ class Helpers:
             self.max_num_trajects = 20
             self.total_connections = 178
             self.start_stations = 5
+    
+    def ask_greedy(self):
+        print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
+        while True:
+            self.min_max = input("Would you like to run min or max?:").lower()
+            if self.min_max == "min" or self.min_max == "max":
+                break
+            print("Input not valid, try again")
+
 
     def combination(self, map_size, user_algorithm):
         """
