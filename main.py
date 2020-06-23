@@ -46,7 +46,7 @@ if __name__ == "__main__":
         best_score = 0
         best_traject = None
 
-        for i in  range(helper.repeats):
+        for i in range(helper.repeats):
             
             # run the random algorithm once for each iteration
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
@@ -63,8 +63,11 @@ if __name__ == "__main__":
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
-
+        
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
+
+        helper.output(hillclimber.score_list, helper.map_size, helper.user_input, best_traject, best_score)
+        vis.visualise(input_files, best_traject)
 
     # ---------------Random greedy---------------------
     elif helper.user_input == 3:
@@ -114,6 +117,9 @@ if __name__ == "__main__":
                 best_traject = hillclimber.hillclimber_solution
 
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
+
+        helper.output(hillclimber.score_list, helper.map_size, helper.user_input, hillclimber.best_traject, hillclimber.best_score)
+        vis.visualise(input_files, hillclimber.best_traject)
         
     # ---------------Depth first---------------------
     

@@ -18,9 +18,11 @@ class HillClimber:
         # initialize class
         self.solution = copy.deepcopy(solution)
         self.highscore = solution.highscore
-        self.hillclimber_solution = {}
-        self.map = map
+        self.hillclimber_solution = solution.best_traject
+        self.map = copy.deepcopy(map)
+        self.copy = copy.deepcopy(map)
         self.total_connections = total_connections
+        self.score_list = []
 
     def get_connections_secondtolast(self, new_result, random_traject):
         """
@@ -155,9 +157,9 @@ class HillClimber:
 
         # check if there are stations left with unused connections (if empty -> P=1)
         list_with_unused = []
-        
+
         for station in self.map.stations:
-            
+
             if self.map.stations[station].unused_connections:
                 list_with_unused.append(station)
 
@@ -165,12 +167,13 @@ class HillClimber:
         count = 0
         
         for station in list_with_unused:
-            
+
             for connection in self.map.stations[station].unused_connections:
                 count += 1
 
-        # calculates the score of the traject        
-        new_score = self.objectivefunction(count, new_result.best_traject, new_result.complete_duration)
+        # calculates the score of the traject     
+        new_score = self.objectivefunction(count, list(new_result.best_traject), new_result.complete_duration)
+        self.score_list.append(new_score)
 
         # checks if the new score is higher than the highscore, if so then changes the highscore
         if new_score > self.highscore:
@@ -187,6 +190,7 @@ class HillClimber:
 
         # runs the algorithm and tracks the score
         for iteration in range(iterations):
+            self.map = copy.deepcopy(self.copy)
             new_result = copy.deepcopy(self.solution)
             self.mutate_last_connection(new_result)
             self.mutate_first_connection(new_result)
