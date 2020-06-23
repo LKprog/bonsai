@@ -41,11 +41,6 @@ Use pip to install the required packages from requirement.txt:
 pip3 install -r requirements.txt
 ```
 
-and install extra for matplotlib:
-```
-python -m pip install -U matplotlib
-```
-
 ## Usage
 To execute the main script and run the case:
 ```
