@@ -21,7 +21,7 @@ class Depthfirst:
         self.best_time = float('inf')
         self.solution_list = []
         self.best_solution = []
-        self.ultimate_solution = {}
+        self.final_solution = {}
         self.total_connections = total_connections
         self.score_list = []
 
@@ -55,7 +55,7 @@ class Depthfirst:
         """
 
         # for every start station
-        for start in list(self.ultimate_solution):
+        for start in list(self.final_solution):
 
             # loop over the trajects
             for traject in self.solution_list:
@@ -97,8 +97,8 @@ class Depthfirst:
                         self.best_solution = []
                         self.best_solution.append(solution)
 
-            # Add the solutions to the ultimate solution dictionary
-            self.ultimate_solution[start] = self.best_solution[0]
+            # Add the solutions to the final_solution dictionary
+            self.final_solution[start] = self.best_solution[0]
 
     def calculate_p(self):
         """
@@ -108,8 +108,8 @@ class Depthfirst:
         count = 0
 
         # count all unique connections made in the solution
-        for traject in self.ultimate_solution:
-            station = self.ultimate_solution[traject]
+        for traject in self.final_solution:
+            station = self.final_solution[traject]
             for i in range(len(station)):
                 if i == 0 or i == (len(station) - 1):
                     continue
@@ -125,8 +125,8 @@ class Depthfirst:
         method that calculates the total duration of all routes together.
         """
         total_min = 0
-        for traject in self.ultimate_solution:
-            total_min += self.ultimate_solution[traject][0]
+        for traject in self.final_solution:
+            total_min += self.final_solution[traject][0]
         return total_min
 
     def objectivefunction(self, P, T, Min):
@@ -146,7 +146,7 @@ class Depthfirst:
         for i in range(num_repeats):
             if i%10 == 0:
                 print(f"{i}/{num_repeats}")
-            self.ultimate_solution = {}
+            self.final_solution = {}
             stack = self.get_start_stations()
             start = copy.deepcopy(stack)
 
@@ -158,8 +158,8 @@ class Depthfirst:
 
                 # if state is a start station
                 if state in start:
-                    # make a key in the ultimate_solution
-                    self.ultimate_solution[state] = []
+                    # make a key in the final_solution
+                    self.final_solution[state] = []
 
                     # for every connection from the start station, make a new child
                     for connection in self.map.stations[state].connections:
@@ -187,12 +187,12 @@ class Depthfirst:
 
             # check the solution
             self.check_solution()
-            score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
+            score = self.objectivefunction(self.calculate_p(), self.final_solution , self.calculate_min())
             self.score_list.append(score)
 
             if score > self.best_score:
                 self.best_score = score
-                self.best_result = self.ultimate_solution
+                self.best_result = self.final_solution
 
         # change the format of the result for later transformation to csv
         count = 1

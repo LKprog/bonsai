@@ -73,10 +73,6 @@ class Helpers:
                 break
             except:
                 print("Input not valid, try again")
-            # if not self.repeats:
-            #     print("Input not valid, try again")
-            # else:
-            #     break
 
         # depending on the choice for the map, set the values for the variables
         if self.map_size == 1:
