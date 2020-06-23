@@ -60,7 +60,7 @@ class Helpers:
         # force the user to decide on the amount of times they want to run the algorithm
         while True:
             try:
-                self.repeats = int(input("How many times would you like to run the algorithm? We recommend running at least x times for an accurate score.\n"))
+                self.repeats = int(input("How many times would you like to run the algorithm?\n"))
                 if self.repeats != 0:
                     break
             except:
@@ -82,7 +82,7 @@ class Helpers:
             self.max_num_trajects = 20
             self.total_connections = 178
             self.start_stations = 5
-    
+
     def ask_greedy(self):
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         while True:
