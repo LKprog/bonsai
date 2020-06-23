@@ -51,7 +51,7 @@ class Visual:
 
             # use matplotlib functionality for creating a histogram
             x = np.array(data)
-            plt.hist(x, bins=200)
+            plt.hist(x, bins=100)
             plt.ylabel('Frequency')
             plt.xlabel('Score objectivefunction (quality)')
             plt.show()
