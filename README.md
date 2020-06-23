@@ -34,7 +34,7 @@ To approach the problem posed in the assignment, we developed several algorithms
 
 ## Set up
 
-We recommend using “Git Bash” on Windows or the “Terminal” on macOS or Linux to run the codes. NOt using either of these may result in no visual output.
+We recommend using “Git Bash” on Windows or the “Terminal” on macOS or Linux to run the codes. Not using either of these may result in no visual output.
 
 Use pip to install the required packages from requirement.txt:
 ```
@@ -55,7 +55,7 @@ python3 main.py
 The user will then automatically be prompted to choose between Holland (2 provinces) and the Netherlands. 
 Then, the user can choose the algorithm they want to run and finally, how many iterations.
 
-If you dit not use “Git Bash” on Windows or the “Terminal” on macOS or Linux, the color_scatter.html doesn't open automatically. If this is the case, you should right click on the html file and select "Reveal in File Explorer". The computer should open an explorer screen where the html is located. When you double tap the html file, it will open in a new browser tab. The histogram of all the K scores will not appear either.
+If you did not use “Git Bash” on Windows or the “Terminal” on macOS or Linux, the color_scatter.html doesn't open automatically. If this is the case, you should right click on the html file and select "Reveal in File Explorer". The computer should open an explorer screen where the html is located. When you double tap the html file, it will open in a new browser tab. The histogram of all the K scores will not appear either.
 
 ## Structure
 In this repository there are several folders with different files that are imported by main.py. The following list describes the different folders and files:
