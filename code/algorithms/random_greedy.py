@@ -4,7 +4,8 @@
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
- * Algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
+ * Algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached 
+ * and/or all connections are used.
 """
 
 import copy

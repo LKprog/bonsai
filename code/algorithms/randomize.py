@@ -4,7 +4,8 @@
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
- * Algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
+ * Algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached 
+ * and/or all connections are used.
 """
 
 import copy
@@ -101,7 +102,6 @@ class Random():
 
         self.traject_id += 1
 
-
     def objectivefunction(self, P, T, Min):
         """
         method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
@@ -112,7 +112,6 @@ class Random():
         K = P * 10000 - (T * 100 + Min)
         return K
 
-
     def best_score(self, score, full_traject, complete_duration):
         """
         method that saves the highest quality score and it's corresponding train routes and the duration
@@ -122,7 +121,6 @@ class Random():
             self.highscore = score
             self.best_traject = full_traject
             self.complete_duration = complete_duration
-
 
     def run(self, num_repeats):
         """

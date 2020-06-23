@@ -3,10 +3,13 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Constructive algorithm that searches a tree data structure. 
+ * It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
 """
+
 import copy
 import random
-
 
 class Depthfirst:
     """
@@ -14,7 +17,9 @@ class Depthfirst:
     """
 
     def __init__(self, map, total_connections, amount_trajects):
-        # initialize class
+        """
+        class that initializes the class and it corresponding variables
+        """
         self.map = copy.deepcopy(map)
         self.stations_list = [copy.deepcopy(self.map.stations)]
         self.best_value = 0
@@ -24,7 +29,6 @@ class Depthfirst:
         self.final_solution = {}
         self.total_connections = total_connections
         self.score_list = []
-
         self.amount_trajects = amount_trajects
         self.best_score = 0
         self.best_result = None
@@ -38,7 +42,7 @@ class Depthfirst:
 
     def get_start_stations(self):
         """
-        method that sets a random station to start the new traject from.
+        method that sets a random station to start the new traject from
         """
 
         start_stations = []
@@ -49,7 +53,6 @@ class Depthfirst:
                 start_stations.append(start)
                 count += 1
         return start_stations
-
 
     def check_solution(self):
         """

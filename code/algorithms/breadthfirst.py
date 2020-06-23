@@ -5,7 +5,7 @@
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
  *
  * Constructive algorithm that searches a tree data structure. 
- * It starts at the root node and first explores all the nodes in the first depth before continuing to next depth
+ * It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
 """
 
 from .depthfirst import Depthfirst

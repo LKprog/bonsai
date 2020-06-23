@@ -19,6 +19,7 @@ class Helpers:
         """
         method to initialize the variables for the class Helpers and that are necessary to run main
         """
+
         self.map_size = 0
         self.user_algorithm = 0
         self.stations_data_file = ""
@@ -37,6 +38,7 @@ class Helpers:
         """
         method to ask input from the user such as which region and which algorithm and sets values for the variables according to the choices
         """
+
         # Welcome the user to the case
         print("Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL \nContributors: Daphne Westerdijk, Lieke Kollen and Willem Henkelman\n")
         print("Welcome to our case RailNL, where we try to increase the efficiency and the quality of the rail network of the Netherlands.")
@@ -84,6 +86,9 @@ class Helpers:
             self.start_stations = 5
 
     def ask_greedy(self):
+        """
+        method to ask an additional question if the user selects the Random greedy algorithm and has to decide between the shortest or longest duration version
+        """
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         while True:
             self.min_max = input("Would you like to run min or max?:").lower()
@@ -91,11 +96,11 @@ class Helpers:
                 break
             print("Input not valid, try again")
 
-
     def combination(self, map_size, user_algorithm):
         """
         method that translates the numbers of the variables map_size and user_algorithm to names
         """
+        
         # translating the map_size
         if map_size == 1:
             self.size = "Holland"
@@ -128,6 +133,7 @@ class Helpers:
         """
         method to create output files for all the scores and the best solution
         """
+
         # call the translating method
         self.combination(map_size, user_algorithm)
 

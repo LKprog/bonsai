@@ -20,6 +20,8 @@ if __name__ == "__main__":
     # initialize the user interface
     helper = Helpers()
     helper.ask_input()
+
+    # initialize the map and visualisation methods
     vis = Visual()
     input_files = Map(helper.stations_data_file, helper.connections_data_file)
 
@@ -31,12 +33,11 @@ if __name__ == "__main__":
         # run the random algorithm
         random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
         random.run(helper.repeats)
-        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+        print(f"Highscore: {random.highscore}, Solution: {random.best_traject}")
 
         # create the output files: optimal solution and list of scores, and visualisation
         helper.output(random.score_list, helper.map_size, helper.user_algorithm, random.best_traject, random.highscore)
         vis.visualise(input_files, random.best_traject, helper.score_csv)
-
 
     # ---------------Random + Hill climber---------------------
     elif helper.user_algorithm == 2:
@@ -66,8 +67,9 @@ if __name__ == "__main__":
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
 
-        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
+        print(f"Highscore: {best_score}, Solution: {best_traject}")
 
+        # create the output files: optimal solution and list of scores, and visualisation
         helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
         vis.visualise(input_files, best_traject, helper.score_csv)
 
@@ -80,7 +82,8 @@ if __name__ == "__main__":
         # run the random greedy algorithm
         greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
         greedy.run(helper.repeats, helper.min_max)
-        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
+
+        print(f"Highscore: {greedy.highscore}, Solution: {greedy.best_traject}")
 
         # create the output files: optimal solution and list of scores, and visualisation
         helper.output(greedy.score_list, helper.map_size, helper.user_algorithm, greedy.best_traject, greedy.highscore)
@@ -117,8 +120,9 @@ if __name__ == "__main__":
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
 
-        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
+        print(f"Highscore: {best_score}, Solution: {best_traject}")
 
+        # create the output files: optimal solution and list of scores, and visualisation
         helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
         vis.visualise(input_files, best_traject, helper.score_csv)
 
@@ -129,17 +133,25 @@ if __name__ == "__main__":
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
         depth.run(helper.repeats, helper.duration)
 
+        print(f"highscore: {depth.best_score}, Solution: {depth.best_result}")
+
+        # create the output files: optimal solution and list of scores, and visualisation
         helper.output(depth.score_list, helper.map_size, helper.user_algorithm, depth.best_result, depth.best_score)
-        print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
         vis.visualise(input_files, depth.best_result, helper.score_csv)
 
+<<<<<<< HEAD
 
     # ---------------Breadthfirst---------------------
+=======
+    # ---------------Breadth first---------------------
+>>>>>>> b56f25051f25ed68062e6c04555b566dc8ce81d1
     elif helper.user_algorithm == 6:
         # run the Breadth first algorithm
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
 
+        print(f"Highscore: {breadth.best_score}, Solution: {breadth.best_result}")
+
+        # create the output files: optimal solution and list of scores, and visualisation
         helper.output(breadth.score_list, helper.map_size, helper.user_algorithm, breadth.best_result, breadth.best_score)
-        print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")
         vis.visualise(input_files, breadth.best_result, helper.score_csv)
