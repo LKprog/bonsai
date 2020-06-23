@@ -78,7 +78,11 @@ if __name__ == "__main__":
 
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
-        min_max = input("Would you like to run min or max?:")
+        while True:
+            min_max = input("Would you like to run min or max?:").lower()
+            if min_max == "min" or min_max == "max":
+                break
+            print("Input not valid, try again")
 
         # run the random greedy algorithm
         greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
@@ -95,7 +99,11 @@ if __name__ == "__main__":
 
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
-        min_max = input("Would you like to run min or max?:")
+        while True:
+            min_max = input("Would you like to run min or max?:").lower()
+            if min_max == "min" or min_max == "max":
+                break
+            print("Input not valid, try again")
 
         # initialize variables
         best_score = 0

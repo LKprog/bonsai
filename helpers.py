@@ -43,28 +43,40 @@ class Helpers:
         # force the user to decide between the map of Holland or the Netherlands
         while True:
             print("Please press the button of the map that should be used:")
-            self.map_size = int(input("1 : Holland\n2 : Netherlands\n"))
-            if self.map_size != 1 and self.map_size != 2:
+            try:
+                self.map_size = int(input("1 : Holland\n2 : Netherlands\n"))
+                if self.map_size != 1 and self.map_size != 2:
+                    print("Input not valid, try again")
+                else:
+                    break
+            except:
                 print("Input not valid, try again")
-            else:
-                break
 
         # force the user to decide on an algorithm
         while True:
             print("\nPlease select which algorithm you would like to use:")
-            self.user_algorithm = int(input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Breadth first\n"))
-            if self.user_algorithm < 1 or self.user_algorithm > 7:
+            try:
+                self.user_algorithm = int(input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Breadth first\n"))
+                if self.user_algorithm < 1 or self.user_algorithm > 7:
+                    print("Input not valid, try again")
+                else:
+                    break
+            except:
                 print("Input not valid, try again")
-            else:
-                break
+
+
 
         # force the user to decide on the amount of times they want to run the algorithm
         while True:
-            self.repeats = int(input("How many times would you like to run the algorithm? We recommend running at least x times for an accurate score.\n"))
-            if not self.repeats:
-                print("Input not valid, try again")
-            else:
+            try:
+                self.repeats = int(input("How many times would you like to run the algorithm? We recommend running at least x times for an accurate score.\n"))
                 break
+            except:
+                print("Input not valid, try again")
+            # if not self.repeats:
+            #     print("Input not valid, try again")
+            # else:
+            #     break
 
         # depending on the choice for the map, set the values for the variables
         if self.map_size == 1:
