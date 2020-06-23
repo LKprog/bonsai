@@ -1,122 +1,160 @@
 """
- * visualise.py
+ * main.py
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Main code of the RailNL case, .....
 """
 
-import numpy as np
-import csv
-import sys
-import random
-# import pandas as pd
-import matplotlib.pyplot as plt
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource, Label, LabelSet
-from bokeh.tile_providers import CARTODBPOSITRON, get_provider
-# from bokeh.charts import Histogram
-from ..classes.station import Station
-from pyproj import Proj, transform
-
-class Visual:
-    # converts longitude and latitude into mercator coordinates
-    def create_coordinates(self, long_arg, lat_arg):
-        """
-        method that converts a given longitude and latitude into mercator coordinates
-        """
-
-        in_wgs = Proj('epsg:4326')
-        out_mercator = Proj('epsg:3857')
-        long, lat = long_arg, lat_arg
-        mercator_x, mercator_y = transform(in_wgs, out_mercator, long, lat)
-        return mercator_x, mercator_y
+import random, csv
+from helpers import Helpers
+from code.classes.map import Map
+from code.classes.station import Station
+from code.classes.traject import Traject
+from code.visualisation.visualise import Visual
+from code.algorithms import randomize as rd, random_greedy as gr, hillclimber as hc, depthfirst as df, breadthfirst as bf
 
 
-    def histogram(score_csv):
-        with open(score_csv, 'r') as input_file:
-            reader = csv.reader(input_file)
-        # print(reader)
-        data = []
-        for row in reader:
-            data.append(int(row[0]))
 
-        x = np.array(data)
-        plt.hist(x, bins=200)
-        plt.ylabel('Frequency')
-        plt.xlabel('Score')
-        plt.show()
+if __name__ == "__main__":
 
-    # creates a visual representation of the given map and the routes created by any of the algorithms
-    def visualise(self, map, trajects, score_csv):
-        """
-        method that creates a visual representation of the given trajects
-        """
+    # initialize the user interface
+    helper = Helpers()
+    helper.ask_input()
+    
+    input_files = Map(helper.stations_data_file, helper.connections_data_file)
 
-        self.histogram(score_csv)
+# ---------------Algoritms---------------------
 
-        # load Station data
-        merc_y = []
-        merc_x = []
-        stations = []
+    # ---------------Random--------------------
+    if helper.user_algorithm == 1:
+        
+        # run the random algorithm
+        random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+        random.run(helper.repeats)
+        print(f"Highscore: {random.highscore}, Duration: {random.complete_duration} Traject: {random.best_traject}")
+        
+        # create the output files: optimal solution and list of scores, and visualisation
+        helper.output(random.score_list, helper.map_size, helper.user_algorithm, random.best_traject, random.highscore)
+        Visual.visualise(input_files, random.best_traject, helper.score_csv)
+        # Visual.histogram(helper.score_csv)
 
-        for station in map.stations:
-            stations.append(map.stations[station].name)
-            new_coord = self.create_coordinates(float(map.stations[station].x), float(map.stations[station].y))
-            merc_y.append(float(new_coord[1]))
-            merc_x.append(float(new_coord[0]))
+    # ---------------Random + Hill climber---------------------
+    elif helper.user_algorithm == 2:
 
-        longitude = np.array(merc_y)
-        latitude = np.array(merc_x)
-        N = 4000
+        # initialize variables
+        best_score = 0
+        best_traject = None
+        score_list = []
 
-        # save data in a variable for later use
-        source = ColumnDataSource(data=dict(latitude=latitude, longitude=longitude, stations=stations))
+        for i in range(helper.repeats):
+            
+            # run the random algorithm once for each iteration
+            input_files = Map(helper.stations_data_file, helper.connections_data_file)
+            random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+            random.run(1)
 
-        # output to html-file
-        output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
+            # ---------------Hill climber---------------------
+            # run the hill climber for each iteration of the random algorithm
+            hillclimber = hc.HillClimber(random, input_files, helper.total_connections)
+            hillclimber.run(100)
+            print(f"iteration {i} = Highscore: {hillclimber.highscore}")
+            
+            # compare the outcomes of the hill climber and save the best outcome
+            score_list.append(hillclimber.highscore)
+            if hillclimber.highscore > best_score:
+                best_score = hillclimber.highscore
+                best_traject = hillclimber.hillclimber_solution
+        
+        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
-        # retrieves a map which serves as a background for the plot.
-        tile_provider = get_provider(CARTODBPOSITRON)
+        helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
+        vis.visualise(input_files, best_traject)
 
-        # create a new plot with the specified tools, and explicit ranges
-        TOOLS = "pan,wheel_zoom,box_zoom,reset,box_select,lasso_select"
-        p = figure(x_range=(400000, 500000), y_range=(6700000, 7000000),
-            x_axis_type="mercator", y_axis_type="mercator")
-        font = 1
+    # ---------------Random greedy---------------------
+    elif helper.user_algorithm == 3:
+       
+        # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
+        print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
+        min_max = input("Would you like to run min or max?:")
 
-        # adds the background to the plot
-        p.add_tile(tile_provider)
+        # run the random greedy algorithm
+        greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+        greedy.run(helper.repeats, min_max)
+        print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
+        
+        # create the output files: optimal solution and list of scores, and visualisation
+        helper.output(greedy.score_list, helper.map_size, helper.user_algorithm, greedy.best_traject, greedy.highscore)
+        vis.visualise(input_files, greedy.best_traject)
+        # HISTOGRAMMM
+    
+    # ---------------Random greedy + Hill climber---------------------
 
-        # creates a line, representing a traject for each of the given trajects
-        colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
+    elif helper.user_algorithm == 4:
+       
+        # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
+        print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
+        min_max = input("Would you like to run min or max?:")
 
-        for values in trajects.values():
-            x_list = []
-            y_list = []
+        # initialize variables
+        best_score = 0
+        best_traject = None
+        score_list = []
 
-            for value in values:
+        for i in range(helper.repeats):
+            
+            # run the random greedy algorithm once for each iteration
+            input_files = Map(helper.stations_data_file, helper.connections_data_file)
+            greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
+            greedy.run(1, min_max)
 
-                if value in map.stations:
-                    new_coord = self.create_coordinates(float(map.stations[value].x), float(map.stations[value].y))
-                    x_list.append(float(new_coord[1]))
-                    y_list.append(float(new_coord[0]))
+            # ---------------Hill climber---------------------
+            # run the hill climber for each iteration of the random algorithm
+            hillclimber = hc.HillClimber(greedy, input_files, helper.total_connections)
+            hillclimber.run(100)
+            print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
-            color = colors.pop(0)
-            p.line(y_list, x_list, line_width=2, color=color, legend_label=f"{values[0]} || {values[-1]}")
+            # compare the outcomes of the hill climber and save the best outcome
+            score_list.append(hillclimber.highscore)
+            if hillclimber.highscore > best_score:
+                best_score = hillclimber.highscore
+                best_traject = hillclimber.hillclimber_solution
 
-        # legend settings
-        p.legend.location = 'top_left'
-        p.legend.click_policy="hide"
+        print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
-        # add a circle for each of the stations in the given map
-        p.circle(latitude, longitude)
+        helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
+        Visual.visualise(input_files, best_traject)
+        
+    # ---------------Depth first---------------------
+    
+    elif helper.user_algorithm == 5:
+        
+        # run the Depth first algorithm
+        depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
+        depth.run(helper.repeats, helper.duration)
+        
+        helper.output(depth.score_list, helper.map_size, helper.user_algorithm, depth.best_result, depth.best_score)
+        Visual.visualise(input_files, depth.best_result)
 
-        # adds name-labels to the circles
-        labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
-                    x_offset=5, y_offset=5, source=source, render_mode='canvas')
-        p.add_layout(labels)
+        print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
 
-        # df = pd.read_csv()
+    # # ---------------Depth first + Hill climber---------------------
+    
+    # elif helper.user_algorithm == 6:
 
-        # show the results
-        show(p)
+    #     depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
+    #     depth.run(helper.repeats, helper.duration)
+
+    #     # ---------------Hill climber---------------------
+    
+    # ---------------Breadthfirst---------------------
+
+    elif helper.user_algorithm == 7:
+
+        breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
+        breadth.run(helper.repeats, helper.duration)
+
+        helper.output(breadth.score_list, helper.map_size, helper.user_algorithm, breadth.best_result, breadth.best_score)
+        Visual.visualise(input_files, depth.best_result)
+        print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")

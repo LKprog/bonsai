@@ -110,7 +110,7 @@ if __name__ == "__main__":
             # run the hill climber for each iteration of the random algorithm
             hillclimber = hc.HillClimber(greedy, input_files, helper.total_connections)
             hillclimber.run(100)
-            print(f"iteration {i} = Highscore: {hillclimber.highscore}")
+            # print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
             # compare the outcomes of the hill climber and save the best outcome
             if hillclimber.highscore > best_score:
