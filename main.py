@@ -27,7 +27,7 @@ if __name__ == "__main__":
 # ---------------Algoritms---------------------
 
     # ---------------Random--------------------
-    if helper.user_input == "1":
+    if helper.user_input == 1:
         
         # run the random algorithm
         random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         # HISTOGRAMMMMM
 
     # ---------------Random + Hill climber---------------------
-    elif helper.user_input == "2":
+    elif helper.user_input == 2:
 
         # initialize variables
         best_score = 0
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
     # ---------------Random greedy---------------------
-    elif helper.user_input == "3":
+    elif helper.user_input == 3:
        
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     
     # ---------------Random greedy + Hill climber---------------------
 
-    elif helper.user_input == "4":
+    elif helper.user_input == 4:
        
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
@@ -117,7 +117,7 @@ if __name__ == "__main__":
         
     # ---------------Depth first---------------------
     
-    elif helper.user_input == "5":
+    elif helper.user_input == 5:
         
         # run the Depth first algorithm
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
      # ---------------Depth first + Hill climber---------------------
     
-    elif helper.user_input == "6":
+    elif helper.user_input == 6:
 
         depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
         depth.run(helper.repeats, helper.duration)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     
     # ---------------Breadthfirst---------------------
 
-    elif helper.user_input == "7":
+    elif helper.user_input == 7:
 
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)

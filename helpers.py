@@ -16,12 +16,12 @@ class Helpers:
 
     def __init__(self):
         """
-        
+        method to initialize the variables for the class Helpers and that are necessary to run main
         """
-        self.map_size = 1
-        self.user_input = 1
-        self.stations_data_file = "data/StationsHolland.csv"
-        self.connections_data_file = "data/ConnectiesHolland.csv"
+        self.map_size = 0
+        self.user_input = 0
+        self.stations_data_file = ""
+        self.connections_data_file = ""
         self.duration = 0
         self.max_num_trajects = 0
         self.total_connections = 0
@@ -31,16 +31,32 @@ class Helpers:
         self.algorithm = ""
 
     def ask_input(self):
+        """
+        method to 
+        """
         print("Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL \nContributors: Daphne Westerdijk, Lieke Kollen and Willem Henkelman\n")
-        print("Welcome to our case RailNL, where we try to increase the efficiency and the quality of the rail network of the Netherlands. \nPlease press the button of the map that should be used:")
-        # assert self.map_size == 1 or self.map_size == 2
-        self.map_size = input("1 : Holland\n2 : Netherlands\n")
-        print("\nPlease select which algorithm you would like to use:")
-        self.user_input = input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Depth first + Hill climber\n7 : Breadth first\n")
+        print("Welcome to our case RailNL, where we try to increase the efficiency and the quality of the rail network of the Netherlands.")
         
+        while True:
+            print("Please press the button of the map that should be used:")
+            self.map_size = int(input("1 : Holland\n2 : Netherlands\n"))
+            if self.map_size != 1 and self.map_size != 2:
+                print("Input not valid, try again")
+            else:
+                break
+        
+        while True:
+            print("Input not valid, try again")
+            print("\nPlease select which algorithm you would like to use:")
+            self.user_input = int(input("1 : Random\n2 : Random + Hill climber\n3 : Random greedy\n4 : Random greedy + Hill climber\n5 : Depth first\n6 : Depth first + Hill climber\n7 : Breadth first\n"))
+            if self.user_input < 1 and self.user_input > 7:
+                print("Input not valid, try again")
+            else:
+                break
+
         self.repeats = int(input("How many times would you like to run the algorithm? We recommend running at least x times for an accurate score.\n"))
     
-        if self.map_size == "1":
+        if self.map_size == 1:
             self.stations_data_file = "data/StationsHolland.csv"
             self.connections_data_file = "data/ConnectiesHolland.csv"
             self.duration = 120
@@ -49,7 +65,7 @@ class Helpers:
             self.start_stations = 3
             
 
-        elif self.map_size == "2":
+        elif self.map_size == 2:
             self.stations_data_file = "data/StationsNationaal.csv"
             self.connections_data_file = "data/ConnectiesNationaal.csv"
             self.duration = 180
@@ -58,32 +74,39 @@ class Helpers:
             self.start_stations = 5
     
     def combination(self, map_size, user_input):
-        if map_size == "1":
+        """
+
+        """
+
+        if map_size == 1:
             self.size = "Holland"
         
-        elif map_size == "2":
+        elif map_size == 2:
             self.size = "Netherlands"
         
-        if user_input == "1":
+        if user_input == 1:
             self.algorithm = "random"
         
-        elif user_input == "2":
+        elif user_input == 2:
             self.algorithm = "random-hillclimber"
 
-        elif user_input == "3":
+        elif user_input == 3:
             self.algorithm = "greedy"
 
-        elif user_input == "4":
+        elif user_input == 4:
             self.algorithm = "greedy-hillclimber"
 
-        elif user_input == "5":
+        elif user_input == 5:
             self.algorithm = "depthfirst"
         
         return self.size and self.algorithm
 
 
     def output(self, score_list, map_size, user_input, best_traject, highscore):
-        
+        """
+
+        """
+
         self.combination(map_size, user_input)
         
         a_file = open("output/{}/{}-scores.csv".format(self.size, self.algorithm), "w", newline='')
@@ -101,7 +124,4 @@ class Helpers:
             writer.writerow([f'train_{key}', new])
         writer.writerow(['score', f'{highscore}'])
         a_file.close()
-    
-    # def cs50(self, best_traject, map_size, user_input, highscore):
-    #     self.combination(map_size, user_input)
         
