@@ -96,9 +96,10 @@ class Visual:
         # adds the background to the plot
         p.add_tile(tile_provider)
 
-        # creates a line, representing a traject for each of the given trajects
+        # define colors for the different routes
         colors = ['red', 'yellow', 'green', 'black', 'blue', 'orange', 'purple', 'pink', 'lawngreen', 'teal', 'saddlebrown', 'gold', 'magenta', 'silver']
 
+        # creates a line, representing a traject for each of the given trajects
         for values in trajects.values():
             x_list = []
             y_list = []
@@ -129,4 +130,6 @@ class Visual:
 
         # show the results
         show(p)
+
+        # make histogram of the "..-scores.csv"
         self.histogram(score_csv)

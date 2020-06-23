@@ -118,7 +118,6 @@ class HillClimber:
         K = P * 10000 - (T * 100 + Min)
         return K
 
-
     def check_solution(self, new_result):
         """
         method that checks if the new score is better than the previous score
