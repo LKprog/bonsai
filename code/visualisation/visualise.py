@@ -3,6 +3,8 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
+ *
+ * Code used to visualise the results from the algorithms
 """
 
 import numpy as np
@@ -17,6 +19,10 @@ from ..classes.station import Station
 from pyproj import Proj, transform
 
 class Visual:
+    """
+    class that handlees all of the visualisation of the output-data
+    """
+
     # converts longitude and latitude into mercator coordinates
     def create_coordinates(self, long_arg, lat_arg):
         """
@@ -34,6 +40,7 @@ class Visual:
         """
         method that creates a histogram from a csv-file
         """
+
         # retrieve information from csv and store in a list
         with open(score_csv, 'r') as input_file:
             reader = csv.reader(input_file)
@@ -57,7 +64,7 @@ class Visual:
 
         self.histogram(score_csv)
 
-        # load Station data
+        # load Station data and store the x-coordinates, y-coordinates and the station names in seperate lists.
         merc_y = []
         merc_x = []
         stations = []
@@ -68,6 +75,7 @@ class Visual:
             merc_y.append(float(new_coord[1]))
             merc_x.append(float(new_coord[0]))
 
+        # convert x- and y-lists to numpy array so they can be used in bokeh
         longitude = np.array(merc_y)
         latitude = np.array(merc_x)
         N = 4000
@@ -78,7 +86,7 @@ class Visual:
         # output to html-file
         output_file("color_scatter.html", title="color_scatter.py example", mode="cdn")
 
-        # retrieves a map which serves as a background for the plot.
+        # retrieves a map which serves as a background for the plot
         tile_provider = get_provider(CARTODBPOSITRON)
 
         # create a new plot with the specified tools, and explicit ranges
@@ -117,9 +125,8 @@ class Visual:
         # adds name-labels to the circles
         labels = LabelSet(x='latitude', y='longitude', text='stations', text_font_size='5pt', level='glyph',
                     x_offset=5, y_offset=5, source=source, render_mode='canvas')
-        p.add_layout(labels)
 
-        # df = pd.read_csv()
+        p.add_layout(labels)
 
         # show the results
         show(p)

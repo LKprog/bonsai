@@ -120,7 +120,7 @@ class Helpers:
         # call the translating method
         self.combination(map_size, user_algorithm)
         
-        # save the best solution in a csv file per map and algorithm, can ben used for cs50 
+        # save the best solution in a csv file per map and algorithm
         a_file = open("output/{}/{}-solution.csv".format(self.size, self.algorithm), "w", newline='')
         a_dict = best_traject
         writer = csv.writer(a_file)
@@ -141,7 +141,7 @@ class Helpers:
         self.score_csv = "output/{}/{}-scores.csv".format(self.size, self.algorithm)
 
         # overwrite the output.csv, can ben used for cs50 
-        a_file = open("output.csv".format(self.size, self.algorithm), "w", newline='')
+        a_file = open("output.csv", "w", newline='')
         a_dict = best_traject
         writer = csv.writer(a_file)
         writer.writerow(['train', 'stations'])
