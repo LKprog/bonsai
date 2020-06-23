@@ -139,3 +139,14 @@ class Helpers:
         a_file.close()   
     
         self.score_csv = "output/{}/{}-scores.csv".format(self.size, self.algorithm)
+
+        # overwrite the output.csv, can ben used for cs50 
+        a_file = open("output.csv".format(self.size, self.algorithm), "w", newline='')
+        a_dict = best_traject
+        writer = csv.writer(a_file)
+        writer.writerow(['train', 'stations'])
+        for key, value in a_dict.items():
+            new = "[%s]" % (', '.join(value))
+            writer.writerow([f'train_{key}', new])
+        writer.writerow(['score', f'{highscore}'])
+        a_file.close()

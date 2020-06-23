@@ -135,14 +135,14 @@ if __name__ == "__main__":
 
         print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
 
-    # ---------------Depth first + Hill climber---------------------
+    # # ---------------Depth first + Hill climber---------------------
     
-    elif helper.user_algorithm == 6:
+    # elif helper.user_algorithm == 6:
 
-        depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
-        depth.run(helper.repeats, helper.duration)
+    #     depth = df.Depthfirst(input_files, helper.total_connections, helper.start_stations)
+    #     depth.run(helper.repeats, helper.duration)
 
-        # ---------------Hill climber---------------------
+    #     # ---------------Hill climber---------------------
     
     # ---------------Breadthfirst---------------------
 
