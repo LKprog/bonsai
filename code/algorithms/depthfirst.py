@@ -33,12 +33,14 @@ class Depthfirst:
         """
         method that gets the next item from the stack.
         """
+        
         return stack.pop()
 
     def get_start_stations(self):
         """
         method that sets a random station to start the new traject from.
         """
+
         start_stations = []
         count = 0
         while count < self.amount_trajects:
@@ -104,6 +106,7 @@ class Depthfirst:
         """
         method that calculates the fraction of unused connections.
         """
+
         list_connections_used = []
         count = 0
 
@@ -124,6 +127,7 @@ class Depthfirst:
         """
         method that calculates the total duration of all routes together.
         """
+
         total_min = 0
         for traject in self.final_solution:
             total_min += self.final_solution[traject][0]
@@ -143,6 +147,7 @@ class Depthfirst:
         """
         method that runs the depth first algorithm.
         """
+
         for i in range(num_repeats):
             if i%10 == 0:
                 print(f"{i}/{num_repeats}")

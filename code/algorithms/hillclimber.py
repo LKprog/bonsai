@@ -178,8 +178,6 @@ class HillClimber:
         method that runs the hillclimber algorithm {iterations} amount of times
         """
 
-        # print(f'Start score: {self.highscore}')
-
         # runs the algorithm and tracks the score
         for iteration in range(iterations):
             self.map = copy.deepcopy(self.copy)

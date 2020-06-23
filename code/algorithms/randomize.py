@@ -20,6 +20,7 @@ class Random():
         """
         initialize the class and all it's corresponding variables
         """
+        
         self.map = map
         self.duration = duration
         self.max_num_trajects = max_num_trajects + 1
@@ -50,6 +51,7 @@ class Random():
         """
         method that checks whether a connection can be appended to the traject without having the duration get higher than the limit.
         """
+
         # make a list for unused connections that fall within the remaining duration
         self.unused_connection_within_duration = []
 
@@ -91,6 +93,7 @@ class Random():
         """
         method that ends a traject and gives the next traject_id
         """
+
         self.traject_duration += current_duration
 
         for station in new_traject.trajects:
