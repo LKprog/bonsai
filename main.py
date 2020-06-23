@@ -75,16 +75,11 @@ if __name__ == "__main__":
     elif helper.user_algorithm == 3:
 
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
-        print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
-        while True:
-            min_max = input("Would you like to run min or max?:").lower()
-            if min_max == "min" or min_max == "max":
-                break
-            print("Input not valid, try again")
+        helper.ask_greedy()
 
         # run the random greedy algorithm
         greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
-        greedy.run(helper.repeats, min_max)
+        greedy.run(helper.repeats, helper.min_max)
         print(f"Highscore: {greedy.highscore}, Duration: {greedy.complete_duration} Traject: {greedy.best_traject}")
 
         # create the output files: optimal solution and list of scores, and visualisation
@@ -96,12 +91,7 @@ if __name__ == "__main__":
     elif helper.user_algorithm == 4:
 
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
-        print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
-        while True:
-            min_max = input("Would you like to run min or max?:").lower()
-            if min_max == "min" or min_max == "max":
-                break
-            print("Input not valid, try again")
+        helper.ask_greedy()
 
         # initialize variables
         best_score = 0
@@ -115,7 +105,7 @@ if __name__ == "__main__":
             # run the random greedy algorithm once for each iteration
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
             greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
-            greedy.run(1, min_max)
+            greedy.run(1, helper.min_max)
 
             # ---------------Hill climber---------------------
             # run the hill climber for each iteration of the random algorithm
