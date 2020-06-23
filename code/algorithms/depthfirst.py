@@ -3,9 +3,6 @@
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
- * 
- * Constructive algorithm that searches a tree data structure. 
- * It starts at the root node and first explores a full branch before going back one step and continue with the next branch
 """
 import copy
 import random
@@ -17,10 +14,7 @@ class Depthfirst:
     """
 
     def __init__(self, map, total_connections, amount_trajects):
-        """
-        initialize the class and all it's corresponding variables
-        """
-
+        # initialize class
         self.map = copy.deepcopy(map)
         self.stations_list = [copy.deepcopy(self.map.stations)]
         self.best_value = 0
@@ -37,13 +31,13 @@ class Depthfirst:
 
     def get_next_state(self, stack):
         """
-        method that gets the next item from the stack
+        method that gets the next item from the stack.
         """
         return stack.pop()
 
     def get_start_stations(self):
         """
-        method that makes a list of random start stations
+        method that sets a random station to start the new traject from.
         """
         start_stations = []
         count = 0
@@ -57,7 +51,7 @@ class Depthfirst:
 
     def check_solution(self):
         """
-        method that checks the solution and returns the traject with the most connections used and lowest duration
+        method that checks the solution and returns the traject with the most connections used and lowest duration.
         """
 
         # for every start station
@@ -103,18 +97,17 @@ class Depthfirst:
                         self.best_solution = []
                         self.best_solution.append(solution)
 
-            # add the solutions to the ultimate solution dictionary
+            # Add the solutions to the ultimate solution dictionary
             self.ultimate_solution[start] = self.best_solution[0]
 
     def calculate_p(self):
         """
-        method that calculates the fraction of unused connections
+        method that calculates the fraction of unused connections.
         """
-
         list_connections_used = []
         count = 0
 
-        # counts all unique connections made in the solution
+        # count all unique connections made in the solution
         for traject in self.ultimate_solution:
             station = self.ultimate_solution[traject]
             for i in range(len(station)):
@@ -129,9 +122,8 @@ class Depthfirst:
 
     def calculate_min(self):
         """
-        method that calculates the total duration of all routes together
+        method that calculates the total duration of all routes together.
         """
-
         total_min = 0
         for traject in self.ultimate_solution:
             total_min += self.ultimate_solution[traject][0]
@@ -149,11 +141,11 @@ class Depthfirst:
 
     def run(self, num_repeats, duration):
         """
-        method that runs the depth first algorithm
+        method that runs the depth first algorithm.
         """
-
         for i in range(num_repeats):
-            # initializes the variables
+            if i%10 == 0:
+                print(f"{i}/{num_repeats}")
             self.ultimate_solution = {}
             stack = self.get_start_stations()
             start = copy.deepcopy(stack)
@@ -166,8 +158,6 @@ class Depthfirst:
 
                 # if state is a start station
                 if state in start:
-                    print(f"New start station: {state}")
-
                     # make a key in the ultimate_solution
                     self.ultimate_solution[state] = []
 
@@ -199,7 +189,6 @@ class Depthfirst:
             self.check_solution()
             score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
             self.score_list.append(score)
-            print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
 
             if score > self.best_score:
                 self.best_score = score

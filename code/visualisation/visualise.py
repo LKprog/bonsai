@@ -47,13 +47,13 @@ class Visual:
 
             data = []
             for row in reader:
-                data.append(int(row[0]))
+                data.append(float(row[0]))
 
             # use matplotlib functionality for creating a histogram
             x = np.array(data)
             plt.hist(x, bins=200)
             plt.ylabel('Frequency')
-            plt.xlabel('Score')
+            plt.xlabel('Score objectivefunction (quality)')
             plt.show()
 
     # creates a visual representation of the given map and the routes created by any of the algorithms
@@ -62,7 +62,7 @@ class Visual:
         method that creates a visual representation of the given trajects
         """
 
-        self.histogram(score_csv)
+        # self.histogram(score_csv)
 
         # load Station data and store the x-coordinates, y-coordinates and the station names in seperate lists.
         merc_y = []

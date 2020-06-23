@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # initialize the user interface
     helper = Helpers()
     helper.ask_input()
-
+    vis = Visual()
     input_files = Map(helper.stations_data_file, helper.connections_data_file)
 
 # ---------------Algoritms---------------------
@@ -37,8 +37,8 @@ if __name__ == "__main__":
 
         # create the output files: optimal solution and list of scores, and visualisation
         helper.output(random.score_list, helper.map_size, helper.user_algorithm, random.best_traject, random.highscore)
-        Visual.visualise(input_files, random.best_traject, helper.score_csv)
-        # Visual.histogram(helper.score_csv)
+        vis.visualise(input_files, random.best_traject, helper.score_csv)
+        vis.histogram(helper.score_csv)
 
     # ---------------Random + Hill climber---------------------
     elif helper.user_algorithm == 2:
@@ -72,8 +72,8 @@ if __name__ == "__main__":
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
         helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
-        vis.visualise(input_files, best_traject)
-
+        vis.visualise(input_files, best_traject, helper.score_csv)
+        vis.histogram(helper.score_csv)
     # ---------------Random greedy---------------------
     elif helper.user_algorithm == 3:
 
@@ -88,8 +88,9 @@ if __name__ == "__main__":
 
         # create the output files: optimal solution and list of scores, and visualisation
         helper.output(greedy.score_list, helper.map_size, helper.user_algorithm, greedy.best_traject, greedy.highscore)
-        vis.visualise(input_files, greedy.best_traject)
-        # HISTOGRAMMM
+        vis.visualise(input_files, greedy.best_traject, helper.score_csv)
+        vis.histogram(helper.score_csv)
+
 
     # ---------------Random greedy + Hill climber---------------------
 
@@ -128,7 +129,8 @@ if __name__ == "__main__":
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
         helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
-        Visual.visualise(input_files, best_traject)
+        vis.visualise(input_files, best_traject, helper.score_csv)
+        vis.histogram(helper.score_csv)
 
     # ---------------Depth first---------------------
 
@@ -140,7 +142,8 @@ if __name__ == "__main__":
 
         helper.output(depth.score_list, helper.map_size, helper.user_algorithm, depth.best_result, depth.best_score)
         print(f"\nBest score: {depth.best_score} and solution: {depth.best_result}")
-        Visual.visualise(input_files, depth.best_result)
+        vis.visualise(input_files, depth.best_result, helper.score_csv)
+        vis.histogram(helper.score_csv)
 
 
 
@@ -161,5 +164,6 @@ if __name__ == "__main__":
         breadth.run(helper.repeats, helper.duration)
 
         helper.output(breadth.score_list, helper.map_size, helper.user_algorithm, breadth.best_result, breadth.best_score)
-        Visual.visualise(input_files, depth.best_result)
         print(f"\nBest score: {breadth.best_score} and solution: {breadth.best_result}")
+        vis.visualise(input_files, breadth.best_result, helper.score_csv)
+        vis.histogram(helper.score_csv)

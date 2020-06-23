@@ -57,7 +57,7 @@ class HillClimber:
         """
         method that removes the time of the start connection (which will be replaced)
         """
-        
+
         first_connection = new_result.best_traject[random_traject][0]
         second_connection = new_result.best_traject[random_traject][1]
         for station in self.map.stations[second_connection].connections:
@@ -68,7 +68,7 @@ class HillClimber:
         """
         method that adds the connection at the end of the traject
         """
-        
+
         new_result.best_traject[random_traject][-1] = new_connection[0]
         new_result.complete_duration += new_connection[1]
 
@@ -76,7 +76,7 @@ class HillClimber:
         """
         method that adds the connection at the start of the traject
         """
-        
+
         new_result.best_traject[random_traject][0] = new_connection[0]
         new_result.complete_duration += new_connection[1]
 
@@ -84,7 +84,7 @@ class HillClimber:
         """
         method that mutates the last connection in a random traject
         """
-        
+
         # chooses a random traject
         random_traject = random.choice(list(new_result.best_traject))
         random_traject = int(random_traject)
@@ -98,7 +98,7 @@ class HillClimber:
         """
         method that mutates the first connection in a random traject
         """
-        
+
         # chooses a random traject
         random_traject = random.choice(list(new_result.best_traject))
         random_traject = int(random_traject)
@@ -112,9 +112,9 @@ class HillClimber:
         """
         method that deletes trajects of only 1 connection
         """
-        
+
         for traject in new_result.best_traject:
-            
+
             if len(new_result.best_traject[traject]) == 2:
                 del new_result.best_traject[traject]
                 break
@@ -123,7 +123,7 @@ class HillClimber:
         """
         method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
         """
-        
+
         P = (self.total_connections - (P/2)) / self.total_connections
         T = len(T)
         K = P * 10000 - (T * 100 + Min)
@@ -144,19 +144,19 @@ class HillClimber:
                 # initialize station and next station
                 station = new_result.best_traject[traject][i]
                 next_station = new_result.best_traject[traject][i + 1]
-               
+
                 # loop that goes over the unused connections of the station
                 for connection in self.map.stations[station].unused_connections:
-                   
+
                     # if there is a connection with the next_station
                     if next_station == connection[0]:
-                        
+
                         # remove the connection from unused connection list
                         self.map.stations[station].unused_connections.remove(connection)
-                       
+
                         # remove the reversed connection from unused connection list
                         for reversed_connection in self.map.stations[connection[0]].unused_connections:
-                            
+
                             if reversed_connection[0] == station:
                                 self.map.stations[connection[0]].unused_connections.remove(reversed_connection)
 
@@ -170,13 +170,13 @@ class HillClimber:
 
         # counts how many connections are still unused
         count = 0
-        
+
         for station in list_with_unused:
 
             for connection in self.map.stations[station].unused_connections:
                 count += 1
 
-        # calculates the score of the traject     
+        # calculates the score of the traject
         new_score = self.objectivefunction(count, list(new_result.best_traject), new_result.complete_duration)
 
         # checks if the new score is higher than the highscore, if so then changes the highscore
@@ -188,8 +188,8 @@ class HillClimber:
         """
         method that runs the hillclimber algorithm {iterations} amount of times
         """
-       
-        print(f'Start score: {self.highscore}')
+
+        # print(f'Start score: {self.highscore}')
 
         # runs the algorithm and tracks the score
         for iteration in range(iterations):
