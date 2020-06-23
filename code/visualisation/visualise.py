@@ -1,5 +1,5 @@
 """
- * visualise.py
+ * main.py
  *
  * Minor programming Universiteit van Amsterdam - Programmeertheorie - RailNL
  * Daphne Westerdijk, Willem Henkelman, Lieke Kollen
@@ -36,7 +36,7 @@ class Visual:
         return mercator_x, mercator_y
 
 
-    def histogram(score_csv):
+    def histogram(self, score_csv):
         """
         method that creates a histogram from a csv-file
         """
@@ -45,16 +45,16 @@ class Visual:
         with open(score_csv, 'r') as input_file:
             reader = csv.reader(input_file)
 
-        data = []
-        for row in reader:
-            data.append(int(row[0]))
+            data = []
+            for row in reader:
+                data.append(int(row[0]))
 
-        # use matplotlib functionality for creating a histogram
-        x = np.array(data)
-        plt.hist(x, bins=200)
-        plt.ylabel('Frequency')
-        plt.xlabel('Score')
-        plt.show()
+            # use matplotlib functionality for creating a histogram
+            x = np.array(data)
+            plt.hist(x, bins=200)
+            plt.ylabel('Frequency')
+            plt.xlabel('Score')
+            plt.show()
 
     # creates a visual representation of the given map and the routes created by any of the algorithms
     def visualise(self, map, trajects, score_csv):
