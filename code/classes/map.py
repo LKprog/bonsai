@@ -4,7 +4,7 @@ from .traject import Traject
 
 class Map():
     """
-    class that functions as a 'map' in which the Station- and Traject-classes exist
+    class that functions as a 'map' in which the Station and Traject classes exist
     """
     def __init__(self, station_file, connection_file):
         self.stations = self.load_stations(station_file)

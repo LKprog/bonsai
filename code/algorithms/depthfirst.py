@@ -12,7 +12,7 @@ class Depthfirst:
     """
     class that finds train routes taking into account the heuristics using a depth first algorithm.
     """
-    
+
     def __init__(self, map, total_connections, amount_trajects):
         # initialize class
         self.map = copy.deepcopy(map)
@@ -35,6 +35,9 @@ class Depthfirst:
         return stack.pop()
 
     def get_start_stations(self):
+        """
+        method that sets a random station to start the new traject from.
+        """
         start_stations = []
         count = 0
         while count < self.amount_trajects:
@@ -49,11 +52,11 @@ class Depthfirst:
         """
         method that checks the solution and returns the traject with the most connections used and lowest duration.
         """
-        
+
         # for every start station
         for start in list(self.ultimate_solution):
 
-            # loop over the trajects 
+            # loop over the trajects
             for traject in self.solution_list:
 
                 # pick the trajects with the same start station
@@ -83,13 +86,13 @@ class Depthfirst:
                     # if the duration is the same as the best time then add to best solution list
                     if solution[0] == self.best_time:
                         self.best_solution.append(solution)
-                    
+
                     # if the duration is lower than the best time, empty the best solution list and add the new best traject
                     elif solution[0] < self.best_time:
                         self.best_time = solution[0]
                         self.best_solution = []
                         self.best_solution.append(solution)
-            
+
             # Add the solutions to the ultimate solution dictionary
             self.ultimate_solution[start] = self.best_solution[0]
 
@@ -108,11 +111,11 @@ class Depthfirst:
                     continue
                 elif [station[i], station[i + 1]] not in list_connections_used:
                     list_connections_used.append([station[i], station[i + 1]])
-                    list_connections_used.append([station[i + 1], station[i]])  
+                    list_connections_used.append([station[i + 1], station[i]])
                     count += 2
-    
+
         return count
-    
+
     def calculate_min(self):
         """
         method that calculates the total duration of all routes together.
@@ -121,12 +124,12 @@ class Depthfirst:
         for traject in self.ultimate_solution:
             total_min += self.ultimate_solution[traject][0]
         return total_min
-    
+
     def objectivefunction(self, P, T, Min):
         """
         method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
         """
-        
+
         P = P / self.total_connections
         T = len(T)
         K = P * 10000 - (T * 100 + Min)
@@ -146,23 +149,23 @@ class Depthfirst:
             while len(stack)> 0:
                 # get the next start station from the list
                 state= self.get_next_state(stack)
-                
+
                 # if state is a start station
                 if state in start:
                     print(f"New start station: {state}")
                     # make a key in the ultimate_solution
                     self.ultimate_solution[state] = []
-                    
+
                     # for every connection from the start station, make a new child
                     for connection in self.map.stations[state].connections:
                         child = [0, copy.deepcopy(state)]
                         child.append(connection[0])
                         child[0] += connection[1]
                         stack.append(child)
-                
+
                 # if the state is not a start station
                 else:
-                    
+
                     # get the connections from the last station in the traject and make for every connection a new child
                     for connection in self.map.stations[state[-1]].connections:
                         if connection[0] not in state:
@@ -171,13 +174,13 @@ class Depthfirst:
                                 child.append(connection[0])
                                 child[0] += connection[1]
                                 stack.append(child)
-                            
+
                             # else:
                             # only unique children are added to the solution list
                             elif child not in self.solution_list:
                                     self.solution_list.append(child)
-            
-            # check the solution         
+
+            # check the solution
             self.check_solution()
             score = self.objectivefunction(self.calculate_p(), self.ultimate_solution , self.calculate_min())
             print(f"Score = {score}, P = {self.calculate_p()}, time = {self.calculate_min()}")
