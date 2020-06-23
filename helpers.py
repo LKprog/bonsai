@@ -89,6 +89,7 @@ class Helpers:
         """
         method to ask an additional question if the user selects the Random greedy algorithm and has to decide between the shortest or longest duration version
         """
+        
         print("This algorithm has a min and a max option. The min-option will prioritize the shortest possible connection and the max-option will prioritize the longest possible connection. ")
         while True:
             self.min_max = input("Would you like to run min or max?:").lower()
@@ -100,7 +101,7 @@ class Helpers:
         """
         method that translates the numbers of the variables map_size and user_algorithm to names
         """
-        
+
         # translating the map_size
         if map_size == 1:
             self.size = "Holland"

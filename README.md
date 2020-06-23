@@ -11,7 +11,7 @@
 # Introduction
 
 ## Case
-The Netherlands has a large rail network and it was our task to increase the efficiency and quality of the network. More specifically, we focus on the intercity trains for North- and South holland and for the whole of the Netherlands. 
+The Netherlands has a large rail network and it was our task to increase the efficiency and quality of the network. More specifically, we focus on the intercity trains for North- and South holland and for the whole of the Netherlands.
 
 ## Constraints
 The assignment introduced some constraints and is therefore an example of a constrained optimization problem. For the two stages of the assignment, the constraints are as follows:
@@ -27,7 +27,7 @@ Where p stands for the fraction of connections used, T equals the amount of rout
 
 
 # Algorithms
-To approach the problem posed in the assignment, we developed several algorithms: Random, Random greedy, Depth first, Breadth first and Hill climber. The Depth first and Breadth first algorithms are constructive algorithms while the Hill climber is an interative algorithms and is used on top of another algorithm such as Random or Random greedy or one of the constructive algorithms. For full details on the algorithms and the heuristics see the [README](https://github.com/LKprog/bonsai/tree/master/code/algorithms) in the /code/algorithms folder.
+To approach the problem posed in the assignment, we developed several algorithms: Random, Random greedy, Depth first, Breadth first and Hill climber. The Depth first and Breadth first algorithms are constructive algorithms while the Hill climber is an interative algorithms and is used on top of another algorithm such as Random or Random greedy or one of the constructive algorithms. For full details and recommendations on the algorithms and the heuristics see the [README](https://github.com/LKprog/bonsai/tree/master/code/algorithms) in the /code/algorithms folder.
 
 
 # Installation
@@ -47,7 +47,7 @@ To execute the main script and run the case:
 python3 main.py
 ```
 
-The user will then automatically be prompted to choose between Holland (2 provinces) and the Netherlands. 
+The user will then automatically be prompted to choose between Holland (2 provinces) and the Netherlands.
 Then, the user can choose the algorithm they want to run and finally, how many iterations.
 
 If you did not use “Git Bash” on Windows or the “Terminal” on macOS or Linux, the color_scatter.html doesn't open automatically. If this is the case, you should right click on the html file and select "Reveal in File Explorer". The computer should open an explorer screen where the html is located. When you double tap the html file, it will open in a new browser tab. The histogram of all the K scores will not appear either.

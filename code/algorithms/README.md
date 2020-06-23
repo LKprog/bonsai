@@ -31,6 +31,10 @@ The following heuristics were used for this algorithm:
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
 * run - method that runs the breadth first algorithm
 
+## Recommended runs
+Holland: 1000 runs
+Netherlands: 100 runs
+
 # depthfirst.py
 This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch.
 
@@ -48,6 +52,10 @@ The following heuristics were used for this algorithm:
 * calculate_min - method that calculates the total duration of all routes together
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
 * run - method that runs the depth first algorithm
+
+## Recommended runs
+Holland: 1000 runs
+Netherlands: 100 runs
 
 # hillclimber.py
 This is an iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
@@ -70,6 +78,10 @@ This is an iterative algorithm that searches for a better solution by making cha
 * check_solution - method that checks if the new score is better than the previous score
 * run - method that runs the hillclimber algorithm {iterations} amount of times
 
+## Recommended runs
+Holland: 10.000 runs
+Netherlands: 1000 runs
+
 # random_greedy.py
 This is an algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used.
 
@@ -82,6 +94,10 @@ This is an algorithm that keeps chosing either the shortest or longest connectio
 * max_value - method that returns the connection with the longest duration
 * min_value - method that returns the connection with the shortest duration
 * run - method that runs the random greedy algorithm a "num_repeats" amount of times
+
+## Recommended runs
+Holland: 100.000 runs
+Netherlands: 10.000 runs
 
 # randomize.py
 This is an algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used.
@@ -100,3 +116,6 @@ This is an algorithm that keeps chosing a random connection from the list of con
 * best_score - method that saves the highest quality score and it's corresponding train routes and the duration
 * run - method that runs the random algorithm an "num_repeats" amount of times
 
+## Recommended runs
+Holland: 100.000 runs
+Netherlands: 10.000 runs
