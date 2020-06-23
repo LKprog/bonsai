@@ -13,7 +13,7 @@ You will find more information on each of the algorithms in it's own section.
 * [random_greedy.py](#random_greedy.py)
 * [randomize.py](#randomize.py)
 
-#breadthfirst.py
+# breadthfirst.py
 This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores all the nodes in the first depth before continuing to next depth.
 ## Methods
 * get_next_state - this method gets the next item from the stack.
@@ -25,7 +25,7 @@ This is a constructive algorithm that searches a tree data structure. It starts 
 * run - method that runs the breadth first algorithm.
 ## Heuristics
 
-#depthfirst.py
+# depthfirst.py
 This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch
 ## Methods
 * get_next_state - this method gets the next item from the stack.
@@ -37,7 +37,7 @@ This is a constructive algorithm that searches a tree data structure. It starts 
 * run - method that runs the depth first algorithm.
 ## Heuristics
 
-#hillclimber.py
+# hillclimber.py
 This is an iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
 ## Methods
 * get_connections_secondtolast - method that returns the connections from the second to last station in the traject
@@ -54,7 +54,7 @@ This is an iterative algorithm that searches for a better solution by making cha
 * run - method that runs the hillclimber algorithm {iterations} amount of times
 ## Heuristics
 
-#random_greedy.py
+# random_greedy.py
 This is an algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
 ## Methods
 * max_value - method that returns the connection with the longest duration
@@ -62,7 +62,7 @@ This is an algorithm that keeps chosing either the shortest or longest connectio
 * run - method that runs the random greedy algorithm a "num_repeats" amount of times
 ## Heuristics
 
-#randomize.py
+# randomize.py
 This is an algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
 ## Methods
 * reset_variables - method to reset all the list and variables in order to run a new set of routes
