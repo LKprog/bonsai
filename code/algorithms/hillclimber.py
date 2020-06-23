@@ -22,7 +22,6 @@ class HillClimber:
         self.map = copy.deepcopy(map)
         self.copy = copy.deepcopy(map)
         self.total_connections = total_connections
-        self.score_list = []
 
     def get_connections_secondtolast(self, new_result, random_traject):
         """
@@ -173,7 +172,6 @@ class HillClimber:
 
         # calculates the score of the traject     
         new_score = self.objectivefunction(count, list(new_result.best_traject), new_result.complete_duration)
-        self.score_list.append(new_score)
 
         # checks if the new score is higher than the highscore, if so then changes the highscore
         if new_score > self.highscore:
