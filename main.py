@@ -139,9 +139,13 @@ if __name__ == "__main__":
         helper.output(depth.score_list, helper.map_size, helper.user_algorithm, depth.best_result, depth.best_score)
         vis.visualise(input_files, depth.best_result, helper.score_csv)
 
-    # ---------------Breadth first---------------------
-    elif helper.user_algorithm == 6:
+<<<<<<< HEAD
 
+    # ---------------Breadthfirst---------------------
+=======
+    # ---------------Breadth first---------------------
+>>>>>>> b56f25051f25ed68062e6c04555b566dc8ce81d1
+    elif helper.user_algorithm == 6:
         # run the Breadth first algorithm
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
