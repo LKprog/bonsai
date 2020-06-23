@@ -46,6 +46,7 @@ if __name__ == "__main__":
         # initialize variables
         best_score = 0
         best_traject = None
+        score_list = []
 
         for i in range(helper.repeats):
             
@@ -61,13 +62,14 @@ if __name__ == "__main__":
             print(f"iteration {i} = Highscore: {hillclimber.highscore}")
             
             # compare the outcomes of the hill climber and save the best outcome
+            score_list.append(hillclimber.highscore)
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
         
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
-        helper.output(hillclimber.score_list, helper.map_size, helper.user_input, best_traject, best_score)
+        helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
         vis.visualise(input_files, best_traject)
 
     # ---------------Random greedy---------------------
@@ -98,6 +100,7 @@ if __name__ == "__main__":
         # initialize variables
         best_score = 0
         best_traject = None
+        score_list = []
 
         for i in range(helper.repeats):
             
@@ -113,13 +116,14 @@ if __name__ == "__main__":
             # print(f"iteration {i} = Highscore: {hillclimber.highscore}")
 
             # compare the outcomes of the hill climber and save the best outcome
+            score_list.append(hillclimber.highscore)
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
 
         print(f"FINAL = Highscore: {best_score}, Traject: {best_traject}")
 
-        helper.output(hillclimber.score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
+        helper.output(score_list, helper.map_size, helper.user_algorithm, best_traject, best_score)
         Visual.visualise(input_files, best_traject)
         
     # ---------------Depth first---------------------
