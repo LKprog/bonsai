@@ -87,7 +87,6 @@ if __name__ == "__main__":
         vis.visualise(input_files, greedy.best_traject, helper.score_csv)
 
     # ---------------Random greedy + Hill climber---------------------
-
     elif helper.user_algorithm == 4:
 
         # let the user select whether they want to have an algorithm using the shortest connections or the longest connections
@@ -124,7 +123,6 @@ if __name__ == "__main__":
         vis.visualise(input_files, best_traject, helper.score_csv)
 
     # ---------------Depth first---------------------
-
     elif helper.user_algorithm == 5:
 
         # run the Depth first algorithm
@@ -137,9 +135,7 @@ if __name__ == "__main__":
 
 
     # ---------------Breadthfirst---------------------
-
     elif helper.user_algorithm == 6:
-
         # run the Breadth first algorithm
         breadth = bf.Breadthfirst(input_files, helper.total_connections, helper.start_stations)
         breadth.run(helper.repeats, helper.duration)
