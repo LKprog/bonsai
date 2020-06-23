@@ -191,6 +191,8 @@ class Depthfirst:
                 self.best_score = score
                 self.best_result = self.ultimate_solution
         # print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
+
+        # change the format of the result for later transformation to csv
         count = 1
         for traject in self.best_result:
             self.best_result[traject].remove(self.best_result[traject][0])
