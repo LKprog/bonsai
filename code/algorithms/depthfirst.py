@@ -149,6 +149,7 @@ class Depthfirst:
         """
 
         for i in range(num_repeats):
+            
             # initializing variables
             print(f"{i}/{num_repeats}")
             self.final_solution = {}
