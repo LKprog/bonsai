@@ -23,16 +23,16 @@ The following heuristics were used for this algorithm:
 3. From those solutions, the solution with the shortest duration is returned to the user as best found result
 
 ## Methods
-* get_next_state - this method gets the next item from the stack.
-* get_start_stations - this method sets a random station to start the new traject from.
-* check_solution - method that checks the solution and returns the traject with the most connections used and lowest duration.
-* calculate_p - method that calculates the fraction of unused connections.
-* calculate_min - method that calculates the total duration of all routes together.
+* get_next_state - method gets the next item from the stack
+* get_start_stations - method sets a random station to start the new traject from
+* check_solution - method that checks the solution and returns the traject with the most connections used and lowest duration
+* calculate_p - method that calculates the fraction of unused connections
+* calculate_min - method that calculates the total duration of all routes together
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
-* run - method that runs the breadth first algorithm.
+* run - method that runs the breadth first algorithm
 
 # depthfirst.py
-This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch
+This is a constructive algorithm that searches a tree data structure. It starts at the root node and first explores a full branch before going back one step and continue with the next branch.
 
 ## Heuristics
 The following heuristics were used for this algorithm:
@@ -41,13 +41,13 @@ The following heuristics were used for this algorithm:
 3. From those solutions, the solution with the shortest duration is returned to the user as best found result
 
 ## Methods
-* get_next_state - this method gets the next item from the stack.
-* get_start_stations - this method sets a random station to start the new traject from.
-* check_solution - method that checks the solution and returns the traject with the most connections used and lowest duration.
-* calculate_p - method that calculates the fraction of unused connections.
-* calculate_min - method that calculates the total duration of all routes together.
+* get_next_state - this method gets the next item from the stack
+* get_start_stations - this method sets a random station to start the new traject from
+* check_solution - method that checks the solution and returns the traject with the most connections used and lowest duration
+* calculate_p - method that calculates the fraction of unused connections
+* calculate_min - method that calculates the total duration of all routes together
 * objectivefunction - method to determine the quality (K) of the set of train routes, where P is the fraction of used connections, T is number of routes used and Min is the total duration of all routes
-* run - method that runs the depth first algorithm.
+* run - method that runs the depth first algorithm
 
 # hillclimber.py
 This is an iterative algorithm that searches for a better solution by making changes to an already exisiting solution.
@@ -70,23 +70,33 @@ This is an iterative algorithm that searches for a better solution by making cha
 * check_solution - method that checks if the new score is better than the previous score
 * run - method that runs the hillclimber algorithm {iterations} amount of times
 
-
 # random_greedy.py
-This is an algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used
+This is an algorithm that keeps chosing either the shortest or longest connection until the maximum duration of a route is reached and/or all connections are used.
+
+## Heuristics
+1. The first station of the route is randomly selected from a list that contains the stations that still have unused connections
+2. The algorithm always favors unused connections over used connections if possible
+3. Depending on whether min or max is selected, algorithm will pick the connection with the shortest or longest duration respectivel
+
 ## Methods
 * max_value - method that returns the connection with the longest duration
 * min_value - method that returns the connection with the shortest duration
 * run - method that runs the random greedy algorithm a "num_repeats" amount of times
-## Heuristics
 
 # randomize.py
-This is an algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used
+This is an algorithm that keeps chosing a random connection from the list of connections until the maximum duration of a route is reached and/or all connections are used.
+
+## Heuristics
+1. The first station of the route is randomly selected from a list that contains the stations that still have unused connections
+2. The algorithm always favors unused connections over used connections if possible
+3. If there are no unused connections of which the duration falls within the remaining timeframe, the route is ended and saved
+
 ## Methods
 * reset_variables - method to reset all the list and variables in order to run a new set of routes
-* unused_connection_in_duration - method that checks whether a connection can be appended to the traject without having the duration get higher than the limit.
+* unused_connection_in_duration - method that checks whether a connection can be appended to the traject without having the duration get higher than the limit
 * remove_unused_connection - method that updates the list of unused connections by removing used connections from the list of the relevant station
-* end_traject - method that appends the complete traject to the full_traject list.
+* end_traject - method that appends the complete traject to the full_traject list
 * objectivefunction - method to determine the quality (K) of the set of train routes
 * best_score - method that saves the highest quality score and it's corresponding train routes and the duration
 * run - method that runs the random algorithm an "num_repeats" amount of times
-## Heuristics
+
