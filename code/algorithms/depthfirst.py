@@ -83,13 +83,13 @@ class Depthfirst:
             for solution in self.best_solution:
                 # pick the trajects with the same start station
                 if solution[1] == start:
-
                     # if the duration is the same as the best time then add to best solution list
                     if solution[0] == self.best_time:
                         self.best_solution.append(solution)
 
                     # if the duration is lower than the best time, empty the best solution list and add the new best traject
                     elif solution[0] < self.best_time:
+
                         self.best_time = solution[0]
                         self.best_solution = []
                         self.best_solution.append(solution)
@@ -189,10 +189,10 @@ class Depthfirst:
 
             if score > self.best_score:
                 self.best_score = score
-                count = 1
-                for traject in self.ultimate_solution:
-                    self.ultimate_solution[traject].remove(self.ultimate_solution[traject][0])
-                    self.ultimate_solution[count] = self.ultimate_solution.pop(traject)
-                    count += 1
                 self.best_result = self.ultimate_solution
         # print(f"\nBest score: {score} and solution: {self.ultimate_solution}")
+        count = 1
+        for traject in self.best_result:
+            self.best_result[traject].remove(self.best_result[traject][0])
+            self.best_result[count] = self.best_result.pop(traject)
+            count += 1
