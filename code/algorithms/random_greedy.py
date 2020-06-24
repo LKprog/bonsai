@@ -103,6 +103,6 @@ class Greedy(Random):
                     new_traject.add_connection(next_station)
 
             # calculate the score of the objective function for the complete set of train routes
-            score = self.objectivefunction(self.num_allconnections, self.traject_id, self.traject_duration)
-            self.score_list.append(int(score))
-            self.best_score(score, self.full_traject, self.traject_duration)
+            self.score = self.objectivefunction(self.num_allconnections, self.traject_id, self.traject_duration)
+            self.score_list.append(int(self.score))
+            self.best_score(self.score, self.full_traject, self.traject_duration)
