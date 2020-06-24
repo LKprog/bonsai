@@ -46,6 +46,7 @@ if __name__ == "__main__":
         best_score = 0
         best_traject = None
         score_list = []
+        scores = []
 
         for i in range(helper.repeats):
             if i%10 == 0:
@@ -55,6 +56,8 @@ if __name__ == "__main__":
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
             random = rd.Random(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
             random.run(1)
+            
+            scores.append(random.score)
 
             # ---------------Hill climber---------------------
             # run the hill climber for each iteration of the random algorithm
@@ -66,7 +69,8 @@ if __name__ == "__main__":
             if hillclimber.highscore > best_score:
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
-
+        
+        print(scores)
         print(f"Highscore: {best_score}, Solution: {best_traject}")
 
         # create the output files: optimal solution and list of scores, and visualisation
@@ -99,6 +103,7 @@ if __name__ == "__main__":
         best_score = 0
         best_traject = None
         score_list = []
+        scores = []
 
         for i in range(helper.repeats):
             if i%10 == 0:
@@ -108,6 +113,7 @@ if __name__ == "__main__":
             input_files = Map(helper.stations_data_file, helper.connections_data_file)
             greedy = gr.Greedy(input_files, helper.duration, helper.max_num_trajects, helper.total_connections)
             greedy.run(1, helper.min_max)
+            scores.append(greedy.score)
 
             # ---------------Hill climber---------------------
             # run the hill climber for each iteration of the random algorithm
@@ -120,6 +126,7 @@ if __name__ == "__main__":
                 best_score = hillclimber.highscore
                 best_traject = hillclimber.hillclimber_solution
 
+        print(scores)
         print(f"Highscore: {best_score}, Solution: {best_traject}")
 
         # create the output files: optimal solution and list of scores, and visualisation

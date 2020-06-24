@@ -16,7 +16,7 @@ The Netherlands has a large rail network and it was our task to increase the eff
 ## Constraints
 The assignment introduced some constraints and is therefore an example of a constrained optimization problem. For the two stages of the assignment, the constraints are as follows:
 * North- and South Holland: a maximum of 7 routes (refered to as "traject" in the code) and each route can have a maximum duration of 120 minutes
-* Netherlands: a maximum of 20 routes (refered to as "traject" in the code) and each route can have a maximum duration of 180 minutes
+* The Netherlands: a maximum of 20 routes (refered to as "traject" in the code) and each route can have a maximum duration of 180 minutes
 
 ## Objective function
 Optimization was according to an objective function provided by RailNL:  

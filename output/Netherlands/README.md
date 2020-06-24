@@ -1,4 +1,4 @@
-# Output for Netherlands
+# Output for the Netherlands
 ## Team Bonsai - programmeertheorie - Universiteit van Amsterdam
 
 ## Info
